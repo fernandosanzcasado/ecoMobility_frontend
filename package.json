@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "hello": "echo Arreglaelpcya"
   },
   "dependencies": {
     "expo": "~46.0.13",
