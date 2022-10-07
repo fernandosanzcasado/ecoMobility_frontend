@@ -9,6 +9,6 @@
 | Josep Navarro Castellà | PepNav | PepNav |
 | Gabriel Martí Jorba | GabiMartiUPC | gabimartiupc |
 
-Our webapp @ Heroku : ---
+Our webapp @ Heroku : --- 
 
-Our Taiga : ---
+Our Taiga : --- 
