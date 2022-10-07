@@ -1,20 +1,39 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import React, { Component } from "react";
+import { render } from "react-dom";
+import Map from "./Components/Map";
+import credentials from "./credentials";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}`;
+
+class App extends Component() {
+  constructor() {
+    super();
+    this.state = {
+      name: "React",
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <Map
+          googleMapURL={mapURL}
+          containerElement={<div style={{ height: "400px" }} />}
+          mapElement={<div style={{ height: "100%" }} />}
+          loadingElement={<p>Cargando</p>}
+        />
+      </div>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+render(<App />, document.getElementById("root"));
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+// });
