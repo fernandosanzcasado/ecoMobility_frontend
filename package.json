@@ -10,18 +10,15 @@
     "hello": "echo Arreglaelpcya"
   },
   "dependencies": {
-    "@expo/webpack-config": "^0.17.0",
-    "@googlemaps/react-wrapper": "^1.1.35",
-    "@types/googlemaps": "^3.0.0",
-    "@types/marketclustererplus": "2.1.33",
-    "@types/react": "18.0.21",
+    "bootstrap": "^5.2.2",
     "expo": "~46.0.13",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "react-google-maps": "^9.4.5",
     "react-native": "0.69.6",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "simple-react-google-maps": "^1.1.2",
+    "@expo/webpack-config": "^0.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
