@@ -9,6 +9,6 @@
 | Josep Navarro Castellà | PepNav | PepNav |
 | Gabriel Martí Jorba | GabiMartiUPC | gabimartiupc |
 
-Our webapp @ Heroku : ---
+Our webapp @AWS : ---
 
-Our Taiga : ---
+Our Taiga : https://tree.taiga.io/project/renegado-ecomobility/backlog
