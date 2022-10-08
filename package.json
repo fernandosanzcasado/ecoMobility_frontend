@@ -10,12 +10,14 @@
     "hello": "echo Arreglaelpcya"
   },
   "dependencies": {
+    "bootstrap": "^5.2.2",
     "expo": "~46.0.13",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
+    "react-dom": "18.0.0",
     "react-native": "0.69.6",
     "react-native-web": "~0.18.7",
-    "react-dom": "18.0.0",
+    "simple-react-google-maps": "^1.1.2",
     "@expo/webpack-config": "^0.17.0"
   },
   "devDependencies": {
