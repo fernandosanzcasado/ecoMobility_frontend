@@ -11,10 +11,10 @@ export default function Mapa() {
     longitude: 2.169998,
   });
 
-  /*const [destination, setDestination] = React.useState({
+  const [destination, setDestination] = React.useState({
     latitude: 41.396976,
     longitude: 2.169998,
-  });*/
+  });
 
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
@@ -54,7 +54,7 @@ export default function Mapa() {
         coordinate={origin}
         onDragEnd={(direction) => setOrigin(direction.nativeEvent.coordinate)}
       />
-      {/*
+      
       <Marker
         draggable
         coordinate={destination}
@@ -69,7 +69,7 @@ export default function Mapa() {
         strokeColor="green"
         strokeWidth={3}
       />
-    */}
+   
     </MapView>
   );
 }
