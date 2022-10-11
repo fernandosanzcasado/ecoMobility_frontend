@@ -15,6 +15,7 @@ module.exports = function (api) {
           allowUndefined: true,
         },
       ],
+      'react-native-reanimated/plugin', // Plugin para arreglar error de librerias de navegacion 
     ],
   };
 };
