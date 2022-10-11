@@ -1,15 +1,13 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import Mapa from "./Components/Maps";
 
 export default function App() {
   return (
-    <View style={StyleSheet.container}>
-      <div className="App">
-        <header className="App-header">
-          <section></section>
-        </header>
-      </div>
+    <View style={styles.container}>
+      <Mapa />
+      <StatusBar style="auto" />
     </View>
   );
 }
