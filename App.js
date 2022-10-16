@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Profile from "./src/screens/Profile";
-import PruebaScreen from "./src/screens/PruebaScreen";
+import EditProfile from "./src/screens/EditProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +17,7 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Profile" component={Profile} />
-        <Tab.Screen name="Prueba" component={PruebaScreen} />
+        <Tab.Screen name="EditProfile" component={EditProfile} />
       </Tab.Navigator>
     </NavigationContainer>
   );

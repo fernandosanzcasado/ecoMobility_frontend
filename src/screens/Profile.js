@@ -2,17 +2,7 @@ import React, { Component } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-  Button,
-  Alert,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 
 /* let customFonts = {
   Comfortaa: require("./assets/fonts/Comfortaa-Regular.ttf"),
@@ -51,7 +41,7 @@ export default function Profile({ navigation }) {
           style={{
             alignItems: "center",
             backgroundColor: "#2D803F",
-            width: 375,
+            width: Constants.paddingBottom,
             height: 130,
           }}
         >
@@ -70,7 +60,7 @@ export default function Profile({ navigation }) {
         <View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Prueba");
+              navigation.navigate("EditProfile");
             }}
           >
             <Text
