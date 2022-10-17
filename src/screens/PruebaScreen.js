@@ -10,7 +10,7 @@ export default function PruebaScreen() {
       <Text>ESTA ES UNA SCREEN DE PRUEBA</Text>
       <Text>ESTA ES UNA SCREEN DE PRUEBA</Text>
       <Text>ESTA ES UNA SCREEN DE PRUEBA</Text>
-      <Text>ESTA ES UNA SCREEN DE PRUEBA</Text>
+      <Text>ESTA ES UNA SCREEN DE asdasd</Text>
     </SafeAreaView>
   );
 }

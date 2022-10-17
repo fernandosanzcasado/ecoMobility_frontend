@@ -5,7 +5,7 @@ import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_KEY } from "@env";
 
-export default function Mapa() {
+export default function Mapa(props) {
   const [origin, setOrigin] = React.useState({
     latitude: 41.386976,
     longitude: 2.169998,
@@ -39,6 +39,10 @@ export default function Mapa() {
 
   return (
     <MapView
+      // style={{
+      //   height: props.heightMap,
+      //   width: props.widthMap,
+      // }}
       style={styles.map}
       initialRegion={{
         latitude: origin.latitude,
@@ -74,7 +78,7 @@ export default function Mapa() {
 
 const styles = StyleSheet.create({
   map: {
-    height: "100%",
+    height: "90%",
     width: "100%",
   },
 });
