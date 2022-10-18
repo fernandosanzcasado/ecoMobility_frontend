@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
 import Mapa from "../components/map/Maps";
-import Toolbar from "../components/Toolbar";
+import Toolbar from "../components/ecomobility/Toolbar";
 
 const DIM = {
   heightMap: "100%",
@@ -10,10 +10,17 @@ const DIM = {
 
 export default function MapScreen() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeAreaContainer}>
       <Toolbar />
       {/* <Mapa {...DIM} /> */}
       <Mapa />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  safeAreaContainer: {
+    display: "flex",
+    alignItems: "flex-start",
+  },
+});
