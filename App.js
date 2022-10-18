@@ -5,7 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import Profile from "./src/screens/Profile";
 import EditProfile from "./src/screens/EditProfile";
 import MapScreen from "./src/screens/MapScreen";
-import Toolbar from "./src/components/ecomobility/Toolbar";
 
 const Stack = createStackNavigator();
 

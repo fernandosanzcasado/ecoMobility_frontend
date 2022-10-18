@@ -1,5 +1,6 @@
 import { SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
+
 import Mapa from "../components/map/Maps";
 import Toolbar from "../components/ecomobility/Toolbar";
 
