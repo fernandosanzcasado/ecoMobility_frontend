@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 
@@ -19,6 +19,29 @@ const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
 export default function Login({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const errorControl = (errorId) => {
+    switch (errorId) {
+      case 7:
+        alert("Has iniciado sesión satisfactoriamente");
+        break;
+      case 8:
+        alert("Debes rellenar todos los campos");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const checkTextInputNotEmpty = (email, password) => {
+    if (email.length == 0 || password.length == 0) {
+      errorControl(8);
+      return false;
+    } else return true;
+  };
+
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -38,18 +61,32 @@ export default function Login({ navigation }) {
       <Separator2 />
       <Separator2 />
       <View>
-        <TextInput style={styles.tinput} placeholder="Usuario" />
+        <TextInput
+          style={styles.tinput}
+          placeholder="Email o Usuario"
+          onChangeText={(newtext) => setEmail(newtext)}
+          defaultValue={email}
+        />
       </View>
       <Separator2 />
       <View>
-        <TextInput style={styles.tinput} placeholder="Contraseña" />
+        <TextInput
+          style={styles.tinput}
+          placeholder="Contraseña"
+          onChangeText={(newtext) => setPassword(newtext)}
+          defaultValue={password}
+          secureTextEntry
+        />
       </View>
       <Separator />
       <View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            alert("Has iniciado sesión");
+            if (checkTextInputNotEmpty(email, password)) {
+              errorControl(7);
+            } else {
+            }
           }}
         >
           <Image
