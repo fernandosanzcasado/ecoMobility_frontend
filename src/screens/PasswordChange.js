@@ -19,8 +19,36 @@ const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
 export default function Login({ navigation }) {
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
+
+  const errorControl = (errorId) => {
+    switch (errorId) {
+      case 6:
+        alert("No has introducido la misma contraseña");
+        break;
+      case 5:
+        alert("La contraseña debe tener más de 8 carácteres");
+        break;
+      case 7:
+        alert("Has cambiado la contraseña satisfactoriamente");
+        break;
+      case 8:
+        alert("Debes rellenar todos los campos");
+        break;
+      default:
+        break;
+    }
+  };
+  const checkTextInputNotEmpty = (password1, password2) => {
+    if (password1.length == 0 || password2.length == 0) {
+      errorControl(8);
+      return false;
+    } else return true;
+  };
+
   const checkPasswordRequeriments = (password1) => {
-    if (password1.length < 10) return false;
+    if (password1.length < 8) return false;
     else return true;
   };
 
@@ -29,21 +57,25 @@ export default function Login({ navigation }) {
       checkPasswordRequeriments(password1) &&
       checkPasswordRequeriments(password2)
     ) {
-      if (password1 != password2)
-        alert("No has introducido la misma contraseña");
-      else {
-        alert("La contraseña se ha cambiado satisfactoriamente");
+      if (password1 != password2) {
+        //alert("No has introducido la misma contraseña");
+        errorControl(6);
+        return false;
+      } else {
+        //alert("Te has registrado satisfactoriamente");
         navigation.navigate("Login");
+        errorControl(7);
+        return true;
       }
     } else {
-      if (password1 != password2)
-        alert("No has introducido la misma contraseña");
-      else alert("La contraseña debe tener más de 10 carácteres");
+      if (password1 != password2) errorControl(6);
+      //alert("No has introducido la misma contraseña");
+      else errorControl(5);
+      //alert("La contraseña debe tener más de 8 carácteres");
+      return false;
     }
   };
 
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -66,6 +98,7 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.tinput}
           placeholder="Contraseña nueva"
+          secureTextEntry
           onChangeText={(newText) => setPassword1(newText)}
           defaultValue={password1}
         />
@@ -75,6 +108,7 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.tinput}
           placeholder="Repite la nueva contraseña"
+          secureTextEntry
           onChangeText={(newText) => setPassword2(newText)}
           defaultValue={password2}
         />
@@ -85,7 +119,9 @@ export default function Login({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            checkPassword(password1, password2);
+            if (checkTextInputNotEmpty(password1, password2)) {
+              checkPassword(password1, password2);
+            }
           }}
         >
           <Image
