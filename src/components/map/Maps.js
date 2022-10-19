@@ -43,7 +43,7 @@ export default function Mapa(props) {
       //   height: props.heightMap,
       //   width: props.widthMap,
       // }}
-      style={styles.map}
+      style={[styles.map, props.style]}
       initialRegion={{
         latitude: origin.latitude,
         longitude: origin.longitude,
@@ -78,7 +78,6 @@ export default function Mapa(props) {
 
 const styles = StyleSheet.create({
   map: {
-    height: "90%",
     width: "100%",
   },
 });
