@@ -1,38 +1,13 @@
 import React, { Component } from "react";
 import Constants from "expo-constants";
-import * as Font from "expo-font";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
 
-/* let customFonts = {
-  Comfortaa: require("./assets/fonts/Comfortaa-Regular.ttf"),
-}; */
-
 export default function Profile({ navigation }) {
-  /* state = {
-    fontsLoaded: false,
-  };
-
-  loadFontsAsync = async () => {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  };
-
-  componentDidMount();
-  {
-    this.loadFontsAsync();
-  }
-
-  render();
-  {
-    if (!this.state.fontsLoaded) {
-      return null;
-    }*/
-
   return (
     <View
       style={{
-        paddingTop: Constants.statusBarHeight,
         paddingBottom: Constants.statusBarHeight,
       }}
     >
@@ -42,14 +17,14 @@ export default function Profile({ navigation }) {
             alignItems: "center",
             backgroundColor: "#2D803F",
             width: Constants.paddingBottom,
-            height: 130,
+            height: Constants.statusBarHeight * 4,
           }}
         >
           <Text
             style={{
               fontSize: 25,
               // fontFamily: "Comfortaa",
-              paddingTop: Constants.statusBarHeight,
+              paddingTop: Constants.statusBarHeight * 2,
               fontColor: "#FFFFFF",
             }}
           >
@@ -57,7 +32,27 @@ export default function Profile({ navigation }) {
             User name{" "}
           </Text>
         </View>
-        <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("EditProfile");
+            }}
+          >
+            <Icon
+              name="pen"
+              color={"#00000"}
+              size={28}
+              style={{
+                paddingTop: Constants.statusBarHeight * 1.25,
+                paddingLeft: Constants.statusBarHeight * 1.5,
+              }}
+            ></Icon>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("EditProfile");
@@ -68,11 +63,7 @@ export default function Profile({ navigation }) {
                 fontSize: 20,
                 // fontFamily: "Comfortaa",
                 paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
+                paddingLeft: Constants.statusBarHeight,
                 fontColor: "#0000",
               }}
             >
@@ -81,18 +72,30 @@ export default function Profile({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity>
+            <Icon
+              name="calendar-alt"
+              color={"#0E7CE4"}
+              size={31}
+              style={{
+                paddingTop: Constants.statusBarHeight * 1.25,
+                paddingLeft: Constants.statusBarHeight * 1.5,
+              }}
+            ></Icon>
+          </TouchableOpacity>
           <TouchableOpacity>
             <Text
               style={{
                 fontSize: 20,
                 // fontFamily: "Comfortaa",
                 paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
+                paddingLeft: Constants.statusBarHeight,
                 fontColor: "#0000",
               }}
             >
@@ -101,18 +104,30 @@ export default function Profile({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity>
+            <Icon
+              name="tree"
+              color={"#206D17"}
+              size={36}
+              style={{
+                paddingTop: Constants.statusBarHeight * 1.25,
+                paddingLeft: Constants.statusBarHeight * 1.5,
+              }}
+            ></Icon>
+          </TouchableOpacity>
           <TouchableOpacity>
             <Text
               style={{
                 fontSize: 20,
                 // fontFamily: "Comfortaa",
                 paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
+                paddingLeft: Constants.statusBarHeight,
                 fontColor: "#0000",
               }}
             >
@@ -121,7 +136,23 @@ export default function Profile({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity>
+            <Icon
+              name="headphones-alt"
+              color={"#000000"}
+              size={30}
+              style={{
+                paddingTop: Constants.statusBarHeight * 1.25,
+                paddingLeft: Constants.statusBarHeight * 1.5,
+              }}
+            ></Icon>
+          </TouchableOpacity>
           <TouchableOpacity>
             <Text
               style={{
@@ -129,10 +160,7 @@ export default function Profile({ navigation }) {
                 // fontFamily: "Comfortaa",
                 paddingTop: Constants.statusBarHeight + 15,
                 paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
+                paddingLeft: Constants.statusBarHeight * 0.9,
                 fontColor: "#0000",
               }}
             >
@@ -141,7 +169,23 @@ export default function Profile({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <TouchableOpacity>
+            <Icon
+              name="trophy"
+              color={"#E8C711"}
+              size={28}
+              style={{
+                paddingTop: Constants.statusBarHeight * 1.25,
+                paddingLeft: Constants.statusBarHeight * 1.5,
+              }}
+            ></Icon>
+          </TouchableOpacity>
           <TouchableOpacity>
             <Text
               style={{
@@ -149,10 +193,7 @@ export default function Profile({ navigation }) {
                 // fontFamily: "Comfortaa",
                 paddingTop: Constants.statusBarHeight + 15,
                 paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
+                paddingLeft: Constants.statusBarHeight,
                 fontColor: "#0000",
               }}
             >
@@ -164,26 +205,5 @@ export default function Profile({ navigation }) {
         <View></View>
       </ScrollView>
     </View>
-
-    /*<TextInput style={styles.tinput} placeholder="Correo electrónico" />
-      <TextInput style={styles.tinput} placeholder="Usuario" />
-      <TextInput style={styles.tinput} placeholder="Contraseña" />
-      <TextInput style={styles.tinput} placeholder="Repite la contraseña" />
-      <Button
-        style={styles.but}
-        title="Regístrate"
-        color="#7CFC00"
-        onPress={() => Alert.alert("Te has registrado con éxito")}
-      /> 
-      
-          <TouchableOpacity>
-            <Image
-              style={{
-                borderRadius: Constants.statusBarHeight,
-              }}
-            ></Image>
-            <Text>
-          </TouchableOpacity> */
   );
-  // }
 }
