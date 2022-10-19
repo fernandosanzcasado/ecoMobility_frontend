@@ -117,7 +117,7 @@ export default function Login({ navigation }) {
   };
 
   const checkPasswordRequeriments = (password1) => {
-    if (password1.length < 10) return false;
+    if (password1.length < 8) return false;
     else return true;
   };
 
