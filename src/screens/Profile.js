@@ -82,7 +82,11 @@ export default function Profile({ navigation }) {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
             <Text
               style={{
                 fontSize: 20,
@@ -122,7 +126,11 @@ export default function Profile({ navigation }) {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("PasswordRecover");
+            }}
+          >
             <Text
               style={{
                 fontSize: 20,

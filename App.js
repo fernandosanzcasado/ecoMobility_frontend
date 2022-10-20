@@ -20,6 +20,23 @@ export default function App() {
         <Stack.Screen name="MapScreen" component={MapScreen}></Stack.Screen>
         <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
         <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
+        <Stack.Screen
+          name="AccountRegister"
+          component={AccountRegister}
+        ></Stack.Screen>
+        <Stack.Screen name="Login" component={Login}></Stack.Screen>
+        <Stack.Screen
+          name="PasswordRecover"
+          component={PasswordRecover}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="PasswordRecover2"
+          component={PasswordRecover2}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="PasswordChange"
+          component={PasswordChange}
+        ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
