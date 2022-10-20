@@ -22,6 +22,11 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const clearText = () => {
+    setEmail("");
+    setPassword("");
+  };
+
   const errorControl = (errorId) => {
     switch (errorId) {
       case 7:
@@ -41,6 +46,15 @@ export default function Login({ navigation }) {
       return false;
     } else return true;
   };
+
+  React.useEffect(() => {
+    const chargeView = navigation.addListener("focus", () => {
+      clearText();
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return chargeView;
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container1}>
@@ -64,6 +78,7 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.tinput}
           placeholder="Email o Usuario"
+          on
           onChangeText={(newtext) => setEmail(newtext)}
           defaultValue={email}
         />
