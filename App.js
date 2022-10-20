@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Profile from "./src/screens/Profile";
 import EditProfile from "./src/screens/EditProfile";
+import "./src/i18n";
 
 const Stack = createStackNavigator();
 

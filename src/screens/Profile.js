@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useTransition } from "react";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
-
 import {
   Text,
   View,
@@ -9,9 +8,13 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Button,
 } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export default function Profile({ navigation }) {
+  const { t, i18n } = useTranslation();
+
   return (
     <View
       style={{
@@ -20,7 +23,23 @@ export default function Profile({ navigation }) {
     >
       <ScrollView>
         <View style={styles.topContainer}>
-          <Text style={styles.headerText}> User name </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <Icon
+              name="arrow-left"
+              color={"#00000"}
+              size={25}
+              style={styles.goBack}
+            ></Icon>
+          </TouchableOpacity>
+          <Image
+            source={require("../../assets/images/Profile.png")}
+            style={styles.picture}
+          ></Image>
+          <Text style={styles.headerText}> {t("User name")} </Text>
         </View>
         <View style={styles.separationViews}>
           <TouchableOpacity
@@ -95,18 +114,54 @@ export default function Profile({ navigation }) {
             <Text style={styles.smallText}> Èxits </Text>
           </TouchableOpacity>
         </View>
-        <View></View>
+        <View style={styles.flagsView}>
+          <TouchableOpacity
+            onPress={() => {
+              i18n.changeLanguage(i18n.language === "en");
+            }}
+          >
+            <Image
+              source={require("../../assets/images/BanderaInglesa.jpg")}
+              style={styles.flags}
+            ></Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              i18n.changeLanguage(i18n.language === "cast");
+            }}
+          >
+            <Image
+              source={require("../../assets/images/BanderaEspañola.jpg")}
+              style={styles.flags}
+            ></Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              i18n.changeLanguage(i18n.language === "cat");
+            }}
+          >
+            <Image
+              source={require("../../assets/images/BanderaCatalana.jpg")}
+              style={styles.flags}
+            ></Image>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonView}>
+          <Button title="Logout" color="#27CF10" />
+        </View>
       </ScrollView>
     </View>
   );
 }
+//Minuto 14 video
 
 const styles = StyleSheet.create({
   topContainer: {
-    alignItems: "center",
     backgroundColor: "#2D803F",
     width: Constants.paddingBottom,
     height: Constants.statusBarHeight * 4,
+    display: "flex",
+    flexDirection: "row",
   },
   smallText: {
     fontSize: 20,
@@ -129,5 +184,33 @@ const styles = StyleSheet.create({
   icons: {
     paddingTop: Constants.statusBarHeight * 1.25,
     paddingLeft: Constants.statusBarHeight * 1.5,
+  },
+  flags: {
+    borderRadius: 60,
+    height: Constants.statusBarHeight * 1.25,
+    width: Constants.statusBarHeight * 1.25,
+    marginLeft: Constants.statusBarHeight,
+  },
+  flagsView: {
+    paddingTop: Constants.statusBarHeight * 1.75,
+    paddingLeft: Constants.statusBarHeight,
+    display: "flex",
+    flexDirection: "row",
+  },
+  buttonView: {
+    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  picture: {
+    marginTop: Constants.statusBarHeight * 1.75,
+    marginLeft: Constants.statusBarHeight,
+    marginRight: Constants.statusBarHeight * 0.5,
+    height: Constants.statusBarHeight * 1.5,
+    width: Constants.statusBarHeight * 1.5,
+  },
+  goBack: {
+    paddingLeft: Constants.statusBarHeight * 0.8,
+    paddingTop: Constants.statusBarHeight * 1.5,
   },
 });
