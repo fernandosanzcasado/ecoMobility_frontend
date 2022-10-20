@@ -1,20 +1,23 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+
 import Profile from "./src/screens/Profile";
 import EditProfile from "./src/screens/EditProfile";
-import AccountRegister from "./src/screens/AccountRegister";
-import Login from "./src/screens/Login";
-import PasswordRecover from "./src/screens/PasswordRecover";
-import PasswordRecover2 from "./src/screens/PasswordRecover2";
-import PasswordChange from "./src/screens/PasswordChange";
+import MapScreen from "./src/screens/MapScreen";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        initialRouteName="MapScreen"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="MapScreen" component={MapScreen}></Stack.Screen>
         <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
         <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
         <Stack.Screen
