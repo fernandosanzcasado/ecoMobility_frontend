@@ -52,6 +52,18 @@ export default function Login({ navigation }) {
           <Image source={require("../../assets/images/Boton1Buscar.png")} />
         </TouchableOpacity>
       </View>
+      <Separator2 />
+      <Separator2 />
+      <View>
+        <TouchableOpacity
+          style={styles.buttonBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Image source={require("../../assets/images/BotonAtras.png")} />
+        </TouchableOpacity>
+      </View>
       <Separator />
     </SafeAreaView>
   );
@@ -93,6 +105,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     right: 5,
     margintop: 2000,
+  },
+  buttonBack: {
+    //alignItems: "left",
+    right: -10,
+    margintop: 200,
   },
   separator: {
     marginVertical: 11,
