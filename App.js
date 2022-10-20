@@ -6,6 +6,12 @@ import Profile from "./src/screens/Profile";
 import EditProfile from "./src/screens/EditProfile";
 import MapScreen from "./src/screens/MapScreen";
 
+import AccountRegister from "./src/screens/AccountRegister";
+import Login from "./src/screens/Login";
+import PasswordRecover from "./src/screens/PasswordRecover";
+import PasswordRecover2 from "./src/screens/PasswordRecover2";
+import PasswordChange from "./src/screens/PasswordChange";
+
 const Stack = createStackNavigator();
 
 export default function App() {
