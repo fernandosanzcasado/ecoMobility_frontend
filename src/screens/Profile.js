@@ -20,11 +20,7 @@ function Profile({ navigation }) {
     i18n.changeLanguage(lng);
   };
   return (
-    <View
-      style={{
-        paddingBottom: Constants.statusBarHeight,
-      }}
-    >
+    <View style={styles.initialView}>
       <ScrollView>
         <View style={styles.topContainer}>
           <TouchableOpacity
@@ -215,6 +211,9 @@ const styles = StyleSheet.create({
   goBack: {
     paddingLeft: Constants.statusBarHeight * 0.8,
     paddingTop: Constants.statusBarHeight * 1.5,
+  },
+  initialView: {
+    paddingBottom: Constants.statusBarHeight,
   },
 });
 
