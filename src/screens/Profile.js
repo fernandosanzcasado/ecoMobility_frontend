@@ -1,6 +1,8 @@
 import React, { Component, useTransition } from "react";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import "../../i18n.js";
+
 import {
   Text,
   View,
@@ -12,9 +14,11 @@ import {
 } from "react-native";
 import { useTranslation } from "react-i18next";
 
-export default function Profile({ navigation }) {
+function Profile({ navigation }) {
   const { t, i18n } = useTranslation();
-
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
   return (
     <View
       style={{
@@ -39,7 +43,7 @@ export default function Profile({ navigation }) {
             source={require("../../assets/images/Profile.png")}
             style={styles.picture}
           ></Image>
-          <Text style={styles.headerText}> {t("User name")} </Text>
+          <Text style={styles.headerText}> {t("User_Name")} </Text>
         </View>
         <View style={styles.separationViews}>
           <TouchableOpacity
@@ -59,7 +63,7 @@ export default function Profile({ navigation }) {
               navigation.navigate("EditProfile");
             }}
           >
-            <Text style={styles.smallText}> Editar perfil </Text>
+            <Text style={styles.smallText}> {t("Edit_Profile")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -72,7 +76,7 @@ export default function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> El meu calendari </Text>
+            <Text style={styles.smallText}> {t("My_Calendar")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -85,7 +89,7 @@ export default function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> El meu bosc </Text>
+            <Text style={styles.smallText}> {t("My_Forest")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -98,7 +102,7 @@ export default function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> Servei Tècnic </Text>
+            <Text style={styles.smallText}> {t("Technical_Assistance")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -111,13 +115,13 @@ export default function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> Èxits </Text>
+            <Text style={styles.smallText}> {t("Trophys")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.flagsView}>
           <TouchableOpacity
             onPress={() => {
-              i18n.changeLanguage(i18n.language === "en");
+              changeLanguage("en");
             }}
           >
             <Image
@@ -127,7 +131,7 @@ export default function Profile({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              i18n.changeLanguage(i18n.language === "cast");
+              changeLanguage("cast");
             }}
           >
             <Image
@@ -137,7 +141,7 @@ export default function Profile({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              i18n.changeLanguage(i18n.language === "cat");
+              changeLanguage("cat");
             }}
           >
             <Image
@@ -153,7 +157,6 @@ export default function Profile({ navigation }) {
     </View>
   );
 }
-//Minuto 14 video
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -214,3 +217,5 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight * 1.5,
   },
 });
+
+export default Profile;

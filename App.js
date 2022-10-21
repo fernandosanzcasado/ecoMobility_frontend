@@ -3,11 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Profile from "./src/screens/Profile";
 import EditProfile from "./src/screens/EditProfile";
-import "./src/i18n";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+function App({ t }) {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -21,3 +20,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+export default App;
