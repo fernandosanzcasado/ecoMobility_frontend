@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Constants from "expo-constants";
+import "../../i18n.js";
 import {
   Text,
   View,
@@ -9,8 +10,13 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export default function EditProfile({ navigation }) {
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
   return (
     <View
       style={{
@@ -36,7 +42,7 @@ export default function EditProfile({ navigation }) {
             }}
           >
             {" "}
-            Editar perfil{" "}
+            {t("Edit_Profile")}{" "}
           </Text>
           <Text
             style={{
@@ -47,7 +53,7 @@ export default function EditProfile({ navigation }) {
             }}
           >
             {" "}
-            User name{" "}
+            {t("User_Name")}{" "}
           </Text>
         </View>
         <View>
@@ -66,7 +72,7 @@ export default function EditProfile({ navigation }) {
             }}
           >
             {" "}
-            Canviar username{" "}
+            {t("Change_User_Name")}{" "}
           </Text>
           <TextInput
             style={{
@@ -75,7 +81,7 @@ export default function EditProfile({ navigation }) {
               borderWidth: 1,
               paddingLeft: Constants.statusBarHeight,
             }}
-            placeholder="Usernarme"
+            placeholder="Username"
           />
         </View>
         <View>
@@ -90,7 +96,7 @@ export default function EditProfile({ navigation }) {
             }}
           >
             {" "}
-            Canviar correu electrònic{" "}
+            {t("Change_Email")}{" "}
           </Text>
           <TextInput
             style={{
@@ -114,7 +120,7 @@ export default function EditProfile({ navigation }) {
             }}
           >
             {" "}
-            Canviar contrasenya{" "}
+            {t("Change_Password")}{" "}
           </Text>
           <TextInput
             style={{
@@ -140,7 +146,7 @@ export default function EditProfile({ navigation }) {
             }}
           >
             {" "}
-            Donar-se de baixa{" "}
+            {t("Eliminate_Account")}{" "}
           </Text>
         </View>
         <View>

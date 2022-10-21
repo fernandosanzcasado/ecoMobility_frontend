@@ -4,5 +4,10 @@
   "My_Calendar": "My calendar",
   "My_Forest": "My forest",
   "Technical_Assistance": "Technical Assistance",
-  "Trophys": "Trophys"
+  "Trophys": "Trophys",
+  //Edit profile screen
+  "Change_User_Name": "Change user name",
+  "Change_Email": "Change email",
+  "Change_Password": "Change password",
+  "Eliminate_Account": "Eliminate account"
 }
