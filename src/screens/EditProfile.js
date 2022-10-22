@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 0.5,
     height: Constants.statusBarHeight * 1.5,
     width: Constants.statusBarHeight * 1.5,
+    borderRadius: 45,
   },
   goBack: {
     paddingLeft: Constants.statusBarHeight * 0.8,

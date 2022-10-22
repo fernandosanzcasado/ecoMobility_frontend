@@ -1,8 +1,4 @@
 import React, { Component, useTransition } from "react";
-import Constants from "expo-constants";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import "../../i18n.js";
-
 import {
   Text,
   View,
@@ -12,7 +8,12 @@ import {
   StyleSheet,
   Button,
 } from "react-native";
+
+import Constants from "expo-constants";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
+
+import "../../i18n.js";
 
 function Profile({ navigation }) {
   const { t, i18n } = useTranslation();
@@ -39,7 +40,10 @@ function Profile({ navigation }) {
             source={require("../../assets/images/Profile.png")}
             style={styles.picture}
           ></Image>
-          <Text style={styles.headerText}> {t("User_Name")} </Text>
+          <Text style={styles.headerText}>
+            {" "}
+            {t("Profile_Screen.User_Name")}{" "}
+          </Text>
         </View>
         <View style={styles.separationViews}>
           <TouchableOpacity
@@ -207,6 +211,7 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 0.5,
     height: Constants.statusBarHeight * 1.5,
     width: Constants.statusBarHeight * 1.5,
+    borderRadius: 45,
   },
   goBack: {
     paddingLeft: Constants.statusBarHeight * 0.8,

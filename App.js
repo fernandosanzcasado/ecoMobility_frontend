@@ -14,7 +14,7 @@ import PasswordChange from "./src/screens/PasswordChange";
 
 const Stack = createStackNavigator();
 
-function App({ t }) {
+export default function App({ t }) {
   return (
     <NavigationContainer>
       <Stack.Navigator
