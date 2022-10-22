@@ -51,6 +51,13 @@ export default function Mapa(props) {
         latitudeDelta: 0.09, // coordenadas para iOS (hay que cambiarlas)
         longitudeDelta: 0.04, // coordenadas para iOS (hay que cambiarlas)
       }}
+      // camera={{
+      //   center: { latitude: origin.latitude, longitude: origin.longitude },
+      //   pitch: 0,
+      //   zoom: 15,
+      //   heading: 0,
+      //   altitude: 0,
+      // }}
     >
       <Marker
         draggable

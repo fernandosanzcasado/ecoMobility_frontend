@@ -5,14 +5,17 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  SafeAreaView,
   FlatList,
   Keyboard,
+  TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
+
+import LogoText from "../components/ecomobility/LogoText";
 
 const listStations = [
   "França",
@@ -36,7 +39,7 @@ const listStations = [
   "fsegfsad",
 ];
 
-export default function SSearchBar() {
+export default function SearchBar({ navigation }) {
   const [searchBarFocused, setSearchBarFocused] = useState(false);
 
   useEffect(() => {
@@ -64,11 +67,22 @@ export default function SSearchBar() {
   }, []);
 
   return (
-    <View>
-      <View style={styles.safeAreaContainer}>
-        <View style={styles.text}>
-          <Text style={styles.eco}> eco</Text>
-          <Text style={styles.mobility}>Mobility </Text>
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <View style={styles.mainView}>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("MapScreen");
+            }}
+          >
+            <Icon
+              name="arrow-left"
+              size={Constants.statusBarHeight}
+              color="#FFFFFF"
+              style={{ paddingLeft: Constants.statusBarHeight }}
+            ></Icon>
+          </TouchableOpacity>
+          <LogoText style={styles.text} />
         </View>
         <Animatable.View
           animation="slideInRight"
@@ -108,14 +122,16 @@ export default function SSearchBar() {
         )}
         keyExtractor={(item, index) => index.toString()}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   safeAreaContainer: {
-    aligItems: "flex-start",
     backgroundColor: "#2D803F",
+  },
+  mainView: {
+    aligItems: "flex-start",
     flexDirection: "column",
     justifyContent: "space-around",
     height: 150,
@@ -125,14 +141,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
-  },
-  eco: {
-    color: "#BAF35B",
-    fontSize: 30,
-  },
-  mobility: {
-    color: "#FFFFFF",
-    fontSize: 30,
   },
   searchBox: {
     height: 50,

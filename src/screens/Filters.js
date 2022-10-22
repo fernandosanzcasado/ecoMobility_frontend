@@ -11,20 +11,25 @@ import Slider from "@react-native-community/slider";
 
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
-//import Icon from "react-native-vector-icons/FontAwesome5";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
-export default function FilterScreen() {
+export default function FilterScreen({ navigation }) {
   return (
-    <View>
+    <SafeAreaView>
       <SafeAreaView style={styles.safeAreaContainer}>
         <View>
-          <Icon
-            name="arrow-left"
-            size={25}
-            color="#FFFFFF"
-            style={{ paddingLeft: Constants.statusBarHeight }}
-          ></Icon>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("MapScreen");
+            }}
+          >
+            <Icon
+              name="arrow-left"
+              size={Constants.statusBarHeight}
+              color="#FFFFFF"
+              style={{ paddingLeft: Constants.statusBarHeight }}
+            ></Icon>
+          </TouchableOpacity>
           <View style={styles.text}>
             <Text style={styles.eco}> eco</Text>
             <Text style={styles.mobility}>Mobility </Text>
@@ -37,7 +42,7 @@ export default function FilterScreen() {
           <TouchableOpacity style={styles.rowfilter}>
             <Text style={styles.filtertext}>Estacions de bicicletes</Text>
             <Icon
-              name="toggle-switch-off-outline"
+              name="toggle-on"
               size={40}
               style={{ paddingRight: Constants.statusBarHeight }}
             />
@@ -48,7 +53,7 @@ export default function FilterScreen() {
               Estacions de vehícles elèctrics
             </Text>
             <Icon
-              name="toggle-switch-off-outline"
+              name="toggle-off"
               size={40}
               style={{ paddingRight: Constants.statusBarHeight }}
             />
@@ -74,7 +79,7 @@ export default function FilterScreen() {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

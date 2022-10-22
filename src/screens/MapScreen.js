@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
 import Constants from "expo-constants";
 
@@ -14,7 +14,7 @@ const DIM = {
 export default function MapScreen({ style, navigation }) {
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
-      <Toolbar />
+      <Toolbar navigation={navigation} />
       {/* <Mapa {...DIM} /> */}
       <Mapa style={styles.map} />
       <NavigationTab style={styles.navBar} navigation={navigation} />

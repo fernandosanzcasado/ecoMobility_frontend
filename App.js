@@ -12,6 +12,8 @@ import PasswordRecover from "./src/screens/PasswordRecover";
 import PasswordRecover2 from "./src/screens/PasswordRecover2";
 import PasswordChange from "./src/screens/PasswordChange";
 import ApiTestScreen from "./src/screens/ApiTestScreen";
+import Filters from "./src/screens/Filters";
+import SearchBar from "./src/screens/SearchBar";
 
 const Stack = createStackNavigator();
 
@@ -50,10 +52,9 @@ export default function App({ t }) {
           name="PasswordRecover2"
           component={PasswordRecover2}
         ></Stack.Screen>
-        <Stack.Screen
-          name="PasswordChange"
-          component={PasswordChange}
-        ></Stack.Screen>
+        <Stack.Screen name="Filters" component={Filters}></Stack.Screen>
+        <Stack.Screen name="SearchBar" component={SearchBar}></Stack.Screen>
+        <Stack.Screen name="PasswordChange" component={Filters}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-export default function LogoText() {
+export default function LogoText({ style }) {
   return (
-    <View style={styles.text}>
+    <View style={[styles.text, style]}>
       <Text style={styles.eco}> eco</Text>
       <Text style={styles.mobility}>Mobility </Text>
     </View>
