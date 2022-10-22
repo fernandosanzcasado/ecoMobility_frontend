@@ -1,0 +1,14 @@
+{
+  //Profile screen
+  "User_Name": "Nom Usuari",
+  "Edit_Profile": "Editar perfil",
+  "My_Calendar": "El meu calendari",
+  "My_Forest": "El meu bosc",
+  "Technical_Assistance": "Servei tècnic",
+  "Trophys": "Trofeus",
+  //Edit profile screen
+  "Change_User_Name": "Canviar nom d'usuari",
+  "Change_Email": "Canviar correu electrònic",
+  "Change_Password": "Canviar contrasenya",
+  "Eliminate_Account": "Eliminar compte"
+}

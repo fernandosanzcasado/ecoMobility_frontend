@@ -1,197 +1,220 @@
-import React, { Component } from "react";
+import React, { Component, useTransition } from "react";
 import Constants from "expo-constants";
-import * as Font from "expo-font";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import "../../i18n.js";
 
-import { Text, View, ScrollView, Image, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Button,
+} from "react-native";
+import { useTranslation } from "react-i18next";
 
-/* let customFonts = {
-  Comfortaa: require("./assets/fonts/Comfortaa-Regular.ttf"),
-}; */
-
-export default function Profile({ navigation }) {
-  /* state = {
-    fontsLoaded: false,
+function Profile({ navigation }) {
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
-
-  loadFontsAsync = async () => {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  };
-
-  componentDidMount();
-  {
-    this.loadFontsAsync();
-  }
-
-  render();
-  {
-    if (!this.state.fontsLoaded) {
-      return null;
-    }*/
-
   return (
-    <View
-      style={{
-        paddingTop: Constants.statusBarHeight,
-        paddingBottom: Constants.statusBarHeight,
-      }}
-    >
+    <View style={styles.initialView}>
       <ScrollView>
-        <View
-          style={{
-            alignItems: "center",
-            backgroundColor: "#2D803F",
-            width: Constants.paddingBottom,
-            height: 130,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 25,
-              // fontFamily: "Comfortaa",
-              paddingTop: Constants.statusBarHeight,
-              fontColor: "#FFFFFF",
+        <View style={styles.topContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
             }}
           >
-            {" "}
-            User name{" "}
-          </Text>
+            <Icon
+              name="arrow-left"
+              color={"#00000"}
+              size={25}
+              style={styles.goBack}
+            ></Icon>
+          </TouchableOpacity>
+          <Image
+            source={require("../../assets/images/Profile.png")}
+            style={styles.picture}
+          ></Image>
+          <Text style={styles.headerText}> {t("User_Name")} </Text>
         </View>
-        <View>
+        <View style={styles.separationViews}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("EditProfile");
             }}
           >
-            <Text
-              style={{
-                fontSize: 20,
-                // fontFamily: "Comfortaa",
-                paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
-                fontColor: "#0000",
-              }}
-            >
-              {" "}
-              Editar perfil{" "}
-            </Text>
+            <Icon
+              name="pen"
+              color={"#00000"}
+              size={28}
+              style={styles.icons}
+            ></Icon>
           </TouchableOpacity>
-        </View>
-        <View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Login");
+              navigation.navigate("EditProfile");
             }}
           >
-            <Text
-              style={{
-                fontSize: 20,
-                // fontFamily: "Comfortaa",
-                paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
-                fontColor: "#0000",
-              }}
-            >
-              {" "}
-              El meu calendari{" "}
-            </Text>
+            <Text style={styles.smallText}> {t("Edit_Profile")} </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={styles.separationViews}>
           <TouchableOpacity>
-            <Text
-              style={{
-                fontSize: 20,
-                // fontFamily: "Comfortaa",
-                paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
-                fontColor: "#0000",
-              }}
-            >
-              {" "}
-              El meu bosc{" "}
-            </Text>
+            <Icon
+              name="calendar-alt"
+              color={"#0E7CE4"}
+              size={31}
+              style={styles.icons}
+            ></Icon>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.smallText}> {t("My_Calendar")} </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={styles.separationViews}>
+          <TouchableOpacity>
+            <Icon
+              name="tree"
+              color={"#206D17"}
+              size={36}
+              style={styles.icons}
+            ></Icon>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.smallText}> {t("My_Forest")} </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.separationViews}>
+          <TouchableOpacity>
+            <Icon
+              name="headphones-alt"
+              color={"#000000"}
+              size={30}
+              style={styles.icons}
+            ></Icon>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.smallText}> {t("Technical_Assistance")} </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.separationViews}>
+          <TouchableOpacity>
+            <Icon
+              name="trophy"
+              color={"#E8C711"}
+              size={28}
+              style={styles.icons}
+            ></Icon>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.smallText}> {t("Trophys")} </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.flagsView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PasswordRecover");
+              changeLanguage("en");
             }}
           >
-            <Text
-              style={{
-                fontSize: 20,
-                // fontFamily: "Comfortaa",
-                paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
-                fontColor: "#0000",
-              }}
-            >
-              {" "}
-              Servei Tècnic{" "}
-            </Text>
+            <Image
+              source={require("../../assets/images/BanderaInglesa.jpg")}
+              style={styles.flags}
+            ></Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              changeLanguage("cast");
+            }}
+          >
+            <Image
+              source={require("../../assets/images/BanderaEspañola.jpg")}
+              style={styles.flags}
+            ></Image>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              changeLanguage("cat");
+            }}
+          >
+            <Image
+              source={require("../../assets/images/BanderaCatalana.jpg")}
+              style={styles.flags}
+            ></Image>
           </TouchableOpacity>
         </View>
-        <View>
-          <TouchableOpacity>
-            <Text
-              style={{
-                fontSize: 20,
-                // fontFamily: "Comfortaa",
-                paddingTop: Constants.statusBarHeight + 15,
-                paddingRight: Constants.statusBarHeight,
-                paddingLeft:
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight +
-                  Constants.statusBarHeight,
-                fontColor: "#0000",
-              }}
-            >
-              {" "}
-              Èxits{" "}
-            </Text>
-          </TouchableOpacity>
+        <View style={styles.buttonView}>
+          <Button title="Logout" color="#27CF10" />
         </View>
-        <View></View>
       </ScrollView>
     </View>
-
-    /*<TextInput style={styles.tinput} placeholder="Correo electrónico" />
-      <TextInput style={styles.tinput} placeholder="Usuario" />
-      <TextInput style={styles.tinput} placeholder="Contraseña" />
-      <TextInput style={styles.tinput} placeholder="Repite la contraseña" />
-      <Button
-        style={styles.but}
-        title="Regístrate"
-        color="#7CFC00"
-        onPress={() => Alert.alert("Te has registrado con éxito")}
-      /> 
-      
-          <TouchableOpacity>
-            <Image
-              style={{
-                borderRadius: Constants.statusBarHeight,
-              }}
-            ></Image>
-            <Text>
-          </TouchableOpacity> */
   );
-  // }
 }
+
+const styles = StyleSheet.create({
+  topContainer: {
+    backgroundColor: "#2D803F",
+    width: Constants.paddingBottom,
+    height: Constants.statusBarHeight * 4,
+    display: "flex",
+    flexDirection: "row",
+  },
+  smallText: {
+    fontSize: 20,
+    // fontFamily: "Comfortaa",
+    paddingTop: Constants.statusBarHeight + 15,
+    paddingRight: Constants.statusBarHeight,
+    paddingLeft: Constants.statusBarHeight,
+    fontColor: "#0000",
+  },
+  headerText: {
+    fontSize: 25,
+    // fontFamily: "Comfortaa",
+    paddingTop: Constants.statusBarHeight * 2,
+    fontColor: "#FFFFFF",
+  },
+  separationViews: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  icons: {
+    paddingTop: Constants.statusBarHeight * 1.25,
+    paddingLeft: Constants.statusBarHeight * 1.5,
+  },
+  flags: {
+    borderRadius: 60,
+    height: Constants.statusBarHeight * 1.25,
+    width: Constants.statusBarHeight * 1.25,
+    marginLeft: Constants.statusBarHeight,
+  },
+  flagsView: {
+    paddingTop: Constants.statusBarHeight * 1.75,
+    paddingLeft: Constants.statusBarHeight,
+    display: "flex",
+    flexDirection: "row",
+  },
+  buttonView: {
+    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  picture: {
+    marginTop: Constants.statusBarHeight * 1.75,
+    marginLeft: Constants.statusBarHeight,
+    marginRight: Constants.statusBarHeight * 0.5,
+    height: Constants.statusBarHeight * 1.5,
+    width: Constants.statusBarHeight * 1.5,
+  },
+  goBack: {
+    paddingLeft: Constants.statusBarHeight * 0.8,
+    paddingTop: Constants.statusBarHeight * 1.5,
+  },
+  initialView: {
+    paddingBottom: Constants.statusBarHeight,
+  },
+});
+
+export default Profile;

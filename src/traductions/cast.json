@@ -1,0 +1,14 @@
+{
+  //Profile screen
+  "User_Name": "Nombre Usuario",
+  "Edit_Profile": "Editar perfil",
+  "My_Calendar": "Mi calendario",
+  "My_Forest": "Mi bosque",
+  "Technical_Assistance": "Servicio técnico",
+  "Trophys": "Trofeos",
+  //Edit profile screen
+  "Change_User_Name": "Cambiar nombre de usuario",
+  "Change_Email": "Cambiar correo electrónico",
+  "Change_Password": "Cambiar contraseña",
+  "Eliminate_Account": "Eliminar cuenta"
+}
