@@ -1,14 +1,19 @@
 {
-  //Profile screen
-  "User_Name": "User name",
-  "Edit_Profile": "Edit profile",
-  "My_Calendar": "My calendar",
-  "My_Forest": "My forest",
-  "Technical_Assistance": "Technical Assistance",
-  "Trophys": "Trophys",
-  //Edit profile screen
-  "Change_User_Name": "Change user name",
-  "Change_Email": "Change email",
-  "Change_Password": "Change password",
-  "Eliminate_Account": "Eliminate account"
+  "Profile": {
+    "User_Name": "User Name",
+    "Edit_Profile": "Edit profile",
+    "My_Calendar": "My calendar",
+    "My_Forest": "My forest",
+    "Technical_Assistance": "Technical Assistance",
+    "Trophys": "Trophys",
+    "Logout": "Logout"
+  },
+  "Edit_Profile": {
+    "User_Name": "User Name",
+    "Change_User_Name": "Change user name",
+    "Change_Email": "Change email",
+    "Change_Password": "Change password",
+    "Eliminate_Account": "Eliminate account",
+    "Save_Changes": "Save changes"
+  }
 }

@@ -89,13 +89,13 @@ export default function EditProfile({ navigation }) {
               style={styles.picture}
             ></Image>
           </TouchableOpacity>
-          <Text style={styles.headerText}> {t("User_Name")} </Text>
+          <Text style={styles.headerText}> {t("Edit_Profile.User_Name")} </Text>
         </View>
         <View>
           <TouchableOpacity></TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
-          <Text style={styles.changeUserName}> {t("Change_User_Name")} </Text>
+          <Text style={styles.changeUserName}> {t("Edit_Profile.Change_User_Name")} </Text>
           <TextInput
             style={styles.textInput}
             placeholder="Username"
@@ -104,7 +104,7 @@ export default function EditProfile({ navigation }) {
           />
         </View>
         <View>
-          <Text style={styles.smallText}> {t("Change_Email")} </Text>
+          <Text style={styles.smallText}> {t("Edit_Profile.Change_Email")} </Text>
           <TextInput
             style={styles.textInput}
             placeholder="Correu"
@@ -114,12 +114,12 @@ export default function EditProfile({ navigation }) {
         </View>
         <View>
           <TouchableOpacity>
-            <Text style={styles.smallText}> {t("Change_Password")} </Text>
+            <Text style={styles.smallText}> {t("Edit_Profile.Change_Password")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonView}>
           <Button
-            title="Save changes"
+            title={t("Edit_Profile.Save_Changes")}
             color="#27CF10"
             onPress={() => {
               if (checkEmail(email)) {
@@ -131,7 +131,7 @@ export default function EditProfile({ navigation }) {
         <View>
           <Text style={styles.eliminateAccount}>
             {" "}
-            {t("Eliminate_Account")}{" "}
+            {t("Edit_Profile.Eliminate_Account")}{" "}
           </Text>
         </View>
         <View>

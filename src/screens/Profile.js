@@ -40,10 +40,7 @@ function Profile({ navigation }) {
             source={require("../../assets/images/Profile.png")}
             style={styles.picture}
           ></Image>
-          <Text style={styles.headerText}>
-            {" "}
-            {t("Profile_Screen.User_Name")}{" "}
-          </Text>
+          <Text style={styles.headerText}> {t("Profile.User_Name")} </Text>
         </View>
         <View style={styles.separationViews}>
           <TouchableOpacity
@@ -63,7 +60,7 @@ function Profile({ navigation }) {
               navigation.navigate("EditProfile");
             }}
           >
-            <Text style={styles.smallText}> {t("Edit_Profile")} </Text>
+            <Text style={styles.smallText}> {t("Profile.Edit_Profile")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -76,7 +73,7 @@ function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> {t("My_Calendar")} </Text>
+            <Text style={styles.smallText}> {t("Profile.My_Calendar")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -89,7 +86,7 @@ function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> {t("My_Forest")} </Text>
+            <Text style={styles.smallText}> {t("Profile.My_Forest")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -102,7 +99,7 @@ function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> {t("Technical_Assistance")} </Text>
+            <Text style={styles.smallText}> {t("Profile.Technical_Assistance")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
@@ -115,7 +112,7 @@ function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text style={styles.smallText}> {t("Trophys")} </Text>
+            <Text style={styles.smallText}> {t("Profile.Trophys")} </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.flagsView}>
@@ -151,7 +148,7 @@ function Profile({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.buttonView}>
-          <Button title="Logout" color="#27CF10" />
+          <Button title={t("Profile.Logout")} color="#27CF10" />
         </View>
       </ScrollView>
     </View>
