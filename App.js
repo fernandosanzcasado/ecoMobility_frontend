@@ -19,7 +19,7 @@ export default function App({ t }) {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ApiTestScreen"
+        initialRouteName="MapScreen"
         screenOptions={{
           headerShown: false,
         }}

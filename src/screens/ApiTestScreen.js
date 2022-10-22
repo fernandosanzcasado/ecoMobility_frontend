@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
@@ -24,6 +24,15 @@ export default function ApiTestScreen() {
   return (
     <SafeAreaView>
       <Text>{prueba.Id}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          axios.post("http://10.0.2.2:3000/api/v1/users/", {
+            username: "test1",
+          });
+        }}
+      >
+        <Text style={{ fontSize: 28 }}>POST</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

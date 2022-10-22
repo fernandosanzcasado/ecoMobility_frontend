@@ -1,8 +1,4 @@
 import React, { Component, useState } from "react";
-import Constants from "expo-constants";
-import "../../i18n.js";
-import Icon from "react-native-vector-icons/FontAwesome5";
-
 import {
   Text,
   View,
@@ -13,7 +9,12 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+
+import Constants from "expo-constants";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
+
+import "../../i18n.js";
 
 const errorControl = (errorId) => {
   switch (errorId) {
