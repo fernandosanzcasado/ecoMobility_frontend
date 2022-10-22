@@ -11,6 +11,7 @@ import Login from "./src/screens/Login";
 import PasswordRecover from "./src/screens/PasswordRecover";
 import PasswordRecover2 from "./src/screens/PasswordRecover2";
 import PasswordChange from "./src/screens/PasswordChange";
+import ApiTestScreen from "./src/screens/ApiTestScreen";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +19,7 @@ export default function App({ t }) {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="MapScreen"
+        initialRouteName="ApiTestScreen"
         screenOptions={{
           headerShown: false,
         }}
@@ -26,6 +27,16 @@ export default function App({ t }) {
         <Stack.Screen name="MapScreen" component={MapScreen}></Stack.Screen>
         <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
         <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
+
+        {/* TEST API #################################################### */}
+
+        <Stack.Screen
+          name="ApiTestScreen"
+          component={ApiTestScreen}
+        ></Stack.Screen>
+
+        {/* TEST API */}
+
         <Stack.Screen
           name="AccountRegister"
           component={AccountRegister}
