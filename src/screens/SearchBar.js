@@ -37,11 +37,45 @@ const listStations = [
   "sadasdad",
   "dadasdsa",
   "fsegfsad",
+  "HolaBuenasTardes",
+  "HolaBuenosDias",
+  "HolaBuenasMañanas",
 ];
 
 export default function SearchBar({ navigation }) {
+  //Pantalla negra al escriure
   const [searchBarFocused, setSearchBarFocused] = useState(false);
 
+  //Filtre de la pantalla
+  const [filterData, setfilterData] = useState([]);
+  const [masterData, setmasterData] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    stations();
+  }, []);
+
+  const stations = () => {
+    setfilterData(listStations);
+    setmasterData(listStations);
+  };
+
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = masterData.filter((item) => {
+        const itemData = { item } ? item.toUpperCase() : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setfilterData(newData);
+      setSearch(text);
+    } else {
+      setfilterData(masterData);
+      setSearch(text);
+    }
+  };
+
+  //Detecció quan el teclat surt a pantalla per poder canviar el color de fons
   useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
       setSearchBarFocused(true);
@@ -82,7 +116,9 @@ export default function SearchBar({ navigation }) {
               style={{ paddingLeft: Constants.statusBarHeight }}
             ></Icon>
           </TouchableOpacity>
-          <LogoText style={styles.text} />
+          <Animatable.View animation="bounceInDown">
+            <LogoText style={styles.text} />
+          </Animatable.View>
         </View>
         <Animatable.View
           animation="slideInRight"
@@ -101,12 +137,15 @@ export default function SearchBar({ navigation }) {
           <TextInput
             placeholder=" Search "
             onSubmitEditing={Keyboard.dismiss}
+            value={search}
+            underlineColorAndroid="transparent"
+            onChangeText={(text) => searchFilter(text)}
           />
         </Animatable.View>
       </View>
       <FlatList
         style={{ backgroundColor: searchBarFocused ? "#A19A9A" : "#FFFFFF" }}
-        data={listStations}
+        data={filterData}
         renderItem={({ item }) => (
           <View style={styles.separador}>
             <Text style={{ padding: 20, fontSize: 20 }}>{item}</Text>
