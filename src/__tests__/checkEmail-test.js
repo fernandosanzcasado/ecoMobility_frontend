@@ -1,4 +1,4 @@
-const { checkEmail } = require("../functions/FunctionsTesting");
+import { checkEmail } from "../helpers/AccountRegister.helper";
 
 describe("Check email testing!", () => {
   test("Passarà el test ja que el email introduït es vàlid", () => {

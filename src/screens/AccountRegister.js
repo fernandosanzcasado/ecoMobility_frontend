@@ -18,108 +18,30 @@ import {
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
+import {
+  checkTextInputNotEmpty,
+  checkEmail,
+  checkUser,
+  checkPassword,
+  checkPasswordRequeriments,
+} from "../helpers/AccountRegister.helper";
+
+const useValidation = () => {
+  return {
+    checkTextInputNotEmpty,
+    checkEmail,
+    checkUser,
+    checkPassword,
+    checkPasswordRequeriments,
+  };
+};
+
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
-
-  const errorControl = (errorId) => {
-    switch (errorId) {
-      case 1:
-        alert("El correo electrónico introducido no es válido");
-        break;
-      case 2:
-        alert("El correo electrónico introducido ya se encuentra registrado");
-        break;
-      case 3:
-        alert("El nombre de usuario debe contener entre 3 y 15 carácteres");
-        break;
-      case 4:
-        alert("El nombre de usuario ya se encuentra en uso");
-        break;
-      case 5:
-        alert("La contraseña debe tener más de 8 carácteres");
-        break;
-      case 6:
-        alert("No has introducido la misma contraseña");
-        break;
-      case 7:
-        alert("Te has registrado satisfactoriamente");
-        break;
-      case 8:
-        alert("Debes rellenar todos los campos");
-        break;
-      default:
-        break;
-    }
-  };
-
-  const checkTextInputNotEmpty = (email, user, password1, password2) => {
-    if (
-      email.length == 0 ||
-      user.length == 0 ||
-      password1.length == 0 ||
-      password2.length == 0
-    ) {
-      errorControl(8);
-      return false;
-    } else return true;
-  };
-
-  const checkEmail = (email) => {
-    //console.log(email);
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(email) === false) {
-      errorControl(1);
-      //console.log("Email is Not Correct");
-      return false;
-    } else {
-      return true;
-      //console.log("Email is Correct");
-    }
-  };
-
-  const checkUser = (user) => {
-    //console.log(user);
-    if (user.length <= 3 || user.length >= 15) {
-      errorControl(3);
-      //console.log("User is Not Correct");
-      return false;
-    } else {
-      return true;
-      //console.log("User is Correct");
-    }
-  };
-
-  const checkPassword = (password1, password2) => {
-    if (
-      checkPasswordRequeriments(password1) &&
-      checkPasswordRequeriments(password2)
-    ) {
-      if (password1 != password2) {
-        //alert("No has introducido la misma contraseña");
-        errorControl(6);
-        return false;
-      } else {
-        //alert("Te has registrado satisfactoriamente");
-        navigation.navigate("Login");
-        errorControl(7);
-        return true;
-      }
-    } else {
-      if (password1 != password2) errorControl(6);
-      //alert("No has introducido la misma contraseña");
-      else errorControl(5);
-      //alert("La contraseña debe tener más de 8 carácteres");
-      return false;
-    }
-  };
-
-  const checkPasswordRequeriments = (password1) => {
-    if (password1.length < 8) return false;
-    else return true;
-  };
+  const validation = useValidation();
 
   return (
     <SafeAreaView style={styles.container1}>
@@ -176,10 +98,19 @@ export default function Login({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            if (checkTextInputNotEmpty(email, user, password1, password2)) {
-              if (checkEmail(email)) {
-                if (checkUser(user)) {
-                  checkPassword(password1, password2);
+            if (
+              validation.checkTextInputNotEmpty(
+                email,
+                user,
+                password1,
+                password2
+              )
+            ) {
+              if (validation.checkEmail(email)) {
+                if (validation.checkUser(user)) {
+                  if (validation.checkPassword(password1, password2)) {
+                    navigation.navigate("Login");
+                  }
                 }
               }
             }

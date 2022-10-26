@@ -1,4 +1,4 @@
-const { checkUser } = require("../functions/FunctionsTesting");
+import { checkUser } from "../helpers/AccountRegister.helper";
 
 describe("Check User testing!", () => {
   test("Passarà el test ja que l'usuari introduït es vàlid", () => {

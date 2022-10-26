@@ -18,33 +18,20 @@ import {
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
+import { clearText, checkTextInputNotEmpty } from "../helpers/Login.helper";
+
+const useValidation = () => {
+  return { checkTextInputNotEmpty };
+};
+
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const validation = useValidation();
 
   const clearText = () => {
     setEmail("");
     setPassword("");
-  };
-
-  const errorControl = (errorId) => {
-    switch (errorId) {
-      case 7:
-        alert("Has iniciado sesión satisfactoriamente");
-        break;
-      case 8:
-        alert("Debes rellenar todos los campos");
-        break;
-      default:
-        break;
-    }
-  };
-
-  const checkTextInputNotEmpty = (email, password) => {
-    if (email.length == 0 || password.length == 0) {
-      errorControl(8);
-      return false;
-    } else return true;
   };
 
   React.useEffect(() => {
@@ -98,7 +85,7 @@ export default function Login({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            if (checkTextInputNotEmpty(email, password)) {
+            if (validation.checkTextInputNotEmpty(email, password)) {
               errorControl(7);
             } else {
             }

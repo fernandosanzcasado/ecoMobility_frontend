@@ -1,7 +1,4 @@
-const {
-  checkPassword,
-  checkPasswordRequeriments,
-} = require("../functions/FunctionsTesting");
+import { checkPassword } from "../helpers/AccountRegister.helper";
 
 describe("Check Password !", () => {
   test("Passarà el test ja que les dues contrassenyes son idèntiques i per tant es pot realitzar correctament el registre", () => {
