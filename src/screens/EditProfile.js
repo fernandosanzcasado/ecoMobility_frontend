@@ -95,26 +95,39 @@ export default function EditProfile({ navigation }) {
           <TouchableOpacity></TouchableOpacity>
         </View>
         <View style={styles.separationViews}>
-          <Text style={styles.changeUserName}> {t("Edit_Profile.Change_User_Name")} </Text>
+          <Text style={styles.changeUserName}>
+            {" "}
+            {t("Edit_Profile.Change_Name")}{" "}
+          </Text>
           <TextInput
             style={styles.textInput}
-            placeholder="Username"
+            placeholder={t("Edit_Profile.Name")}
             onChangeText={(newText) => setUser(newText)}
             defaultValue={user}
           />
         </View>
         <View>
-          <Text style={styles.smallText}> {t("Edit_Profile.Change_Email")} </Text>
+          <Text style={styles.smallText}>
+            {" "}
+            {t("Edit_Profile.Change_Surnames")}{" "}
+          </Text>
           <TextInput
             style={styles.textInput}
-            placeholder="Correu"
+            placeholder={t("Edit_Profile.Surnames")}
             onChangeText={(newtext) => setEmail(newtext)}
             defaultValue={email}
           />
         </View>
         <View>
-          <TouchableOpacity>
-            <Text style={styles.smallText}> {t("Edit_Profile.Change_Password")} </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("ConfirmCurrentPass");
+            }}
+          >
+            <Text style={styles.smallText}>
+              {" "}
+              {t("Edit_Profile.Change_Password")}{" "}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonView}>

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 
@@ -19,44 +19,6 @@ const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const clearText = () => {
-    setEmail("");
-    setPassword("");
-  };
-
-  const errorControl = (errorId) => {
-    switch (errorId) {
-      case 7:
-        alert("Has iniciado sesión satisfactoriamente");
-        navigation.navigate("MapScreen");
-        break;
-      case 8:
-        alert("Debes rellenar todos los campos");
-        break;
-      default:
-        break;
-    }
-  };
-
-  const checkTextInputNotEmpty = (email, password) => {
-    if (email.length == 0 || password.length == 0) {
-      errorControl(8);
-      return false;
-    } else return true;
-  };
-
-  React.useEffect(() => {
-    const chargeView = navigation.addListener("focus", () => {
-      clearText();
-    });
-
-    // Return the function to unsubscribe from the event so it gets removed on unmount
-    return chargeView;
-  }, [navigation]);
-
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -76,63 +38,33 @@ export default function Login({ navigation }) {
       <Separator2 />
       <Separator2 />
       <View>
-        <TextInput
-          style={styles.tinput}
-          placeholder="Email"
-          on
-          onChangeText={(newtext) => setEmail(newtext)}
-          defaultValue={email}
-        />
+        <Text> Introduce tu contraseña actual </Text>
+        <TextInput style={styles.tinput} placeholder="Contraseña actual" />
       </View>
       <Separator2 />
       <View>
-        <TextInput
-          style={styles.tinput}
-          placeholder="Contraseña"
-          onChangeText={(newtext) => setPassword(newtext)}
-          defaultValue={password}
-          secureTextEntry
-        />
-      </View>
-      <Separator />
-      <View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            if (checkTextInputNotEmpty(email, password)) {
-              errorControl(7);
-            } else {
-            }
+            navigation.navigate("PasswordChange");
           }}
         >
-          <Image
-            source={require("../../assets/images/Boton1IniciaSesion.png")}
-          />
+          <Image source={require("../../assets/images/Boton1Buscar.png")} />
         </TouchableOpacity>
       </View>
-      <Separator />
+      <Separator2 />
+      <Separator2 />
       <View>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.buttonBack}
           onPress={() => {
-            navigation.navigate("PasswordRecover");
+            navigation.goBack();
           }}
         >
-          <Text> ¿Has olvidado la contraseña?</Text>
+          <Image source={require("../../assets/images/BotonAtras.png")} />
         </TouchableOpacity>
       </View>
       <Separator />
-      <Separator />
-      <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("AccountRegister");
-          }}
-        >
-          <Text> ¿No tienes cuenta? Regístarte</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
@@ -173,6 +105,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     right: 5,
     margintop: 2000,
+  },
+  buttonBack: {
+    //alignItems: "left",
+    right: -10,
+    margintop: 200,
   },
   separator: {
     marginVertical: 11,

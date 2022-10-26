@@ -42,11 +42,11 @@ function Profile({ navigation }) {
           ></Image>
           <Text style={styles.headerText}> {t("Profile.User_Name")} </Text>
         </View>
-        <View style={styles.separationViews}>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("EditProfile");
             }}
+            style={styles.separationViews}
           >
             <Icon
               name="pen"
@@ -54,67 +54,44 @@ function Profile({ navigation }) {
               size={28}
               style={styles.icons}
             ></Icon>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("EditProfile");
-            }}
-          >
             <Text style={styles.smallText}> {t("Profile.Edit_Profile")} </Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.separationViews}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.separationViews}>
             <Icon
               name="calendar-alt"
               color={"#0E7CE4"}
               size={31}
               style={styles.icons}
             ></Icon>
-          </TouchableOpacity>
-          <TouchableOpacity>
             <Text style={styles.smallText}> {t("Profile.My_Calendar")} </Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.separationViews}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.separationViews}>
             <Icon
               name="tree"
               color={"#206D17"}
               size={36}
               style={styles.icons}
             ></Icon>
-          </TouchableOpacity>
-          <TouchableOpacity>
             <Text style={styles.smallText}> {t("Profile.My_Forest")} </Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.separationViews}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.separationViews}>
             <Icon
               name="headphones-alt"
               color={"#000000"}
               size={30}
               style={styles.icons}
             ></Icon>
-          </TouchableOpacity>
-          <TouchableOpacity>
             <Text style={styles.smallText}> {t("Profile.Technical_Assistance")} </Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.separationViews}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.separationViews}>
             <Icon
               name="trophy"
               color={"#E8C711"}
               size={28}
               style={styles.icons}
             ></Icon>
-          </TouchableOpacity>
-          <TouchableOpacity>
             <Text style={styles.smallText}> {t("Profile.Trophys")} </Text>
           </TouchableOpacity>
-        </View>
         <View style={styles.flagsView}>
           <TouchableOpacity
             onPress={() => {
@@ -148,7 +125,7 @@ function Profile({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.buttonView}>
-          <Button title={t("Profile.Logout")} color="#27CF10" />
+          <Button title={t("Profile.Logout")} color="#27CF10" style={styles.button} />
         </View>
       </ScrollView>
     </View>
@@ -189,18 +166,22 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     height: Constants.statusBarHeight * 1.25,
     width: Constants.statusBarHeight * 1.25,
-    marginLeft: Constants.statusBarHeight,
+    marginLeft: Constants.statusBarHeight/2,
+    marginRight: Constants.statusBarHeight/2,
   },
   flagsView: {
     paddingTop: Constants.statusBarHeight * 1.75,
-    paddingLeft: Constants.statusBarHeight,
     display: "flex",
     flexDirection: "row",
+    justifyContent: "center",
   },
   buttonView: {
     paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  button:{
+    borderRadius: 30
   },
   picture: {
     marginTop: Constants.statusBarHeight * 1.75,

@@ -19,27 +19,32 @@ const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
 export default function Login({ navigation }) {
+  const possiblePreviousScreens = ["Login", "EditProfile"];
+
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
 
   const errorControl = (errorId) => {
-    switch (errorId) {
-      case 6:
-        alert("No has introducido la misma contraseña");
-        break;
-      case 5:
-        alert("La contraseña debe tener más de 8 carácteres");
-        break;
-      case 7:
-        alert("Has cambiado la contraseña satisfactoriamente");
-        break;
-      case 8:
-        alert("Debes rellenar todos los campos");
-        break;
-      default:
-        break;
-    }
+    const alerts = {
+      6: {
+        message: "No has introducido la misma contraseña",
+      },
+      5: {
+        message: "La contraseña debe tener más de 8 carácteres",
+      },
+      7: {
+        message: "Has cambiado la contraseña satisfactoriamente",
+      },
+      8: {
+        message: "Debes rellenar todos los campos",
+      },
+    };
+
+    if (!(errorId in alerts)) return;
+
+    Alert.alert(alerts[errorId].message);
   };
+
   const checkTextInputNotEmpty = (password1, password2) => {
     if (password1.length == 0 || password2.length == 0) {
       errorControl(8);
@@ -63,7 +68,15 @@ export default function Login({ navigation }) {
         return false;
       } else {
         //alert("Te has registrado satisfactoriamente");
-        navigation.navigate("Login");
+        const routes = navigation.getState()?.routes;
+        let navigateTo = "";
+        for (let i = routes.length - 2; i >= 0; i--) {
+          if (possiblePreviousScreens.includes(routes[i].name)) {
+            navigateTo = routes[i].name;
+            break;
+          }
+        }
+        if (navigateTo) navigation.navigate(navigateTo);
         errorControl(7);
         return true;
       }
@@ -143,15 +156,10 @@ const styles = StyleSheet.create({
   logo: {
     justifyContent: "center",
     left: 60,
-    //padding: 90,
-    //width: 260,
-    //height: 170,
   },
   lema: {
     justifyContent: "center",
     left: 70,
-    //width: 260,
-    //height: 170,
   },
   tinput: {
     flexDirection: "row",
@@ -173,12 +181,8 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginVertical: 11,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
   separator2: {
     marginVertical: 5,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });
