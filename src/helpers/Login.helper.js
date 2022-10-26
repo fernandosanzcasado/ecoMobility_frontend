@@ -18,8 +18,12 @@ export const errorControl = (errorId) => {
 };
 
 export const checkTextInputNotEmpty = (email, password) => {
-  if (email.length == 0 || password.length == 0) {
+  if (email === "" || password === "") {
     errorControl(8);
     return false;
-  } else return true;
+  } else {
+    console.log(email.length + " " + password.length);
+    errorControl(7);
+    return true;
+  }
 };

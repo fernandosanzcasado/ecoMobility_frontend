@@ -15,10 +15,14 @@ import {
   SafeAreaView,
 } from "react-native";
 
+import {
+  clearText,
+  checkTextInputNotEmpty,
+  errorControl,
+} from "../helpers/Login.helper";
+
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
-
-import { clearText, checkTextInputNotEmpty } from "../helpers/Login.helper";
 
 const useValidation = () => {
   return { checkTextInputNotEmpty };
@@ -86,8 +90,7 @@ export default function Login({ navigation }) {
           style={styles.button}
           onPress={() => {
             if (validation.checkTextInputNotEmpty(email, password)) {
-              errorControl(7);
-            } else {
+              navigation.navigate("MapScreen");
             }
           }}
         >
