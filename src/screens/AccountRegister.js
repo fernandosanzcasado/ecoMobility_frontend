@@ -1,7 +1,4 @@
 import React, { Component, useState } from "react";
-import Constants from "expo-constants";
-import * as Font from "expo-font";
-
 import {
   StyleSheet,
   Text,
@@ -14,6 +11,10 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+
+import Constants from "expo-constants";
+import * as Font from "expo-font";
+import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -43,6 +44,8 @@ export default function Login({ navigation }) {
   const [password2, setPassword2] = useState("");
   const validation = useValidation();
 
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -63,7 +66,7 @@ export default function Login({ navigation }) {
         <View>
           <TextInput
             style={styles.tinput}
-            placeholder="Correo electrónico"
+            placeholder={t("Account_Register.Email")}
             onChangeText={(newtext) => setEmail(newtext)}
             defaultValue={email}
           />
@@ -71,7 +74,7 @@ export default function Login({ navigation }) {
         <View>
           <TextInput
             style={styles.tinput}
-            placeholder="Nombre"
+            placeholder={t("Account_Register.Name")}
             onChangeText={(newText) => setUser(newText)}
             defaultValue={user}
           />
@@ -79,7 +82,7 @@ export default function Login({ navigation }) {
         <View>
           <TextInput
             style={styles.tinput}
-            placeholder="Apellidos"
+            placeholder={t("Account_Register.Surnames")}
             onChangeText={(newText) => setUser(newText)}
             defaultValue={user}
           />
@@ -87,7 +90,7 @@ export default function Login({ navigation }) {
         <View>
           <TextInput
             style={styles.tinputPassword}
-            placeholder="Contraseña"
+            placeholder={t("Account_Register.Password")}
             secureTextEntry
             onChangeText={(newText) => setPassword1(newText)}
             defaultValue={password1}
@@ -96,7 +99,7 @@ export default function Login({ navigation }) {
         <View>
           <TextInput
             style={styles.tinputPassword}
-            placeholder="Repite la contraseña"
+            placeholder={t("Account_Register.Confirm_Password")}
             secureTextEntry
             onChangeText={(newText) => setPassword2(newText)}
             defaultValue={password2}
@@ -157,15 +160,10 @@ const styles = StyleSheet.create({
   logo: {
     justifyContent: "center",
     left: 60,
-    //padding: 90,
-    //width: 260,
-    //height: 170,
   },
   lema: {
     justifyContent: "center",
     left: 70,
-    //width: 260,
-    //height: 170,
   },
   tinput: {
     flexDirection: "row",
@@ -194,18 +192,13 @@ const styles = StyleSheet.create({
     margintop: 2000,
   },
   buttonBack: {
-    //alignItems: "left",
     right: -10,
     margintop: 200,
   },
   separator: {
     marginVertical: 11,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
   separator2: {
     marginVertical: 5,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

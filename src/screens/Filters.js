@@ -12,8 +12,10 @@ import Slider from "@react-native-community/slider";
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useTranslation } from "react-i18next";
 
 export default function FilterScreen({ navigation }) {
+  const { t } = useTranslation();
   return (
     <SafeAreaView>
       <SafeAreaView style={styles.safeAreaContainer}>
@@ -37,10 +39,10 @@ export default function FilterScreen({ navigation }) {
         </View>
       </SafeAreaView>
       <View>
-        <Text style={styles.filtertitle}>FILTRAR PER: </Text>
+        <Text style={styles.filtertitle}>{t("Filters.Filter_By")}</Text>
         <View style={styles.filterbox}>
           <TouchableOpacity style={styles.rowfilter}>
-            <Text style={styles.filtertext}>Estacions de bicicletes</Text>
+            <Text style={styles.filtertext}>{t("Filters.Bike_Stations")}</Text>
             <Icon
               name="toggle-on"
               size={40}
@@ -50,7 +52,7 @@ export default function FilterScreen({ navigation }) {
           <View style={styles.line} />
           <TouchableOpacity style={styles.rowfilter}>
             <Text style={styles.filtertext}>
-              Estacions de vehícles elèctrics
+              {t("Filters.Electric_Stations")}
             </Text>
             <Icon
               name="toggle-off"
@@ -59,13 +61,13 @@ export default function FilterScreen({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity style={{ paddingRight: Constants.statusBarHeight }}>
-            <Text style={styles.filtertext2}> Supercàrrega </Text>
+            <Text style={styles.filtertext2}> {t("Filters.Supercharge")} </Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ paddingRight: Constants.statusBarHeight }}>
-            <Text style={styles.filtertext2}> Preu </Text>
+            <Text style={styles.filtertext2}> {t("Filters.Price")} </Text>
           </TouchableOpacity>
           <View style={styles.line} />
-          <Text style={styles.valoration}> Valoració </Text>
+          <Text style={styles.valoration}> {t("Filters.Rating")} </Text>
           <Slider
             style={{ width: 200, height: 40 }}
             minimumValue={0}
@@ -75,7 +77,7 @@ export default function FilterScreen({ navigation }) {
             alignSelf="center"
           />
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonTxt}>Apply Filters</Text>
+            <Text style={styles.buttonTxt}>{t("Filters.Apply_Filters")}</Text>
           </TouchableOpacity>
         </View>
       </View>

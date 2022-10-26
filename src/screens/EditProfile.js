@@ -35,29 +35,23 @@ const errorControl = (errorId) => {
   }
 };
 const checkUser = (user) => {
-  //console.log(user);
   if (user.length <= 3 || user.length >= 15) {
     errorControl(2);
-    //console.log("User is Not Correct");
     return false;
   } else {
     return true;
-    //console.log("User is Correct");
   }
 };
 
 const checkEmail = (email) => {
-  //console.log(email);
   if (email.Length > 0) {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(email) === false) {
       errorControl(1);
-      //console.log("Email is Not Correct");
       return false;
     }
   } else {
     return true;
-    //console.log("Email is Correct");
   }
 };
 export default function EditProfile({ navigation }) {

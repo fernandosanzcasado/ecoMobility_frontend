@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Constants from "expo-constants";
-import * as Font from "expo-font";
-
 import {
   StyleSheet,
   Text,
@@ -15,10 +12,15 @@ import {
   SafeAreaView,
 } from "react-native";
 
+import Constants from "expo-constants";
+import * as Font from "expo-font";
+import { useTranslation } from "react-i18next";
+
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
-export default function Login({ navigation }) {
+export default function PassRecoverCodeConfirm({ navigation }) {
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -38,30 +40,21 @@ export default function Login({ navigation }) {
       <Separator2 />
       <Separator2 />
       <View>
-        <Text> Introduce tu correo electrónico para buscar tu cuenta </Text>
-        <TextInput style={styles.tinput} placeholder="Correo electrónico" />
+        <Text>{t("Pass_Recover_Code_Confirm.Write_Code")}</Text>
+        <TextInput
+          style={styles.tinput}
+          placeholder={t("Pass_Recover_Code_Confirm.Code")}
+        />
       </View>
       <Separator2 />
       <View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("PasswordRecover2");
+            navigation.navigate("PasswordChange");
           }}
         >
-          <Image source={require("../../assets/images/Boton1Buscar.png")} />
-        </TouchableOpacity>
-      </View>
-      <Separator2 />
-      <Separator2 />
-      <View>
-        <TouchableOpacity
-          style={styles.buttonBack}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <Image source={require("../../assets/images/BotonAtras.png")} />
+          <Image source={require("../../assets/images/Boton1Continuar.png")} />
         </TouchableOpacity>
       </View>
       <Separator />
@@ -78,15 +71,10 @@ const styles = StyleSheet.create({
   logo: {
     justifyContent: "center",
     left: 60,
-    //padding: 90,
-    //width: 260,
-    //height: 170,
   },
   lema: {
     justifyContent: "center",
     left: 70,
-    //width: 260,
-    //height: 170,
   },
   tinput: {
     flexDirection: "row",
@@ -106,19 +94,10 @@ const styles = StyleSheet.create({
     right: 5,
     margintop: 2000,
   },
-  buttonBack: {
-    //alignItems: "left",
-    right: -10,
-    margintop: 200,
-  },
   separator: {
     marginVertical: 11,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
   separator2: {
     marginVertical: 5,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

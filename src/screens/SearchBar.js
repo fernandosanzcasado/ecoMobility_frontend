@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {
   View,
@@ -11,9 +12,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
+import { useTranslation } from "react-i18next";
 
 import LogoText from "../components/ecomobility/LogoText";
 
@@ -49,6 +50,8 @@ export default function SearchBar({ navigation }) {
   const [filterData, setfilterData] = useState([]);
   const [masterData, setmasterData] = useState([]);
   const [search, setSearch] = useState("");
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     stations();
@@ -139,7 +142,7 @@ export default function SearchBar({ navigation }) {
             style={styles.lupe}
           />
           <TextInput
-            placeholder=" Search "
+            placeholder={t("Search_Bar.Search")}
             onSubmitEditing={Keyboard.dismiss}
             value={search}
             underlineColorAndroid="transparent"
