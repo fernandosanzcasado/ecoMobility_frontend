@@ -1,14 +1,19 @@
-export const searchFilter = (text) => {
+export const searchFilter = (
+  text,
+  updateFilterFunc,
+  updateSearchFunc,
+  masterData
+) => {
   if (text) {
     const newData = masterData.filter((item) => {
       const itemData = { item } ? item.toUpperCase() : "".toUpperCase();
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
-    setfilterData(newData);
-    setSearch(text);
+    updateFilterFunc(newData);
+    updateSearchFunc(text);
   } else {
-    setfilterData(masterData);
-    setSearch(text);
+    updateFilterFunc(masterData);
+    updateSearchFunc(text);
   }
 };

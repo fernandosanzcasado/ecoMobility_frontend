@@ -39,7 +39,6 @@ const listStations = [
   "fsegfsad",
   "HolaBuenasTardes",
   "HolaBuenosDias",
-  "HolaBuenasMañanas",
 ];
 
 export default function SearchBar({ navigation }) {
@@ -60,18 +59,23 @@ export default function SearchBar({ navigation }) {
     setmasterData(listStations);
   };
 
-  const searchFilter = (text) => {
+  const searchFilter = (
+    text,
+    updateFilterFunc,
+    updateSearchFunc,
+    masterData
+  ) => {
     if (text) {
       const newData = masterData.filter((item) => {
         const itemData = { item } ? item.toUpperCase() : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-      setfilterData(newData);
-      setSearch(text);
+      updateFilterFunc(newData);
+      updateSearchFunc(text);
     } else {
-      setfilterData(masterData);
-      setSearch(text);
+      updateFilterFunc(masterData);
+      updateSearchFunc(text);
     }
   };
 
@@ -139,7 +143,9 @@ export default function SearchBar({ navigation }) {
             onSubmitEditing={Keyboard.dismiss}
             value={search}
             underlineColorAndroid="transparent"
-            onChangeText={(text) => searchFilter(text)}
+            onChangeText={(text) =>
+              searchFilter(text, setfilterData, setSearch, masterData)
+            }
           />
         </Animatable.View>
       </View>
