@@ -59,40 +59,50 @@ export default function Login({ navigation }) {
         />
       </View>
       <Separator2 />
-      <View>
-        <TextInput
-          style={styles.tinput}
-          placeholder="Correo electrónico"
-          onChangeText={(newtext) => setEmail(newtext)}
-          defaultValue={email}
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.tinput}
-          placeholder="Nombre de usuario"
-          onChangeText={(newText) => setUser(newText)}
-          defaultValue={user}
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.tinputPassword}
-          placeholder="Contraseña"
-          secureTextEntry
-          onChangeText={(newText) => setPassword1(newText)}
-          defaultValue={password1}
-        />
-      </View>
-      <View>
-        <TextInput
-          style={styles.tinputPassword}
-          placeholder="Repite la contraseña"
-          secureTextEntry
-          onChangeText={(newText) => setPassword2(newText)}
-          defaultValue={password2}
-        />
-      </View>
+      <ScrollView>
+        <View>
+          <TextInput
+            style={styles.tinput}
+            placeholder="Correo electrónico"
+            onChangeText={(newtext) => setEmail(newtext)}
+            defaultValue={email}
+          />
+        </View>
+        <View>
+          <TextInput
+            style={styles.tinput}
+            placeholder="Nombre"
+            onChangeText={(newText) => setUser(newText)}
+            defaultValue={user}
+          />
+        </View>
+        <View>
+          <TextInput
+            style={styles.tinput}
+            placeholder="Apellidos"
+            onChangeText={(newText) => setUser(newText)}
+            defaultValue={user}
+          />
+        </View>
+        <View>
+          <TextInput
+            style={styles.tinputPassword}
+            placeholder="Contraseña"
+            secureTextEntry
+            onChangeText={(newText) => setPassword1(newText)}
+            defaultValue={password1}
+          />
+        </View>
+        <View>
+          <TextInput
+            style={styles.tinputPassword}
+            placeholder="Repite la contraseña"
+            secureTextEntry
+            onChangeText={(newText) => setPassword2(newText)}
+            defaultValue={password2}
+          />
+        </View>
+      </ScrollView>
       <Separator2 />
       <View>
         <TouchableOpacity

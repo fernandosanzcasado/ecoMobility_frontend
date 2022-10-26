@@ -14,6 +14,7 @@ import PasswordChange from "./src/screens/PasswordChange";
 import ApiTestScreen from "./src/screens/ApiTestScreen";
 import Filters from "./src/screens/Filters";
 import SearchBar from "./src/screens/SearchBar";
+import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,7 @@ export default function App({ t }) {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="MapScreen"
+        initialRouteName="Login"
         screenOptions={{
           headerShown: false,
         }}
@@ -54,7 +55,14 @@ export default function App({ t }) {
         ></Stack.Screen>
         <Stack.Screen name="Filters" component={Filters}></Stack.Screen>
         <Stack.Screen name="SearchBar" component={SearchBar}></Stack.Screen>
-        <Stack.Screen name="PasswordChange" component={Filters}></Stack.Screen>
+        <Stack.Screen
+          name="PasswordChange"
+          component={PasswordChange}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ConfirmCurrentPass"
+          component={ConfirmCurrentPass}
+        ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
