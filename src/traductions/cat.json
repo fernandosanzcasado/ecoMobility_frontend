@@ -1,0 +1,62 @@
+{
+  "Account_Register": {
+    "Email": "Correu electrònic",
+    "Name": "Nom",
+    "Surnames": "Cognoms",
+    "Password": "contrasenya",
+    "Confirm_Password": "Confirmar contrasenya"
+  },
+  "Confirm_Current_Pass": {
+    "Write_Current_Pass": "Introdueix la teva contrasenya actual",
+    "Current_Pass": "Contrasenya actual"
+  },
+  "Edit_Profile": {
+    "User_Name": "Nom Usuari",
+    "Change_Name": "Canviar nom",
+    "Name": "Nom",
+    "Change_Surnames": "Canviar cognoms",
+    "Surnames": "Cognoms",
+    "Change_Password": "Canviar contrasenya",
+    "Save_Changes": "Guardar canvis",
+    "Eliminate_Account": "Eliminar compte"
+  },
+  "Filters": {
+    "Filter_By": "Filtrar per",
+    "Bike_Stations": "Estacions de bicicleta",
+    "Electric_Stations": "Estacions de vehicles electrics",
+    "Supercharge": "Supercàrrega",
+    "Price": "Preu",
+    "Rating": "Valoració",
+    "Apply_Filters": "Aplicar filtres"
+  },
+  "Login": {
+    "Email": "Email",
+    "Password": "Contrasenya",
+    "Forgot_Password": "Has oblidat la teva contrasenya?",
+    "Register_Text": "No tens compte? Registrat"
+  },
+  "Pass_Recover_Code_Confirm": {
+    "Write_Code": "Introdueix el codi enviat al teu correu electronic",
+    "Code": "Codi de confirmació"
+  },
+  "Pass_Recover_Mail": {
+    "Write_Email": "Introdueix el teu correu electronic per enviar el codi",
+    "Email": "Correu"
+  },
+  "Password_Change": {
+    "New_Password": "Nova contrasenya",
+    "Confirm_New_Password": "Confirmar nova contrasenya"
+  },
+  "Profile": {
+    "User_Name": "Nom Usuari",
+    "Edit_Profile": "Editar perfil",
+    "My_Calendar": "El meu calendari",
+    "My_Forest": "El meu bosc",
+    "Technical_Assistance": "Servei tècnic",
+    "Trophys": "Trofeus",
+    "Logout": "Tancar sessió"
+  },
+  "Search_Bar": {
+    "Search": "Cercar"
+  }
+}

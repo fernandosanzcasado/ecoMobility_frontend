@@ -1,24 +1,69 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-export default function App() {
+import Profile from "./src/screens/Profile";
+import EditProfile from "./src/screens/EditProfile";
+import MapScreen from "./src/screens/MapScreen";
+
+import AccountRegister from "./src/screens/AccountRegister";
+import Login from "./src/screens/Login";
+import PassRecoverMail from "./src/screens/PassRecoverMail";
+import PassRecoverCodeConfirm from "./src/screens/PassRecoverCodeConfirm";
+import PasswordChange from "./src/screens/PasswordChange";
+import ApiTestScreen from "./src/screens/ApiTestScreen";
+import Filters from "./src/screens/Filters";
+import SearchBar from "./src/screens/SearchBar";
+import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
+
+const Stack = createStackNavigator();
+
+export default function App({ t }) {
   return (
-    <View style={StyleSheet.container}>
-      <div className="App">
-        <header className="App-header">
-          <section></section>
-        </header>
-      </div>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="MapScreen" component={MapScreen}></Stack.Screen>
+        <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
+        <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
+
+        {/* TEST API #################################################### */}
+
+        <Stack.Screen
+          name="ApiTestScreen"
+          component={ApiTestScreen}
+        ></Stack.Screen>
+
+        {/* TEST API */}
+
+        <Stack.Screen
+          name="AccountRegister"
+          component={AccountRegister}
+        ></Stack.Screen>
+        <Stack.Screen name="Login" component={Login}></Stack.Screen>
+        <Stack.Screen
+          name="PassRecoverMail"
+          component={PassRecoverMail}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="PassRecoverCodeConfirm"
+          component={PassRecoverCodeConfirm}
+        ></Stack.Screen>
+        <Stack.Screen name="Filters" component={Filters}></Stack.Screen>
+        <Stack.Screen name="SearchBar" component={SearchBar}></Stack.Screen>
+        <Stack.Screen
+          name="PasswordChange"
+          component={PasswordChange}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ConfirmCurrentPass"
+          component={ConfirmCurrentPass}
+        ></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -1,0 +1,62 @@
+{
+  "Account_Register": {
+    "Email": "Correo electrónico",
+    "Name": "Nombre",
+    "Surnames": "Apellidos",
+    "Password": "Contraseña",
+    "Confirm_Password": "Confirmar contraseña"
+  },
+  "Confirm_Current_Pass": {
+    "Write_Current_Pass": "Introduce tu contraseña actual",
+    "Current_Pass": "Contraseña actual"
+  },
+  "Edit_Profile": {
+    "User_Name": "Nombre Usuario",
+    "Change_Name": "Cambiar nombre",
+    "Name": "Nombre",
+    "Change_Surnames": "Cambiar apellidos",
+    "Surnames": "Apellidos",
+    "Change_Password": "Cambiar contraseña",
+    "Save_Changes": "Guardar cambios",
+    "Eliminate_Account": "Eliminar cuenta"
+  },
+  "Filters": {
+    "Filter_By": "Filtrar por",
+    "Bike_Stations": "Estaciones de bicicleta",
+    "Electric_Stations": "Estaciones de vehículos eléctricos",
+    "Supercharge": "Supercarga",
+    "Price": "Precio",
+    "Rating": "Valoración",
+    "Apply_Filters": "Aplicar filtros"
+  },
+  "Login": {
+    "Email": "Email",
+    "Password": "Contraseña",
+    "Forgot_Password": "¿Has olvidado tu contraseña?",
+    "Register_Text": "¿No tienes cuenta? Regístarte"
+  },
+  "Pass_Recover_Code_Confirm": {
+    "Write_Code": "Introduce el código enviado a tu correo electrónico",
+    "Code": "Código de confirmación"
+  },
+  "Pass_Recover_Mail": {
+    "Write_Email": "Introduce tu correo electrónico para enviar el código",
+    "Email": "Correo"
+  },
+  "Password_Change": {
+    "New_Password": "Nueva contraseña",
+    "Confirm_New_Password": "Confirmar nueva contraseña"
+  },
+  "Profile": {
+    "User_Name": "Nombre Usuario",
+    "Edit_Profile": "Editar perfil",
+    "My_Calendar": "Mi calendario",
+    "My_Forest": "Mi bosque",
+    "Technical_Assistance": "Servicio técnico",
+    "Trophys": "Trofeos",
+    "Logout": "Cerrar sesión"
+  },
+  "Search_Bar": {
+    "Search": "Buscar"
+  }
+}
