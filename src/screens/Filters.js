@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -10,13 +10,20 @@ import {
 import Slider from "@react-native-community/slider";
 
 import Constants from "expo-constants";
-import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
 
 export default function FilterScreen({ navigation }) {
+  [bicicletes, setBicicletes] = useState(false);
+  [vehicles, setVehicles] = useState(false);
+  [supercharge, setSupercharge] = useState(false);
+  [preu, setPreu] = useState(false);
+  [range, setRange] = useState(5);
+  [apply, setApply] = useState(false);
+
   const { t } = useTranslation();
-  return (
+
+return (
     <SafeAreaView>
       <SafeAreaView style={styles.safeAreaContainer}>
         <View>
@@ -41,42 +48,122 @@ export default function FilterScreen({ navigation }) {
       <View>
         <Text style={styles.filtertitle}>{t("Filters.Filter_By")}</Text>
         <View style={styles.filterbox}>
-          <TouchableOpacity style={styles.rowfilter}>
+          <TouchableOpacity
+            style={styles.rowfilter}
+            onPress={() => {
+              setBicicletes(!bicicletes);
+            }}
+          >
             <Text style={styles.filtertext}>{t("Filters.Bike_Stations")}</Text>
             <Icon
-              name="toggle-on"
+              name={bicicletes ? "toggle-on" : "toggle-off"}
               size={40}
               style={{ paddingRight: Constants.statusBarHeight }}
             />
           </TouchableOpacity>
           <View style={styles.line} />
-          <TouchableOpacity style={styles.rowfilter}>
+          <TouchableOpacity
+            style={styles.rowfilter}
+            onPress={() => {
+              setVehicles(!vehicles);
+            }}
+          >
             <Text style={styles.filtertext}>
               {t("Filters.Electric_Stations")}
             </Text>
             <Icon
-              name="toggle-off"
+              name={vehicles ? "toggle-on" : "toggle-off"}
               size={40}
               style={{ paddingRight: Constants.statusBarHeight }}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={{ paddingRight: Constants.statusBarHeight }}>
-            <Text style={styles.filtertext2}> {t("Filters.Supercharge")} </Text>
+          <TouchableOpacity
+            style={{
+              paddingRight: Constants.statusBarHeight,
+            }}
+            onPress={() => {
+              setSupercharge(!supercharge);
+            }}
+          >
+            <Text
+              style={[
+                styles.filtertext2,
+                {
+                  backgroundColor: supercharge ? "#D1EABE" : "#FFFFFF",
+                },
+              ]}
+            >
+              {t("Filters.Supercharge")}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ paddingRight: Constants.statusBarHeight }}>
-            <Text style={styles.filtertext2}> {t("Filters.Price")} </Text>
+          <TouchableOpacity
+            style={{
+              paddingRight: Constants.statusBarHeight,
+            }}
+            onPress={() => {
+              setPreu(!preu);
+            }}
+          >
+            <Text
+              style={[
+                styles.filtertext2,
+                { backgroundColor: preu ? "#D1EABE" : "#FFFFFF" },
+              ]}
+            >
+              {t("Filters.Price")}
+            </Text>
           </TouchableOpacity>
+          {preu && (
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "bold" }}> Preu{"\n"} entre:</Text>
+              <TouchableOpacity style={styles.selectprice}>
+                <Text> 0.20-0.30 </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.selectprice}>
+                <Text> 0.31-0.50 </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.selectprice}>
+                <Text> 0.51-0.79 </Text>
+              </TouchableOpacity>
+              <Text>euros/kWh</Text>
+            </View>
+          )}
           <View style={styles.line} />
           <Text style={styles.valoration}> {t("Filters.Rating")} </Text>
-          <Slider
-            style={{ width: 200, height: 40 }}
-            minimumValue={0}
-            maximumValue={5}
-            minimumTrackTintColor="#2D803F"
-            maximumTrackTintColor="#BAF35B"
-            alignSelf="center"
-          />
-          <TouchableOpacity style={styles.button}>
+          <View style={styles.slideBar}>
+            <Slider
+              style={{ width: 200, height: 10 }}
+              minimumValue={0}
+              maximumValue={5}
+              minimumTrackTintColor="#2D803F"
+              maximumTrackTintColor="#BAF35B"
+              alignSelf="center"
+              value={2.5}
+              onValueChange={(value) => setRange(parseInt(value))}
+            />
+            <Text style={styles.valoration}>{range}</Text>
+            <Icon
+              style={{
+                alignSelf: "center",
+                marginLeft: Constants.statusBarHeight / 3,
+              }}
+              name="star"
+              size={range <= 2.5 ? 20 : 30}
+              color="#CFCF44"
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              setApply(!apply);
+            }}
+          >
             <Text style={styles.buttonTxt}>{t("Filters.Apply_Filters")}</Text>
           </TouchableOpacity>
         </View>
@@ -173,5 +260,19 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontWeight: "bold",
     fontSize: 20,
+  },
+  slideBar: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  selectprice: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#226C04",
+    marginLeft: Constants.statusBarHeight / 5,
+    marginRight: Constants.statusBarHeight / 5,
+    fontSize: 14,
+    height: 25,
   },
 });
