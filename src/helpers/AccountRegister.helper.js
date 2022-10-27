@@ -46,27 +46,21 @@ export const checkTextInputNotEmpty = (email, user, password1, password2) => {
 };
 
 export const checkEmail = (email) => {
-  //console.log(email);
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
   if (reg.test(email) === false) {
     errorControl(1);
-    //console.log("Email is Not Correct");
     return false;
   } else {
     return true;
-    //console.log("Email is Correct");
   }
 };
 
 export const checkUser = (user) => {
-  //console.log(user);
   if (user.length <= 3 || user.length >= 15) {
     errorControl(3);
-    //console.log("User is Not Correct");
     return false;
   } else {
     return true;
-    //console.log("User is Correct");
   }
 };
 

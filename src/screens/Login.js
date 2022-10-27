@@ -20,6 +20,7 @@ import {
   checkTextInputNotEmpty,
   errorControl,
 } from "../helpers/Login.helper";
+import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -47,6 +48,8 @@ export default function Login({ navigation }) {
     return chargeView;
   }, [navigation]);
 
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -68,7 +71,7 @@ export default function Login({ navigation }) {
       <View>
         <TextInput
           style={styles.tinput}
-          placeholder="Email"
+          placeholder={t("Login.Email")}
           on
           onChangeText={(newtext) => setEmail(newtext)}
           defaultValue={email}
@@ -78,7 +81,7 @@ export default function Login({ navigation }) {
       <View>
         <TextInput
           style={styles.tinput}
-          placeholder="Contraseña"
+          placeholder={t("Login.Password")}
           onChangeText={(newtext) => setPassword(newtext)}
           defaultValue={password}
           secureTextEntry
@@ -104,10 +107,10 @@ export default function Login({ navigation }) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("PasswordRecover");
+            navigation.navigate("PassRecoverMail");
           }}
         >
-          <Text> ¿Has olvidado la contraseña?</Text>
+          <Text>{t("Login.Forgot_Password")}</Text>
         </TouchableOpacity>
       </View>
       <Separator />
@@ -119,7 +122,7 @@ export default function Login({ navigation }) {
             navigation.navigate("AccountRegister");
           }}
         >
-          <Text> ¿No tienes cuenta? Regístarte</Text>
+          <Text>{t("Login.Register_Text")}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

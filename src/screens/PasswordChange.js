@@ -1,7 +1,4 @@
 import React, { Component, useState } from "react";
-import Constants from "expo-constants";
-import * as Font from "expo-font";
-
 import {
   StyleSheet,
   Text,
@@ -15,14 +12,20 @@ import {
   SafeAreaView,
 } from "react-native";
 
+import Constants from "expo-constants";
+import * as Font from "expo-font";
+import { useTranslation } from "react-i18next";
+
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
-export default function Login({ navigation }) {
+export default function PasswordChange({ navigation }) {
   const possiblePreviousScreens = ["Login", "EditProfile"];
 
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+
+  const { t } = useTranslation();
 
   const errorControl = (errorId) => {
     const alerts = {
@@ -110,7 +113,7 @@ export default function Login({ navigation }) {
       <View>
         <TextInput
           style={styles.tinput}
-          placeholder="Contraseña nueva"
+          placeholder={t("Password_Change.New_Password")}
           secureTextEntry
           onChangeText={(newText) => setPassword1(newText)}
           defaultValue={password1}
@@ -120,7 +123,7 @@ export default function Login({ navigation }) {
       <View>
         <TextInput
           style={styles.tinput}
-          placeholder="Repite la nueva contraseña"
+          placeholder={t("Password_Change.Confirm_New_Password")}
           secureTextEntry
           onChangeText={(newText) => setPassword2(newText)}
           defaultValue={password2}

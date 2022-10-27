@@ -8,8 +8,8 @@ import MapScreen from "./src/screens/MapScreen";
 
 import AccountRegister from "./src/screens/AccountRegister";
 import Login from "./src/screens/Login";
-import PasswordRecover from "./src/screens/PasswordRecover";
-import PasswordRecover2 from "./src/screens/PasswordRecover2";
+import PassRecoverMail from "./src/screens/PassRecoverMail";
+import PassRecoverCodeConfirm from "./src/screens/PassRecoverCodeConfirm";
 import PasswordChange from "./src/screens/PasswordChange";
 import ApiTestScreen from "./src/screens/ApiTestScreen";
 import Filters from "./src/screens/Filters";
@@ -46,12 +46,12 @@ export default function App({ t }) {
         ></Stack.Screen>
         <Stack.Screen name="Login" component={Login}></Stack.Screen>
         <Stack.Screen
-          name="PasswordRecover"
-          component={PasswordRecover}
+          name="PassRecoverMail"
+          component={PassRecoverMail}
         ></Stack.Screen>
         <Stack.Screen
-          name="PasswordRecover2"
-          component={PasswordRecover2}
+          name="PassRecoverCodeConfirm"
+          component={PassRecoverCodeConfirm}
         ></Stack.Screen>
         <Stack.Screen name="Filters" component={Filters}></Stack.Screen>
         <Stack.Screen name="SearchBar" component={SearchBar}></Stack.Screen>

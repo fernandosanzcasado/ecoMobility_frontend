@@ -11,6 +11,7 @@ import Slider from "@react-native-community/slider";
 
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useTranslation } from "react-i18next";
 
 export default function FilterScreen({ navigation }) {
   [bicicletes, setBicicletes] = useState(false);
@@ -20,7 +21,9 @@ export default function FilterScreen({ navigation }) {
   [range, setRange] = useState(5);
   [apply, setApply] = useState(false);
 
-  return (
+  const { t } = useTranslation();
+
+return (
     <SafeAreaView>
       <SafeAreaView style={styles.safeAreaContainer}>
         <View>
@@ -43,7 +46,7 @@ export default function FilterScreen({ navigation }) {
         </View>
       </SafeAreaView>
       <View>
-        <Text style={styles.filtertitle}>FILTRAR PER: </Text>
+        <Text style={styles.filtertitle}>{t("Filters.Filter_By")}</Text>
         <View style={styles.filterbox}>
           <TouchableOpacity
             style={styles.rowfilter}
@@ -51,7 +54,7 @@ export default function FilterScreen({ navigation }) {
               setBicicletes(!bicicletes);
             }}
           >
-            <Text style={styles.filtertext}>Estacions de bicicletes</Text>
+            <Text style={styles.filtertext}>{t("Filters.Bike_Stations")}</Text>
             <Icon
               name={bicicletes ? "toggle-on" : "toggle-off"}
               size={40}
@@ -66,7 +69,7 @@ export default function FilterScreen({ navigation }) {
             }}
           >
             <Text style={styles.filtertext}>
-              Estacions de vehícles elèctrics
+              {t("Filters.Electric_Stations")}
             </Text>
             <Icon
               name={vehicles ? "toggle-on" : "toggle-off"}
@@ -90,8 +93,7 @@ export default function FilterScreen({ navigation }) {
                 },
               ]}
             >
-              {" "}
-              Supercàrrega{" "}
+              {t("Filters.Supercharge")}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -108,8 +110,7 @@ export default function FilterScreen({ navigation }) {
                 { backgroundColor: preu ? "#D1EABE" : "#FFFFFF" },
               ]}
             >
-              {" "}
-              Preu{" "}
+              {t("Filters.Price")}
             </Text>
           </TouchableOpacity>
           {preu && (
@@ -134,7 +135,7 @@ export default function FilterScreen({ navigation }) {
             </View>
           )}
           <View style={styles.line} />
-          <Text style={styles.valoration}> Valoració </Text>
+          <Text style={styles.valoration}> {t("Filters.Rating")} </Text>
           <View style={styles.slideBar}>
             <Slider
               style={{ width: 200, height: 10 }}
@@ -163,7 +164,7 @@ export default function FilterScreen({ navigation }) {
               setApply(!apply);
             }}
           >
-            <Text style={styles.buttonTxt}>Apply Filters</Text>
+            <Text style={styles.buttonTxt}>{t("Filters.Apply_Filters")}</Text>
           </TouchableOpacity>
         </View>
       </View>

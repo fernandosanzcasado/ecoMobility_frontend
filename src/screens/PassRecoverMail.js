@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Constants from "expo-constants";
-import * as Font from "expo-font";
-
 import {
   StyleSheet,
   Text,
@@ -15,10 +12,15 @@ import {
   SafeAreaView,
 } from "react-native";
 
+import Constants from "expo-constants";
+import * as Font from "expo-font";
+import { useTranslation } from "react-i18next";
+
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
-export default function Login({ navigation }) {
+export default function PassRecoverMail({ navigation }) {
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -38,18 +40,33 @@ export default function Login({ navigation }) {
       <Separator2 />
       <Separator2 />
       <View>
-        <Text> Introduce el código enviado a tu correo electrónico</Text>
-        <TextInput style={styles.tinput} placeholder="Código" />
+        <Text>{t("Pass_Recover_Mail.Write_Email")}</Text>
+        <TextInput
+          style={styles.tinput}
+          placeholder={t("Pass_Recover_Mail.Email")}
+        />
       </View>
       <Separator2 />
       <View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("PasswordChange");
+            navigation.navigate("PassRecoverCodeConfirm");
           }}
         >
-          <Image source={require("../../assets/images/Boton1Continuar.png")} />
+          <Image source={require("../../assets/images/Boton1Buscar.png")} />
+        </TouchableOpacity>
+      </View>
+      <Separator2 />
+      <Separator2 />
+      <View>
+        <TouchableOpacity
+          style={styles.buttonBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Image source={require("../../assets/images/BotonAtras.png")} />
         </TouchableOpacity>
       </View>
       <Separator />
@@ -93,6 +110,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     right: 5,
     margintop: 2000,
+  },
+  buttonBack: {
+    //alignItems: "left",
+    right: -10,
+    margintop: 200,
   },
   separator: {
     marginVertical: 11,
