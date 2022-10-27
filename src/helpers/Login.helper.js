@@ -22,7 +22,6 @@ export const checkTextInputNotEmpty = (email, password) => {
     errorControl(8);
     return false;
   } else {
-    console.log(email.length + " " + password.length);
     errorControl(7);
     return true;
   }

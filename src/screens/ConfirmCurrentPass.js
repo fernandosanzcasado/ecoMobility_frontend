@@ -14,11 +14,13 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
 export default function Login({ navigation }) {
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -38,8 +40,11 @@ export default function Login({ navigation }) {
       <Separator2 />
       <Separator2 />
       <View>
-        <Text> Introduce tu contraseña actual </Text>
-        <TextInput style={styles.tinput} placeholder="Contraseña actual" />
+        <Text>{t("Confirm_Current_Pass.Write_Current_Pass")}</Text>
+        <TextInput
+          style={styles.tinput}
+          placeholder={t("Confirm_Current_Pass.Current_Pass")}
+        />
       </View>
       <Separator2 />
       <View>

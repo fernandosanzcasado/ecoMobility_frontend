@@ -1,4 +1,52 @@
 {
+  "Account_Register": {
+    "Email": "Email",
+    "Name": "Name",
+    "Surnames": "Surnames",
+    "Password": "Password",
+    "Confirm_Password": "Confirm password"
+  },
+  "Confirm_Current_Pass": {
+    "Write_Current_Pass": "Write your current password",
+    "Current_Pass": "Current password"
+  },
+  "Edit_Profile": {
+    "User_Name": "User Name",
+    "Change_Name": "Change name",
+    "Name": "Name",
+    "Change_Surnames": "Change surnames",
+    "Surnames": "Surnames",
+    "Change_Password": "Change password",
+    "Save_Changes": "Save changes",
+    "Eliminate_Account": "Eliminate account"
+  },
+  "Filters": {
+    "Filter_By": "Filter by",
+    "Bike_Stations": "Bike stations",
+    "Electric_Stations": "Electric stations",
+    "Supercharge": "Supercharge",
+    "Price": "Price",
+    "Rating": "Rating",
+    "Apply_Filters": "Apply filters"
+  },
+  "Login": {
+    "Email": "Email",
+    "Password": "Password",
+    "Forgot_Password": "Have you forgotten your password?",
+    "Register_Text": "Not a member yet? Register"
+  },
+  "Pass_Recover_Code_Confirm": {
+    "Write_Code": "Write the confirmation code that you have received",
+    "Code": "Confirmation code"
+  },
+  "Pass_Recover_Mail": {
+    "Write_Email": "Write your email address to send the verification code",
+    "Email": "Email"
+  },
+  "Password_Change": {
+    "New_Password": "New password",
+    "Confirm_New_Password": "Confirm new password"
+  },
   "Profile": {
     "User_Name": "User Name",
     "Edit_Profile": "Edit profile",
@@ -8,12 +56,7 @@
     "Trophys": "Trophys",
     "Logout": "Logout"
   },
-  "Edit_Profile": {
-    "User_Name": "User Name",
-    "Change_User_Name": "Change user name",
-    "Change_Email": "Change email",
-    "Change_Password": "Change password",
-    "Eliminate_Account": "Eliminate account",
-    "Save_Changes": "Save changes"
+  "Search_Bar": {
+    "Search": "Search"
   }
 }
