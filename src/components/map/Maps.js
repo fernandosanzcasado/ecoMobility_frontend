@@ -1,12 +1,15 @@
-import * as React from "react";
-import * as Location from "expo-location";
+import {useState, useEffect} from "react";
 import { StyleSheet } from "react-native";
+
+import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
+import axios from "axios";
+
 import { GOOGLE_KEY } from "@env";
 
 export default function Mapa(props) {
-  const [origin, setOrigin] = React.useState({
+  const [origin, setOrigin] = useState({
     latitude: 41.386976,
     longitude: 2.169998,
   });
@@ -19,7 +22,7 @@ export default function Mapa(props) {
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
   de la posició de l'usuari*/
-  React.useEffect(() => {
+  useEffect(() => {
     getLocationPermission();
   }, []);
 
@@ -36,6 +39,25 @@ export default function Mapa(props) {
     };
     setOrigin(current);
   }
+
+
+
+  const [estaciones, setEstaciones] = useState([]);
+  useEffect(() => {
+    async function getEstaciones() {
+      try {
+        const res = await axios.get(
+          "http://10.0.2.2:3000/api/v1/estaciones/coordenadas"
+        );
+        // console.log(res.data);
+        setEstaciones(res.data);
+        console.log("DEBUG");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getEstaciones();
+  }, []);
 
   return (
     <MapView
@@ -64,6 +86,10 @@ export default function Mapa(props) {
         coordinate={origin}
         onDragEnd={(direction) => setOrigin(direction.nativeEvent.coordinate)}
       />
+
+      {estaciones.map((estacion) => (<Marker key={estacion.ID}
+        coordinate={{longitude: parseFloat(estacion.LONGITUD??0.0), latitude: parseFloat(estacion.LATITUD??0.0)}}
+      />))}
 
       {/* <Marker
         draggable
