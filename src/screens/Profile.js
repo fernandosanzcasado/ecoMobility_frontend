@@ -42,56 +42,64 @@ function Profile({ navigation }) {
           ></Image>
           <Text style={styles.headerText}> {t("Profile.User_Name")} </Text>
         </View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("EditProfile");
-            }}
-            style={styles.separationViews}
-          >
-            <Icon
-              name="pen"
-              color={"#00000"}
-              size={28}
-              style={styles.icons}
-            ></Icon>
-            <Text style={styles.smallText}> {t("Profile.Edit_Profile")} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.separationViews}>
-            <Icon
-              name="calendar-alt"
-              color={"#0E7CE4"}
-              size={31}
-              style={styles.icons}
-            ></Icon>
-            <Text style={styles.smallText}> {t("Profile.My_Calendar")} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.separationViews}>
-            <Icon
-              name="tree"
-              color={"#206D17"}
-              size={36}
-              style={styles.icons}
-            ></Icon>
-            <Text style={styles.smallText}> {t("Profile.My_Forest")} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.separationViews}>
-            <Icon
-              name="headphones-alt"
-              color={"#000000"}
-              size={30}
-              style={styles.icons}
-            ></Icon>
-            <Text style={styles.smallText}> {t("Profile.Technical_Assistance")} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.separationViews}>
-            <Icon
-              name="trophy"
-              color={"#E8C711"}
-              size={28}
-              style={styles.icons}
-            ></Icon>
-            <Text style={styles.smallText}> {t("Profile.Trophys")} </Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("EditProfile");
+          }}
+          style={styles.separationViews}
+        >
+          <Icon
+            name="pen"
+            color={"#00000"}
+            size={28}
+            style={styles.icons}
+          ></Icon>
+          <Text style={styles.smallText}> {t("Profile.Edit_Profile")} </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.separationViews}
+          onPress={() => {
+            navigation.navigate("MyCalendar");
+          }}
+        >
+          <Icon
+            name="calendar-alt"
+            color={"#0E7CE4"}
+            size={31}
+            style={styles.icons}
+          ></Icon>
+          <Text style={styles.smallText}> {t("Profile.My_Calendar")} </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.separationViews}>
+          <Icon
+            name="tree"
+            color={"#206D17"}
+            size={36}
+            style={styles.icons}
+          ></Icon>
+          <Text style={styles.smallText}> {t("Profile.My_Forest")} </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.separationViews}>
+          <Icon
+            name="headphones-alt"
+            color={"#000000"}
+            size={30}
+            style={styles.icons}
+          ></Icon>
+          <Text style={styles.smallText}>
+            {" "}
+            {t("Profile.Technical_Assistance")}{" "}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.separationViews}>
+          <Icon
+            name="trophy"
+            color={"#E8C711"}
+            size={28}
+            style={styles.icons}
+          ></Icon>
+          <Text style={styles.smallText}> {t("Profile.Trophys")} </Text>
+        </TouchableOpacity>
         <View style={styles.flagsView}>
           <TouchableOpacity
             onPress={() => {
@@ -125,7 +133,11 @@ function Profile({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.buttonView}>
-          <Button title={t("Profile.Logout")} color="#27CF10" style={styles.button} />
+          <Button
+            title={t("Profile.Logout")}
+            color="#27CF10"
+            style={styles.button}
+          />
         </View>
       </ScrollView>
     </View>
@@ -166,8 +178,8 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     height: Constants.statusBarHeight * 1.25,
     width: Constants.statusBarHeight * 1.25,
-    marginLeft: Constants.statusBarHeight/2,
-    marginRight: Constants.statusBarHeight/2,
+    marginLeft: Constants.statusBarHeight / 2,
+    marginRight: Constants.statusBarHeight / 2,
   },
   flagsView: {
     paddingTop: Constants.statusBarHeight * 1.75,
@@ -180,8 +192,8 @@ const styles = StyleSheet.create({
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },
-  button:{
-    borderRadius: 30
+  button: {
+    borderRadius: 30,
   },
   picture: {
     marginTop: Constants.statusBarHeight * 1.75,

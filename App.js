@@ -15,6 +15,7 @@ import ApiTestScreen from "./src/screens/ApiTestScreen";
 import Filters from "./src/screens/Filters";
 import SearchBar from "./src/screens/SearchBar";
 import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
+import MyCalendar from "./src/screens/MyCalendar";
 
 const Stack = createStackNavigator();
 
@@ -63,6 +64,7 @@ export default function App({ t }) {
           name="ConfirmCurrentPass"
           component={ConfirmCurrentPass}
         ></Stack.Screen>
+        <Stack.Screen name="MyCalendar" component={MyCalendar}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
