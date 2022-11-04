@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Calendar, Agenda } from "react-native-calendars";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { Agenda } from "react-native-calendars";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, FAB } from "react-native-paper";
 import * as Animatable from "react-native-animatable";
+import { color } from "react-native-reanimated";
 
 const timeToString = (time) => {
   const date = new Date(time);
   return date.toISOString().split("T")[0];
 };
 
+const windowWidth = Dimensions.get("window");
+
 export default function MyCalendar({ navigation }) {
   const [items, setItems] = useState({
-    "2022-11-02": [{ name: "test1", kmC: "30", kmB: "2" }],
-    "2022-11-03": [{ name: "test2", kmC: "50", kmB: "3" }],
+    "2022-11-01": [{ name: "Test0", kmC: "20", kmB: "1" }],
+    "2022-11-02": [{ name: "Test1", kmC: "30", kmB: "2" }],
+    "2022-11-03": [{ name: "Test2", kmC: "50", kmB: "3" }],
   });
 
   const [newitem, setNew] = useState(false);
@@ -61,12 +66,14 @@ export default function MyCalendar({ navigation }) {
           <Card.Content>
             <View
               style={{
-                flexDirection: "row",
+                flexDirection: "column",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
             >
               <Text>{item.name}</Text>
+              <Text>Quilòmetres amb cotxe: {item.kmC}</Text>
+              <Text>Quilòmetres amb bici: {item.kmB}</Text>
             </View>
           </Card.Content>
         </Card>
@@ -91,34 +98,18 @@ export default function MyCalendar({ navigation }) {
         //   agendaKnobColor: "green",
         // }}
         renderEmptyData={() => {
-          return <Text>No hi ha esdeveniments disponibles...</Text>;
+          return (
+            <Text
+              style={{
+                alignSelf: "center",
+                paddingTop: Constants.statusBarHeight * 2,
+              }}
+            >
+              No hi ha esdeveniments disponibles...
+            </Text>
+          );
         }}
-      />
-      {funcs && (
-        <Animatable.View
-          animation="bounceInUp"
-          style={{ flexDirection: "row" }}
-        >
-          <FAB
-            icon="minus"
-            style={[styles.fab, { bottom: Constants.statusBarHeight * 2 }]}
-            small
-          />
-          <FAB
-            icon="plus"
-            style={[styles.fab, { bottom: Constants.statusBarHeight * 4 }]}
-            small
-            onPress={() => setNew(!newitem)}
-          />
-        </Animatable.View>
-      )}
-      {newitem && <View></View>}
-      <FAB
-        icon="plus"
-        style={styles.fab}
-        color="#FFFFFF"
-        animated={true}
-        onPress={() => setFuncs(!funcs)}
+        //style={{ backgroundColor: "rgba(52, 52, 52, 0.8)" }}
       />
     </SafeAreaView>
   );
@@ -129,13 +120,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     marginVertical: Constants.statusBarHeight / 5,
-  },
-  fab: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "#538BB5",
-    size: "large",
   },
 });
