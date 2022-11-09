@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Touchable,
+  ViewComponent,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -17,8 +18,18 @@ export default function ChargePoint({ navigation }) {
   return (
     <View>
       <SafeAreaView style={styles.capcalera}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: Constants.statusBarHeight / 2,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
             <Icon
               name="arrow-left"
               size={Constants.statusBarHeight / 1.5}
@@ -45,8 +56,8 @@ export default function ChargePoint({ navigation }) {
             fontWeight: "500",
             alignSelf: "center",
             color: "#FFFFFF",
-            marginTop: Constants.statusBarHeight / 2,
-            marginBottom: Constants.statusBarHeight / 2,
+            marginTop: Constants.statusBarHeight / 1.5,
+            marginBottom: Constants.statusBarHeight,
           }}
         >
           Nombre de la estación
@@ -92,7 +103,11 @@ export default function ChargePoint({ navigation }) {
       </View>
       <View style={styles.separador}></View>
       <View style={styles.container}>
-        <Icon name="plug" size={Constants.statusBarHeight}></Icon>
+        <Icon
+          name="plug"
+          size={Constants.statusBarHeight}
+          color="#2B7F9E"
+        ></Icon>
         <Text
           style={{ alignSelf: "center", marginLeft: Constants.statusBarHeight }}
         >
@@ -116,7 +131,8 @@ export default function ChargePoint({ navigation }) {
       <View style={styles.container}>
         <Icon
           name="exclamation-triangle"
-          size={Constants.statusBarHeight / 1.25}
+          size={Constants.statusBarHeight}
+          color="#F0B523"
         ></Icon>
         <Text
           style={{
@@ -128,6 +144,57 @@ export default function ChargePoint({ navigation }) {
         </Text>
       </View>
       <View style={styles.separador}></View>
+      <View style={styles.buttons}>
+        <View style={{ flexDirection: "column" }}>
+          <Text style={{ marginTop: Constants.statusBarHeight }}>Check In</Text>
+          <Button
+            icon="format-list-checks"
+            labelStyle={{ fontSize: Constants.statusBarHeight * 1.5 }}
+            theme={{
+              colors: {
+                primary: "#51E15E",
+              },
+            }}
+            contentStyle={{ height: 60, width: 60 }}
+          ></Button>
+        </View>
+        <View
+          style={{
+            marginTop: Constants.statusBarHeight * 1.5,
+            flexDirection: "column",
+          }}
+        >
+          <Text style={{ marginTop: Constants.statusBarHeight }}>Anar-hi</Text>
+          <Button
+            icon="sign-direction"
+            labelStyle={{ fontSize: Constants.statusBarHeight * 1.5 }}
+            theme={{
+              colors: {
+                primary: "#51BAE1",
+              },
+            }}
+            contentStyle={{ height: 60, width: 60 }}
+          ></Button>
+        </View>
+        <View style={{ flexDirection: "column" }}>
+          <Text style={{ marginTop: Constants.statusBarHeight }}>
+            Check Out
+          </Text>
+          <Button
+            icon="playlist-remove"
+            labelStyle={{ fontSize: Constants.statusBarHeight * 1.5 }}
+            theme={{
+              colors: {
+                primary: "#E14C27",
+              },
+            }}
+            contentStyle={{ height: 60, width: 80 }}
+            onPress={() => {
+              console.log("CHECK OUT");
+            }}
+          ></Button>
+        </View>
+      </View>
     </View>
   );
 }
@@ -135,7 +202,7 @@ export default function ChargePoint({ navigation }) {
 const styles = StyleSheet.create({
   capcalera: {
     backgroundColor: "#2D803F",
-    height: "40%",
+    height: "35%",
     width: "100%",
     flexDirection: "column",
     marginBottom: Constants.statusBarHeight,
@@ -151,5 +218,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     marginLeft: Constants.statusBarHeight,
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginLeft: Constants.statusBarHeight,
+    marginRight: Constants.statusBarHeight,
   },
 });
