@@ -24,7 +24,7 @@ export default function App({ t }) {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ChargePoint"
+        initialRouteName="MapScreen"
         screenOptions={{
           headerShown: false,
         }}

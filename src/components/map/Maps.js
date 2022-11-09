@@ -1,11 +1,12 @@
-import {useState, useEffect} from "react";
-import { StyleSheet } from "react-native";
+import { useState, useEffect } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import axios from "axios";
 
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { GOOGLE_KEY } from "@env";
 
 export default function Mapa(props) {
@@ -39,8 +40,6 @@ export default function Mapa(props) {
     };
     setOrigin(current);
   }
-
-
 
   const [estaciones, setEstaciones] = useState([]);
   useEffect(() => {
@@ -81,15 +80,39 @@ export default function Mapa(props) {
       //   altitude: 0,
       // }}
     >
-      <Marker
-        draggable
-        coordinate={origin}
-        onDragEnd={(direction) => setOrigin(direction.nativeEvent.coordinate)}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          console.log("AAAAAAAAAAAAAAAAAAAA");
+        }}
+      >
+        <Marker
+          coordinate={origin}
+          onDragEnd={(direction) => setOrigin(direction.nativeEvent.coordinate)}
+          onPress={() => {
+            console.log("holabuenastardes");
+          }}
+        >
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Icon name="charging-station" size={20}></Icon>
+            {/* <Text style={{ backgroundColor: "red" }}>S</Text> */}
+          </View>
+        </Marker>
+      </TouchableOpacity>
 
-      {estaciones.map((estacion) => (<Marker key={estacion.ID}
-        coordinate={{longitude: parseFloat(estacion.LONGITUD??0.0), latitude: parseFloat(estacion.LATITUD??0.0)}}
-      />))}
+      {estaciones.map((estacion) => (
+        <Marker
+          key={estacion.ID}
+          coordinate={{
+            longitude: parseFloat(estacion.LONGITUD ?? 0.0),
+            latitude: parseFloat(estacion.LATITUD ?? 0.0),
+          }}
+        />
+      ))}
 
       {/* <Marker
         draggable

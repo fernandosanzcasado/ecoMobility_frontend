@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Touchable,
   ViewComponent,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -156,6 +157,9 @@ export default function ChargePoint({ navigation }) {
               },
             }}
             contentStyle={{ height: 60, width: 60 }}
+            onPress={() => {
+              console.log("Check IN");
+            }}
           ></Button>
         </View>
         <View
