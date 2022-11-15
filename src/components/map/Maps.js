@@ -124,15 +124,16 @@ export default function Mapa(props) {
               setId(estacion.ID);
               //console.log(estacion.LONGITUD, "\n", estacion.LATITUD);
             }}
+            tracksViewChanges={false}
           >
-            {/* <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Icon name="charging-station" size={20}></Icon>
-          </View> */}
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Icon name="charging-station" size={20}></Icon>
+            </View>
           </Marker>
         ))}
 
