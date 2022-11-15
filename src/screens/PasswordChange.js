@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
+const Separator3 = () => <View style={styles.separator3} />;
 
 export default function PasswordChange({ navigation }) {
   const possiblePreviousScreens = ["Login", "EditProfile"];
@@ -131,18 +132,27 @@ export default function PasswordChange({ navigation }) {
       </View>
       <Separator2 />
       <Separator2 />
-      <View>
-        <TouchableOpacity
-          style={styles.button}
+      <View style={styles.ChangePassButton}>
+        <Button
+          title={t("Pass_Recover_Code_Confirm.Continue_Button")}
+          color="#27CF10"
+          style={styles.buttonChangePass}
           onPress={() => {
             if (checkTextInputNotEmpty(password1, password2)) {
               checkPassword(password1, password2);
             }
           }}
+        />
+      </View>
+      <Separator3 />
+      <View>
+        <TouchableOpacity
+          style={styles.buttonBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
         >
-          <Image
-            source={require("../../assets/images/Boton1CambiarContraseña.png")}
-          />
+          <Image source={require("../../assets/images/BotonAtras.png")} />
         </TouchableOpacity>
       </View>
       <Separator />
@@ -172,6 +182,14 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
   },
+  ChangePassButton: {
+    paddingTop: Constants.statusBarHeight * 0.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  buttonChangePass: {
+    orderRadius: 30,
+  },
   but: {
     flex: 1,
     margin: 20,
@@ -187,5 +205,8 @@ const styles = StyleSheet.create({
   },
   separator2: {
     marginVertical: 5,
+  },
+  separator3: {
+    marginVertical: 80,
   },
 });

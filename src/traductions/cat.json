@@ -4,7 +4,8 @@
     "Name": "Nom",
     "Surnames": "Cognoms",
     "Password": "contrasenya",
-    "Confirm_Password": "Confirmar contrasenya"
+    "Confirm_Password": "Confirmar contrasenya",
+    "Register_Button": "Regístrat"
   },
   "Confirm_Current_Pass": {
     "Write_Current_Pass": "Introdueix la teva contrasenya actual",
@@ -33,19 +34,23 @@
     "Email": "Email",
     "Password": "Contrasenya",
     "Forgot_Password": "Has oblidat la teva contrasenya?",
-    "Register_Text": "No tens compte? Registrat"
+    "Register_Text": "No tens compte? Registrat",
+    "Login_Button": "Iniciar sessió"
   },
   "Pass_Recover_Code_Confirm": {
     "Write_Code": "Introdueix el codi enviat al teu correu electronic",
-    "Code": "Codi de confirmació"
+    "Code": "Codi de confirmació",
+    "Continue_Button": "Continuar"
   },
   "Pass_Recover_Mail": {
     "Write_Email": "Introdueix el teu correu electronic per enviar el codi",
-    "Email": "Correu"
+    "Email": "Correu",
+    "Search_Button": "Buscar"
   },
   "Password_Change": {
     "New_Password": "Nova contrasenya",
-    "Confirm_New_Password": "Confirmar nova contrasenya"
+    "Confirm_New_Password": "Confirmar nova contrasenya",
+    "Change_Password_Button": "Cambiar contrasenya"
   },
   "Profile": {
     "User_Name": "Nom Usuari",

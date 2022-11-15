@@ -1,6 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
+import axios from "axios";
 
 import {
   StyleSheet,
@@ -22,6 +23,8 @@ import {
 } from "../helpers/Login.helper";
 import { useTranslation } from "react-i18next";
 
+const baseURL = "http://13.39.105.250:3000/api/v1/users/login";
+
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 
@@ -30,23 +33,49 @@ const useValidation = () => {
 };
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
   const validation = useValidation();
 
   const clearText = () => {
-    setEmail("");
-    setPassword("");
+    setUserEmail("");
+    setUserPassword("");
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+
+  function createPostLogin() {
+    console.log("Entro a createPostLogin");
+    console.log(userEmail + userPassword);
+    axios
+      .post(baseURL, {
+        //body: '"email":"' + email + '", "password":"' + password + '"',
+        email: userEmail,
+        password: userPassword,
+      })
+      .then((response) => {
+        if (response.Name == "test") {
+          // console.log(email + "  " + password);
+          navigation.navigate("MapScreen");
+        }
+      });
+    console.log(
+      "Lleago al final de createPostLogin   " + userEmail + " " + userPassword
+    );
+  }
+  /*
+  useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
       clearText();
     });
-
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return chargeView;
   }, [navigation]);
+  */
 
   const { t } = useTranslation();
 
@@ -73,8 +102,8 @@ export default function Login({ navigation }) {
           style={styles.tinput}
           placeholder={t("Login.Email")}
           on
-          onChangeText={(newtext) => setEmail(newtext)}
-          defaultValue={email}
+          onChangeText={(newtext) => setUserEmail(newtext)}
+          defaultValue={userEmail}
         />
       </View>
       <Separator2 />
@@ -82,25 +111,24 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.tinput}
           placeholder={t("Login.Password")}
-          onChangeText={(newtext) => setPassword(newtext)}
-          defaultValue={password}
+          onChangeText={(newtext) => setUserPassword(newtext)}
+          defaultValue={userPassword}
           secureTextEntry
         />
       </View>
       <Separator />
-      <View>
-        <TouchableOpacity
-          style={styles.button}
+      <View style={styles.LoginButton}>
+        <Button
+          title={t("Login.Login_Button")}
+          color="#27CF10"
+          style={styles.buttonLogin}
           onPress={() => {
-            if (validation.checkTextInputNotEmpty(email, password)) {
+            navigation.navigate("MapScreen");
+            if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
               navigation.navigate("MapScreen");
             }
           }}
-        >
-          <Image
-            source={require("../../assets/images/Boton1IniciaSesion.png")}
-          />
-        </TouchableOpacity>
+        />
       </View>
       <Separator />
       <View>
@@ -156,10 +184,13 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
   },
-  but: {
-    flex: 1,
-    margin: 20,
-    margintop: 22,
+  LoginButton: {
+    paddingTop: Constants.statusBarHeight * 0.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  buttonLogin: {
+    orderRadius: 30,
   },
   button: {
     alignItems: "center",

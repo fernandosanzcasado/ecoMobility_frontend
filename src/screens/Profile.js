@@ -137,6 +137,9 @@ function Profile({ navigation }) {
             title={t("Profile.Logout")}
             color="#27CF10"
             style={styles.button}
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
           />
         </View>
       </ScrollView>

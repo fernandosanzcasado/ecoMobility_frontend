@@ -107,9 +107,11 @@ export default function Login({ navigation }) {
         </View>
       </ScrollView>
       <Separator2 />
-      <View>
-        <TouchableOpacity
-          style={styles.button}
+      <View style={styles.RegisterButton}>
+        <Button
+          title={t("Login.Login_Button")}
+          color="#27CF10"
+          style={styles.buttonRegister}
           onPress={() => {
             if (
               validation.checkTextInputNotEmpty(
@@ -131,9 +133,7 @@ export default function Login({ navigation }) {
             if (checkEmail(email) && checkUser(user))
               checkPassword(password1, password2);*/
           }}
-        >
-          <Image source={require("../../assets/images/Boton1.png")} />
-        </TouchableOpacity>
+        />
       </View>
       <Separator2 />
       <View>
@@ -180,6 +180,14 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 1,
+  },
+  RegisterButton: {
+    paddingTop: Constants.statusBarHeight * 0.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  buttonRegister: {
+    orderRadius: 30,
   },
   but: {
     flex: 1,

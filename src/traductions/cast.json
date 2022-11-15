@@ -4,7 +4,8 @@
     "Name": "Nombre",
     "Surnames": "Apellidos",
     "Password": "Contraseña",
-    "Confirm_Password": "Confirmar contraseña"
+    "Confirm_Password": "Confirmar contraseña",
+    "Register_Button": "Regístrate"
   },
   "Confirm_Current_Pass": {
     "Write_Current_Pass": "Introduce tu contraseña actual",
@@ -33,19 +34,23 @@
     "Email": "Email",
     "Password": "Contraseña",
     "Forgot_Password": "¿Has olvidado tu contraseña?",
-    "Register_Text": "¿No tienes cuenta? Regístarte"
+    "Register_Text": "¿No tienes cuenta? Regístarte",
+    "Login_Button": "Iniciar sesión"
   },
   "Pass_Recover_Code_Confirm": {
     "Write_Code": "Introduce el código enviado a tu correo electrónico",
-    "Code": "Código de confirmación"
+    "Code": "Código de confirmación",
+    "Continue_Button": "Continuar"
   },
   "Pass_Recover_Mail": {
     "Write_Email": "Introduce tu correo electrónico para enviar el código",
-    "Email": "Correo"
+    "Email": "Correo",
+    "Search_Button": "Buscar"
   },
   "Password_Change": {
     "New_Password": "Nueva contraseña",
-    "Confirm_New_Password": "Confirmar nueva contraseña"
+    "Confirm_New_Password": "Confirmar nueva contraseña",
+    "Change_Password_Button": "Cambiar contraseña"
   },
   "Profile": {
     "User_Name": "Nombre Usuario",

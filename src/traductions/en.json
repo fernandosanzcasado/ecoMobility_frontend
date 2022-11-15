@@ -4,7 +4,8 @@
     "Name": "Name",
     "Surnames": "Surnames",
     "Password": "Password",
-    "Confirm_Password": "Confirm password"
+    "Confirm_Password": "Confirm password",
+    "Register_Button": "Sing up"
   },
   "Confirm_Current_Pass": {
     "Write_Current_Pass": "Write your current password",
@@ -33,19 +34,23 @@
     "Email": "Email",
     "Password": "Password",
     "Forgot_Password": "Have you forgotten your password?",
-    "Register_Text": "Not a member yet? Register"
+    "Register_Text": "Not a member yet? Register",
+    "Login_Button": "Login"
   },
   "Pass_Recover_Code_Confirm": {
     "Write_Code": "Write the confirmation code that you have received",
-    "Code": "Confirmation code"
+    "Code": "Confirmation code",
+    "Continue_Button": "Continue"
   },
   "Pass_Recover_Mail": {
     "Write_Email": "Write your email address to send the verification code",
-    "Email": "Email"
+    "Email": "Email",
+    "Search_Button": "Search"
   },
   "Password_Change": {
     "New_Password": "New password",
-    "Confirm_New_Password": "Confirm new password"
+    "Confirm_New_Password": "Confirm new password",
+    "Change_Password_Button": "Change password"
   },
   "Profile": {
     "User_Name": "User Name",

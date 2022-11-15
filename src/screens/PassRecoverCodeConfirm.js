@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
+const Separator3 = () => <View style={styles.separator3} />;
 
 export default function PassRecoverCodeConfirm({ navigation }) {
   const { t } = useTranslation();
@@ -47,14 +48,25 @@ export default function PassRecoverCodeConfirm({ navigation }) {
         />
       </View>
       <Separator2 />
-      <View>
-        <TouchableOpacity
-          style={styles.button}
+      <View style={styles.CodeButton}>
+        <Button
+          title={t("Pass_Recover_Code_Confirm.Continue_Button")}
+          color="#27CF10"
+          style={styles.buttonCode}
           onPress={() => {
             navigation.navigate("PasswordChange");
           }}
+        />
+      </View>
+      <Separator3 />
+      <View>
+        <TouchableOpacity
+          style={styles.buttonBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
         >
-          <Image source={require("../../assets/images/Boton1Continuar.png")} />
+          <Image source={require("../../assets/images/BotonAtras.png")} />
         </TouchableOpacity>
       </View>
       <Separator />
@@ -75,6 +87,14 @@ const styles = StyleSheet.create({
   lema: {
     justifyContent: "center",
     left: 70,
+  },
+  CodeButton: {
+    paddingTop: Constants.statusBarHeight * 0.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  buttonCode: {
+    orderRadius: 30,
   },
   tinput: {
     flexDirection: "row",
@@ -99,5 +119,8 @@ const styles = StyleSheet.create({
   },
   separator2: {
     marginVertical: 5,
+  },
+  separator3: {
+    marginVertical: 110,
   },
 });
