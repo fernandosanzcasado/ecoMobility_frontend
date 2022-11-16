@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 
 import * as Location from "expo-location";
-import MapView, { Marker } from "react-native-maps";
+import { Marker } from "react-native-maps";
+import MapView from "react-native-map-clustering";
 import MapViewDirections from "react-native-maps-directions";
 import axios from "axios";
-
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { GOOGLE_KEY } from "@env";
+
+import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
 
 export default function Mapa(props) {
@@ -50,9 +51,8 @@ export default function Mapa(props) {
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          "http://13.39.105.250:3000/api/v1/estaciones/coordenadas"
+          `http://${BASE_URL}/api/v1/estaciones/coordenadas`
         );
-        // console.log(res.data);
         setEstaciones(res.data);
         console.log("DEBUG");
       } catch (error) {
@@ -85,6 +85,7 @@ export default function Mapa(props) {
         //   heading: 0,
         //   altitude: 0,
         // }}
+        radius={100}
       >
         <TouchableOpacity
           onPress={() => {
@@ -106,7 +107,7 @@ export default function Mapa(props) {
                 justifyContent: "center",
               }}
             >
-              <Icon name="charging-station" size={20}></Icon>
+              <Icon name="user-alt" size={20}></Icon>
               {/* <Text style={{ backgroundColor: "red" }}>S</Text> */}
             </View>
           </Marker>
