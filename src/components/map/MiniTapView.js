@@ -6,17 +6,16 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 
 export default function MiniTapView({ ID }) {
-  console.log(ID);
   const [est, setEst] = useState([]);
   useEffect(() => {
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          "http://13.39.105.250:3000/api/v1/estaciones/coordenadas" + ID
+          "http://13.39.105.250:3000/api/v1/estaciones/" + ID
         );
         setEst(res.data);
         //console.log(res.data);
-        //console.log(est);
+        console.log(est);
       } catch (error) {
         console.log(error);
       }
@@ -28,7 +27,7 @@ export default function MiniTapView({ ID }) {
     <View style={styles.miniview}>
       <Card style={styles.cardStyle}>
         <Card.Content>
-          <Title>Estación:</Title>
+          <Title> Estación: {est.ID}</Title>
           <View style={{ flexDirection: "row" }}>
             <Icon name="euro" size={Constants.statusBarHeight / 1.75}></Icon>
             <Text style={{ color: "#000000" }}>HOLA: {est.ID}</Text>
