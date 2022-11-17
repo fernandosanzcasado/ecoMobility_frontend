@@ -11,7 +11,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
 
-export default function Mapa(props) {
+export default function Mapa(props, navigation) {
   const [origin, setOrigin] = useState({
     latitude: 41.386976,
     longitude: 2.169998,
@@ -64,7 +64,7 @@ export default function Mapa(props) {
 
   return (
     <>
-      {tapview && <MiniTapView ID={id} />}
+      {tapview && <MiniTapView ID={id} navigation={navigation} />}
       <MapView
         // style={{
         //   height: props.heightMap,
@@ -85,7 +85,7 @@ export default function Mapa(props) {
         //   heading: 0,
         //   altitude: 0,
         // }}
-        radius={100}
+        radius={50}
       >
         <TouchableOpacity
           onPress={() => {
@@ -97,9 +97,6 @@ export default function Mapa(props) {
             onDragEnd={(direction) =>
               setOrigin(direction.nativeEvent.coordinate)
             }
-            onPress={() => {
-              console.log("holabuenastardes");
-            }}
           >
             <View
               style={{
