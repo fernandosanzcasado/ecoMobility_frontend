@@ -23,7 +23,7 @@ import {
 } from "../helpers/Login.helper";
 import { useTranslation } from "react-i18next";
 
-const baseURL = "http://13.39.105.250:3000/api/v1/users/login";
+const loginURL = "http://13.39.105.250:3000/api/v1/users/login";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -43,7 +43,7 @@ export default function Login({ navigation }) {
   };
 
   useEffect(() => {
-    axios.get(baseURL).then((response) => {
+    axios.get(loginURL).then((response) => {
       setPost(response.data);
     });
   }, []);
@@ -52,13 +52,13 @@ export default function Login({ navigation }) {
     console.log("Entro a createPostLogin");
     console.log(userEmail + userPassword);
     axios
-      .post(baseURL, {
+      .post(loginURL, {
         //body: '"email":"' + email + '", "password":"' + password + '"',
         email: userEmail,
         password: userPassword,
       })
       .then((response) => {
-        if (response.Name == "test") {
+        if (response.status == "") {
           // console.log(email + "  " + password);
           navigation.navigate("MapScreen");
         }
@@ -125,7 +125,8 @@ export default function Login({ navigation }) {
           onPress={() => {
             navigation.navigate("MapScreen");
             if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
-              navigation.navigate("MapScreen");
+              createPostLogin();
+              //navigation.navigate("MapScreen");
             }
           }}
         />
