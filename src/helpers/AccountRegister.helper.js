@@ -76,7 +76,7 @@ export const checkPassword = (password1, password2) => {
     } else {
       //alert("Te has registrado satisfactoriamente");
       //navigation.navigate("Login");
-      errorControl(7);
+      //errorControl(7);
       return true;
     }
   } else {

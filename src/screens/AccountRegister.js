@@ -15,6 +15,9 @@ import {
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
+
+const registerURL = "http://13.39.105.250:3000/api/v1/users/register";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -25,6 +28,7 @@ import {
   checkUser,
   checkPassword,
   checkPasswordRequeriments,
+  errorControl,
 } from "../helpers/AccountRegister.helper";
 
 const useValidation = () => {
@@ -38,13 +42,31 @@ const useValidation = () => {
 };
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [user, setUser] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userSurname, setUserSurname] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const validation = useValidation();
 
   const { t } = useTranslation();
+
+  async function createPostRegister() {
+    axios
+      .post(registerURL, {
+        email: userEmail,
+        name: userName,
+        surnames: userSurname,
+        password: password1,
+      })
+      .then(function (response) {
+        errorControl(7);
+        navigation.navigate("Login");
+      })
+      .catch(function (error) {
+        errorControl(2);
+      });
+  }
 
   return (
     <SafeAreaView style={styles.container1}>
@@ -67,24 +89,24 @@ export default function Login({ navigation }) {
           <TextInput
             style={styles.tinput}
             placeholder={t("Account_Register.Email")}
-            onChangeText={(newtext) => setEmail(newtext)}
-            defaultValue={email}
+            onChangeText={(newtext) => setUserEmail(newtext)}
+            defaultValue={userEmail}
           />
         </View>
         <View>
           <TextInput
             style={styles.tinput}
             placeholder={t("Account_Register.Name")}
-            onChangeText={(newText) => setUser(newText)}
-            defaultValue={user}
+            onChangeText={(newText) => setUserName(newText)}
+            defaultValue={userName}
           />
         </View>
         <View>
           <TextInput
             style={styles.tinput}
             placeholder={t("Account_Register.Surnames")}
-            onChangeText={(newText) => setUser(newText)}
-            defaultValue={user}
+            onChangeText={(newText) => setUserSurname(newText)}
+            defaultValue={userSurname}
           />
         </View>
         <View>
@@ -109,29 +131,26 @@ export default function Login({ navigation }) {
       <Separator2 />
       <View style={styles.RegisterButton}>
         <Button
-          title={t("Login.Login_Button")}
+          title={t("Account_Register.Register_Button")}
           color="#27CF10"
           style={styles.buttonRegister}
           onPress={() => {
             if (
               validation.checkTextInputNotEmpty(
-                email,
-                user,
+                userEmail,
+                userName,
                 password1,
                 password2
               )
             ) {
-              if (validation.checkEmail(email)) {
-                if (validation.checkUser(user)) {
+              if (validation.checkEmail(userEmail)) {
+                if (validation.checkUser(userName)) {
                   if (validation.checkPassword(password1, password2)) {
-                    navigation.navigate("Login");
+                    createPostRegister();
                   }
                 }
               }
             }
-            /*
-            if (checkEmail(email) && checkUser(user))
-              checkPassword(password1, password2);*/
           }}
         />
       </View>
