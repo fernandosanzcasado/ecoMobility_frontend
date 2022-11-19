@@ -39,7 +39,7 @@ export default function MiniTapView({ ID, navigation }) {
           </View>
           <View style={{ flexDirection: "row" }}>
             <Icon name="plug" size={Constants.statusBarHeight / 2}></Icon>
-            <Text>Schuko</Text>
+            <Text>{est.TIPUS_CONNEXIÓ}</Text>
           </View>
         </Card.Content>
         <Card.Actions style={{ flexDirection: "column" }}>
