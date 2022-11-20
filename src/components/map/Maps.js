@@ -11,19 +11,16 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
 
-export default function Mapa(props, navigation) {
+export default function Mapa({ style, navigation }) {
   const [origin, setOrigin] = useState({
     latitude: 41.386976,
     longitude: 2.169998,
   });
 
+  const [destination, setDestination] = useState({});
+
   const [tapview, setTapView] = useState(false);
   const [id, setId] = useState("");
-
-  // const [destination, setDestination] = React.useState({
-  //   latitude: 41.396976,
-  //   longitude: 2.169998,
-  // });
 
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
@@ -62,15 +59,26 @@ export default function Mapa(props, navigation) {
     getEstaciones();
   }, []);
 
+  const hideTapView = () => {
+    setTapView(false);
+  };
+
   return (
     <>
-      {tapview && <MiniTapView ID={id} navigation={navigation} />}
+      {tapview && (
+        <MiniTapView
+          ID={id}
+          navigation={navigation}
+          hideFunction={hideTapView}
+        />
+      )}
+      {/* {tapview && <MiniTapView ID={id} navigation={navigation} />} */}
       <MapView
         // style={{
         //   height: props.heightMap,
         //   width: props.widthMap,
         // }}
-        style={[styles.map, props.style]}
+        style={[styles.map, style]}
         initialRegion={{
           latitude: origin.latitude,
           longitude: origin.longitude,

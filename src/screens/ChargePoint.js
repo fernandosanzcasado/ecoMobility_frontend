@@ -14,9 +14,9 @@ import Constants from "expo-constants";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-export default function ChargePoint({ navigation }) {
+export default function ChargePoint({ route, navigation }) {
   [favourite, setFavourite] = useState(false);
-
+  const { idStation } = route.params;
   //Pillar los atributos y en caso de que estén vacíos poner un booleano a false
   //renderizar los atributos de la estación en función de los booleanos
 
@@ -65,7 +65,7 @@ export default function ChargePoint({ navigation }) {
             marginBottom: Constants.statusBarHeight,
           }}
         >
-          Nombre de la estación
+          Nombre de la estación + {idStation}
         </Text>
         <View
           style={{

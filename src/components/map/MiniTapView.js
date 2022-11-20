@@ -1,22 +1,34 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import React, { useState, useEffect } from "react";
-import { Card, Title, Button, TextInput } from "react-native-paper";
+
+import { Card, Button } from "react-native-paper";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
+import OutsidePressHandler from "react-native-outside-press";
 import { BASE_URL } from "@env";
 
-export default function MiniTapView({ ID, navigation }) {
-  const [est, setEst] = useState([]);
+const ancho = Dimensions.get("window").width;
+console.log(ancho);
+const alto = Dimensions.get("window").height;
+console.log(alto);
 
+export default function MiniTapView({ ID, navigation, hideFunction }) {
+  const [est, setEst] = useState(true);
   useEffect(() => {
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          `http://${BASE_URL}/api/v1/estaciones/` + ID
+          `http://${BASE_URL}/api/v1/estaciones/${ID}`
         );
         setEst(res.data);
-        console.log(est);
       } catch (error) {
         console.log(error);
       }
@@ -24,8 +36,17 @@ export default function MiniTapView({ ID, navigation }) {
     getEstaciones();
   }, []);
 
+  const handlePressOut = () => {
+    hideFunction();
+  };
+
   return (
-    <View style={styles.miniview}>
+    <OutsidePressHandler
+      onOutsidePress={() => {
+        hideFunction();
+      }}
+      style={styles.miniview}
+    >
       <Card style={styles.cardStyle}>
         <Card.Content>
           <Text style={styles.Title}>{est.ADREÇA}</Text>
@@ -50,15 +71,16 @@ export default function MiniTapView({ ID, navigation }) {
                 primary: "#FFFFFF",
               },
             }}
-            onPress={() => {
-              navigation.navigate("SearchBar");
-            }}
             labelStyle={{ fontSize: 10 }}
+            onPress={() => {}}
           >
             ANAR-HI
           </Button>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
           >
             <Button
               labelStyle={{ fontSize: Constants.statusBarHeight / 3.5 }}
@@ -66,6 +88,9 @@ export default function MiniTapView({ ID, navigation }) {
                 colors: {
                   primary: "#518BDF",
                 },
+              }}
+              onPress={() => {
+                navigation.navigate("ChargePoint", { idStation: ID });
               }}
             >
               Más información
@@ -78,13 +103,16 @@ export default function MiniTapView({ ID, navigation }) {
                 },
               }}
               style={{ marginRight: 5 }}
+              onPress={() => {
+                hideFunction();
+              }}
             >
               Cancelar
             </Button>
           </View>
         </Card.Actions>
       </Card>
-    </View>
+    </OutsidePressHandler>
   );
 }
 
