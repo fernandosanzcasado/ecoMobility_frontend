@@ -23,7 +23,7 @@ import {
 } from "../helpers/Login.helper";
 import { useTranslation } from "react-i18next";
 
-const loginURL = "http://13.39.105.250:3000/api/v1/users/login";
+const loginURL = "http://13.39.20.131:3000/api/v1/users/login";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -42,39 +42,34 @@ export default function Login({ navigation }) {
     setUserPassword("");
   };
 
-  useEffect(() => {
-    axios.get(loginURL).then((response) => {
-      setPost(response.data);
-    });
-  }, []);
-
-  function createPostLogin() {
-    console.log("Entro a createPostLogin");
-    console.log(userEmail + userPassword);
+  async function createPostLogin() {
     axios
       .post(loginURL, {
-        //body: '"email":"' + email + '", "password":"' + password + '"',
         email: userEmail,
         password: userPassword,
       })
-      .then((response) => {
-        if (response.status == "") {
-          // console.log(email + "  " + password);
-          navigation.navigate("MapScreen");
-        }
+      .then(function (response) {
+        //escribirCurrentUser(response.data);
+        errorControl(7);
+        navigation.navigate("MapScreen");
+      })
+      .catch(function (error) {
+        console.log(error);
+        errorControl(2);
       });
-    console.log(
-      "Lleago al final de createPostLogin   " + userEmail + " " + userPassword
-    );
   }
+
   /*
-  useEffect(() => {
-    const chargeView = navigation.addListener("focus", () => {
-      clearText();
+  function escribirCurrentUser(user) {
+    fs.writeFileSync("../helpers/CurrentUser.json", data, (err) => {
+      if (err) {
+        console.log("Error writing file", err);
+      } else {
+        console.log("JSON data is written to the file successfully");
+      }
     });
-    // Return the function to unsubscribe from the event so it gets removed on unmount
-    return chargeView;
-  }, [navigation]);
+  }
+
   */
 
   const { t } = useTranslation();

@@ -54,7 +54,7 @@ export default function Login({ navigation }) {
             navigation.navigate("PasswordChange");
           }}
         >
-          <Image source={require("../../assets/images/Boton1Buscar.png")} />
+          <Image source={require("../../assets/images/BotonAtras.png")} />
         </TouchableOpacity>
       </View>
       <Separator2 />

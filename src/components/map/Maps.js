@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 
 import * as Location from "expo-location";
@@ -39,8 +39,6 @@ export default function Mapa(props) {
     };
     setOrigin(current);
   }
-
-
 
   const [estaciones, setEstaciones] = useState([]);
   useEffect(() => {
@@ -87,9 +85,15 @@ export default function Mapa(props) {
         onDragEnd={(direction) => setOrigin(direction.nativeEvent.coordinate)}
       />
 
-      {estaciones.map((estacion) => (<Marker key={estacion.ID}
-        coordinate={{longitude: parseFloat(estacion.LONGITUD??0.0), latitude: parseFloat(estacion.LATITUD??0.0)}}
-      />))}
+      {estaciones.map((estacion) => (
+        <Marker
+          key={estacion.ID}
+          coordinate={{
+            longitude: parseFloat(estacion.LONGITUD ?? 0.0),
+            latitude: parseFloat(estacion.LATITUD ?? 0.0),
+          }}
+        />
+      ))}
 
       {/* <Marker
         draggable
