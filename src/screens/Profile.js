@@ -6,9 +6,9 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Button,
 } from "react-native";
 
+import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
@@ -134,10 +134,12 @@ function Profile({ navigation }) {
         </View>
         <View style={styles.buttonView}>
           <Button
-            title={t("Profile.Logout")}
-            color="#27CF10"
-            style={styles.button}
-          />
+            buttonColor={"#27CF10"}
+            mode="contained"
+            onPress={() => console.log("Pressed")}
+          >
+            {t("Profile.Logout")}
+          </Button>
         </View>
       </ScrollView>
     </View>
@@ -191,9 +193,6 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
-  },
-  button: {
-    borderRadius: 30,
   },
   picture: {
     marginTop: Constants.statusBarHeight * 1.75,
