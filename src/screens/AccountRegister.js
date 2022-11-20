@@ -17,7 +17,7 @@ import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
-const registerURL = "http://13.39.105.250:3000/api/v1/users/register";
+const registerURL = "http://13.39.20.131:3000/api/v1/users/register";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -60,10 +60,12 @@ export default function Login({ navigation }) {
         password: password1,
       })
       .then(function (response) {
+        console.log(response);
         errorControl(7);
         navigation.navigate("Login");
       })
       .catch(function (error) {
+        console.log(error);
         errorControl(2);
       });
   }
