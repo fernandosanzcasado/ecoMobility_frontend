@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 
 import Constants from "expo-constants";
@@ -85,6 +86,35 @@ export default function EditProfile({ navigation }) {
         errorControl(2);
       });
   }
+
+  async function createDeleteUser() {
+    console.log(userName + " " + userSurname);
+    axios
+      .delete(editProfileURL + "hola@gmail.com", {})
+      .then(function (response) {
+        console.log(response);
+        errorControl(7);
+        navigation.navigate("Login");
+      })
+      .catch(function (error) {
+        console.log(error);
+        errorControl(2);
+      });
+  }
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      t("Edit_Profile.Eliminate_AccountAdvice"),
+      t("Edit_Profile.Eliminate_AccountAsk"),
+      [
+        {
+          text: t("Edit_Profile.Cancel_Button"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => createDeleteUser() },
+      ]
+    );
 
   return (
     <View style={styles.initialView}>
@@ -173,6 +203,9 @@ export default function EditProfile({ navigation }) {
               color={"#E03614"}
               size={40}
               style={styles.icons}
+              onPress={() => {
+                createTwoButtonAlert();
+              }}
             ></Icon>
           </TouchableOpacity>
         </View>

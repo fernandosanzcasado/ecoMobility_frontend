@@ -19,7 +19,10 @@
     "Surnames": "Surnames",
     "Change_Password": "Change password",
     "Save_Changes": "Save changes",
-    "Eliminate_Account": "Eliminate account"
+    "Eliminate_Account": "Eliminate account",
+    "Eliminate_AccountAdvice": "You are about delete your account",
+    "Eliminate_AccountAsk": "Are you shure do you want to do it?",
+    "Cancel_Button": "Cancel"
   },
   "Filters": {
     "Filter_By": "Filter by",

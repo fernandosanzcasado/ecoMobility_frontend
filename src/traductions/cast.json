@@ -19,7 +19,10 @@
     "Surnames": "Apellidos",
     "Change_Password": "Cambiar contraseña",
     "Save_Changes": "Guardar cambios",
-    "Eliminate_Account": "Eliminar cuenta"
+    "Eliminate_Account": "Eliminar cuenta",
+    "Eliminate_AccountAdvice": "Estás a punto de eliminar tu cuenta",
+    "Eliminate_AccountAsk": "¿Estás seguro de que deseas eliminarla?",
+    "Cancel_Button": "Cancelar"
   },
   "Filters": {
     "Filter_By": "Filtrar por",

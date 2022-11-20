@@ -19,7 +19,10 @@
     "Surnames": "Cognoms",
     "Change_Password": "Canviar contrasenya",
     "Save_Changes": "Guardar canvis",
-    "Eliminate_Account": "Eliminar compte"
+    "Eliminate_Account": "Eliminar compte",
+    "Eliminate_AccountAdvice": "Et trobes a punt d'eliminar el teu compte",
+    "Eliminate_AccountAsk": "Estàs segur de que desitjes eliminar-la?",
+    "Cancel_Button": "Cancel·lar"
   },
   "Filters": {
     "Filter_By": "Filtrar per",
