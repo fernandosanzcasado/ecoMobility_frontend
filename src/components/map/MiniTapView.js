@@ -20,8 +20,13 @@ console.log(ancho);
 const alto = Dimensions.get("window").height;
 console.log(alto);
 
-export default function MiniTapView({ ID, navigation, hideFunction }) {
-  const [est, setEst] = useState(true);
+export default function MiniTapView({
+  ID,
+  navigation,
+  hideFunction,
+  startRoute,
+}) {
+  const [est, setEst] = useState({});
   useEffect(() => {
     async function getEstaciones() {
       try {
@@ -49,7 +54,7 @@ export default function MiniTapView({ ID, navigation, hideFunction }) {
     >
       <Card style={styles.cardStyle}>
         <Card.Content>
-          <Text style={styles.Title}>{est.ADREÇA}</Text>
+          <Text style={styles.Title}>{est.direccion}</Text>
           <View style={{ flexDirection: "row" }}>
             <Icon name="flash" size={Constants.statusBarHeight / 1.75}></Icon>
             <Text>{est.ID}</Text>
@@ -60,7 +65,7 @@ export default function MiniTapView({ ID, navigation, hideFunction }) {
           </View>
           <View style={{ flexDirection: "row" }}>
             <Icon name="plug" size={Constants.statusBarHeight / 2}></Icon>
-            <Text>{est.TIPUS_CONNEXIÓ}</Text>
+            <Text>{est.tipoConexion}</Text>
           </View>
         </Card.Content>
         <Card.Actions style={{ flexDirection: "column" }}>
@@ -72,7 +77,9 @@ export default function MiniTapView({ ID, navigation, hideFunction }) {
               },
             }}
             labelStyle={{ fontSize: 10 }}
-            onPress={() => {}}
+            onPress={() => {
+              startRoute(est.latitud, est.longitud);
+            }}
           >
             ANAR-HI
           </Button>

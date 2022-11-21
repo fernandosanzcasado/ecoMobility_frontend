@@ -21,6 +21,7 @@ export default function Mapa({ style, navigation }) {
 
   const [tapview, setTapView] = useState(false);
   const [id, setId] = useState("");
+  const [ruta, setRuta] = useState(false);
 
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
@@ -63,6 +64,17 @@ export default function Mapa({ style, navigation }) {
     setTapView(false);
   };
 
+  async function startTravel(latitud, longitud) {
+    setDestination({
+      latitude: parseFloat(latitud.replace(",", ".")),
+      longitude: parseFloat(longitud.replace(",", ".")),
+    });
+  }
+
+  useEffect(() => {
+    setRuta(true);
+  }, [destination]);
+
   return (
     <>
       {tapview && (
@@ -70,6 +82,7 @@ export default function Mapa({ style, navigation }) {
           ID={id}
           navigation={navigation}
           hideFunction={hideTapView}
+          startRoute={startTravel}
         />
       )}
       {/* {tapview && <MiniTapView ID={id} navigation={navigation} />} */}
@@ -120,15 +133,14 @@ export default function Mapa({ style, navigation }) {
 
         {estaciones.map((estacion) => (
           <Marker
-            key={estacion.ID}
+            key={estacion.id}
             coordinate={{
-              longitude: parseFloat(estacion.LONGITUD ?? 0.0),
-              latitude: parseFloat(estacion.LATITUD ?? 0.0),
+              longitude: parseFloat(estacion.longitud.replace(",", ".") ?? 0.0),
+              latitude: parseFloat(estacion.latitud.replace(",", ".") ?? 0.0),
             }}
             onPress={() => {
-              setTapView(!tapview);
-              setId(estacion.ID);
-              //console.log(estacion.LONGITUD, "\n", estacion.LATITUD);
+              setTapView(true);
+              setId(estacion.id);
             }}
             tracksViewChanges={false}
           >
@@ -142,21 +154,22 @@ export default function Mapa({ style, navigation }) {
             </View>
           </Marker>
         ))}
-
-        {/* <Marker
-        draggable
-        coordinate={destination}
-        onDragEnd={(direction) => 
-          setDestination(direction.nativeEvent.coordinate)
+        {/* // <Marker
+        //   draggable
+        //   coordinate={destination}
+        //   onDragEnd={(direction) =>
+             setDestination(direction.nativeEvent.coordinate)
         }
-      />
-      <MapViewDirections
-        origin={origin}
-        destination={destination}
-        apikey={GOOGLE_KEY}
-        strokeColor="green"
-        strokeWidth={3}
-      /> */}
+        /> */}
+        {ruta && (
+          <MapViewDirections
+            origin={origin}
+            destination={destination}
+            apikey={GOOGLE_KEY}
+            strokeColor="green"
+            strokeWidth={3}
+          />
+        )}
       </MapView>
     </>
   );
