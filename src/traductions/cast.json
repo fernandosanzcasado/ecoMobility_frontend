@@ -9,7 +9,10 @@
   },
   "Confirm_Current_Pass": {
     "Write_Current_Pass": "Introduce tu contraseña actual",
-    "Current_Pass": "Contraseña actual"
+    "Current_Pass": "Contraseña actual",
+    "Continue_Button": "Continuar",
+    "Write_New_Pass": "Escribe tu nueva contraseña",
+    "New_Pass": "Nueva contraseña"
   },
   "Edit_Profile": {
     "User_Name": "Nombre Usuario",

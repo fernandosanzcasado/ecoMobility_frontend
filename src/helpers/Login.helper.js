@@ -7,7 +7,7 @@ import { Alert } from "react-native";
 export const errorControl = (errorId) => {
   switch (errorId) {
     case 7:
-      Alert.alert("Has iniciado sesión satisfactoriamente");
+      //Alert.alert("Has iniciado sesión satisfactoriamente");
       break;
     case 8:
       Alert.alert("Debes rellenar todos los campos");

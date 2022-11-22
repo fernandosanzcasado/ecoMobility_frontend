@@ -50,27 +50,13 @@ export default function Login({ navigation }) {
       })
       .then(function (response) {
         //escribirCurrentUser(response.data);
-        errorControl(7);
         navigation.navigate("MapScreen");
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response.data.message);
         errorControl(2);
       });
   }
-
-  /*
-  function escribirCurrentUser(user) {
-    fs.writeFileSync("../helpers/CurrentUser.json", data, (err) => {
-      if (err) {
-        console.log("Error writing file", err);
-      } else {
-        console.log("JSON data is written to the file successfully");
-      }
-    });
-  }
-
-  */
 
   const { t } = useTranslation();
 
@@ -96,7 +82,6 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.tinput}
           placeholder={t("Login.Email")}
-          on
           onChangeText={(newtext) => setUserEmail(newtext)}
           defaultValue={userEmail}
         />
@@ -118,7 +103,6 @@ export default function Login({ navigation }) {
           color="#27CF10"
           style={styles.buttonLogin}
           onPress={() => {
-            navigation.navigate("MapScreen");
             if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
               createPostLogin();
               //navigation.navigate("MapScreen");

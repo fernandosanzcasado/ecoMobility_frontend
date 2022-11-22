@@ -19,6 +19,7 @@ import axios from "axios";
 import "../../i18n.js";
 
 const editProfileURL = "http://13.39.20.131:3000/api/v1/users/";
+const userDataURL = "http://13.39.20.131:3000/api/v1/users/";
 
 const errorControl = (errorId) => {
   switch (errorId) {
@@ -66,16 +67,42 @@ export default function EditProfile({ navigation }) {
   };
   const [userName, setUserName] = useState("");
   const [userSurname, setUserSurname] = useState("");
+  const [userNewName, setUserNewName] = useState("");
+  const [userNewSurname, setUserNewSurname] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+  React.useEffect(() => {
+    const chargeView = navigation.addListener("focus", () => {
+      createGetUserData();
+      setUserName(response.name);
+      setUserSurname(response.surname);
+      setUserEmail(response.email);
+    });
+    return chargeView;
+  }, [navigation]);
+
+  async function createGetUserData() {
+    axios
+      .get(userDataURL, {}, { withCredentials: true })
+      .then(function (response) {})
+      .catch(function (error) {
+        console.log("El error es " + error.response.data.message);
+        errorControl(2);
+      });
+  }
 
   async function createPutUser() {
-    console.log(userName + " " + userSurname);
     axios
-      .put(editProfileURL + "hola@gmail.com", {
-        email: "test",
-        name: userName,
-        surnames: userSurname,
-        password: "test",
-      })
+      .put(
+        editProfileURL + userEmail,
+        {
+          email: userEmail,
+          name: userNewName,
+          surnames: userNewSurname,
+          password: "test",
+        },
+        { withCredentials: true }
+      )
       .then(function (response) {
         console.log(response);
         errorControl(7);
@@ -88,9 +115,8 @@ export default function EditProfile({ navigation }) {
   }
 
   async function createDeleteUser() {
-    console.log(userName + " " + userSurname);
     axios
-      .delete(editProfileURL + "hola@gmail.com", {})
+      .delete(editProfileURL + userEmail, {}, { withCredentials: true })
       .then(function (response) {
         console.log(response);
         errorControl(7);
@@ -151,8 +177,8 @@ export default function EditProfile({ navigation }) {
           <TextInput
             style={styles.textInput}
             placeholder={t("Edit_Profile.Name")}
-            onChangeText={(newText) => setUserName(newText)}
-            defaultValue={userName}
+            onChangeText={(newText) => setUserNewName(newText)}
+            defaultValue={userNewName}
           />
         </View>
         <View>
@@ -163,8 +189,8 @@ export default function EditProfile({ navigation }) {
           <TextInput
             style={styles.textInput}
             placeholder={t("Edit_Profile.Surnames")}
-            onChangeText={(newtext) => setUserSurname(newtext)}
-            defaultValue={userSurname}
+            onChangeText={(newtext) => setUserNewSurname(newtext)}
+            defaultValue={userNewSurname}
           />
         </View>
         <View>
@@ -184,7 +210,7 @@ export default function EditProfile({ navigation }) {
             title={t("Edit_Profile.Save_Changes")}
             color="#27CF10"
             onPress={() => {
-              if (checkUser(userName)) {
+              if (checkUser(userNewName)) {
                 createPutUser();
               }
             }}
