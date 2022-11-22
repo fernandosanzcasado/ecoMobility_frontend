@@ -11,6 +11,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import {
+  checkTextInputPassNotEmpty,
+  checkEmail,
+  checkUser,
+  checkPassword,
+  checkPasswordRequeriments,
+  errorControl,
+} from "../helpers/AccountRegister.helper";
 
 import Constants from "expo-constants";
 import * as Font from "expo-font";
@@ -20,78 +28,23 @@ const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 const Separator3 = () => <View style={styles.separator3} />;
 
+const useValidation = () => {
+  return {
+    checkTextInputPassNotEmpty,
+    checkEmail,
+    checkUser,
+    checkPassword,
+    checkPasswordRequeriments,
+  };
+};
+
 export default function PasswordChange({ navigation }) {
   const possiblePreviousScreens = ["Login", "EditProfile"];
-
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+  const validation = useValidation();
 
   const { t } = useTranslation();
-
-  const errorControl = (errorId) => {
-    const alerts = {
-      6: {
-        message: "No has introducido la misma contraseña",
-      },
-      5: {
-        message: "La contraseña debe tener más de 8 carácteres",
-      },
-      7: {
-        message: "Has cambiado la contraseña satisfactoriamente",
-      },
-      8: {
-        message: "Debes rellenar todos los campos",
-      },
-    };
-
-    if (!(errorId in alerts)) return;
-
-    Alert.alert(alerts[errorId].message);
-  };
-
-  const checkTextInputNotEmpty = (password1, password2) => {
-    if (password1.length == 0 || password2.length == 0) {
-      errorControl(8);
-      return false;
-    } else return true;
-  };
-
-  const checkPasswordRequeriments = (password1) => {
-    if (password1.length < 8) return false;
-    else return true;
-  };
-
-  const checkPassword = (password1, password2) => {
-    if (
-      checkPasswordRequeriments(password1) &&
-      checkPasswordRequeriments(password2)
-    ) {
-      if (password1 != password2) {
-        //alert("No has introducido la misma contraseña");
-        errorControl(6);
-        return false;
-      } else {
-        //alert("Te has registrado satisfactoriamente");
-        const routes = navigation.getState()?.routes;
-        let navigateTo = "";
-        for (let i = routes.length - 2; i >= 0; i--) {
-          if (possiblePreviousScreens.includes(routes[i].name)) {
-            navigateTo = routes[i].name;
-            break;
-          }
-        }
-        if (navigateTo) navigation.navigate(navigateTo);
-        errorControl(7);
-        return true;
-      }
-    } else {
-      if (password1 != password2) errorControl(6);
-      //alert("No has introducido la misma contraseña");
-      else errorControl(5);
-      //alert("La contraseña debe tener más de 8 carácteres");
-      return false;
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container1}>
@@ -138,8 +91,8 @@ export default function PasswordChange({ navigation }) {
           color="#27CF10"
           style={styles.buttonChangePass}
           onPress={() => {
-            if (checkTextInputNotEmpty(password1, password2)) {
-              checkPassword(password1, password2);
+            if (validation.checkTextInputPassNotEmpty(password1, password2)) {
+              validation.checkPassword(password1, password2);
             }
           }}
         />

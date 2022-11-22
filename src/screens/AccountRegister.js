@@ -210,11 +210,6 @@ const styles = StyleSheet.create({
   buttonRegister: {
     orderRadius: 30,
   },
-  but: {
-    flex: 1,
-    margin: 20,
-    margintop: 22,
-  },
   button: {
     alignItems: "center",
     right: 5,

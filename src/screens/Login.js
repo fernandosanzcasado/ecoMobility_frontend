@@ -37,12 +37,20 @@ export default function Login({ navigation }) {
   const [userPassword, setUserPassword] = useState("");
   const validation = useValidation();
 
+  React.useEffect(() => {
+    const chargeView = navigation.addListener("focus", () => {
+      clearText();
+    });
+    return chargeView;
+  }, [navigation]);
+
   const clearText = () => {
     setUserEmail("");
     setUserPassword("");
   };
 
   async function createPostLogin() {
+    console.log("Entro aqui");
     axios
       .post(loginURL, {
         email: userEmail,

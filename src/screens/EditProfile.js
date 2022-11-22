@@ -18,8 +18,9 @@ import axios from "axios";
 
 import "../../i18n.js";
 
-const editProfileURL = "http://13.39.20.131:3000/api/v1/users/";
-const userDataURL = "http://13.39.20.131:3000/api/v1/users/";
+const editProfileURL = "http://13.39.20.131:3000/api/v1/users/me/updateInfo";
+const userDataURL = "http://13.39.20.131:3000/api/v1/users/me/getInfo";
+const userDeleteURL = "http://13.39.20.131:3000/api/v1/users/me/deleteUser";
 
 const errorControl = (errorId) => {
   switch (errorId) {
@@ -74,9 +75,6 @@ export default function EditProfile({ navigation }) {
   React.useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
       createGetUserData();
-      setUserName(response.name);
-      setUserSurname(response.surname);
-      setUserEmail(response.email);
     });
     return chargeView;
   }, [navigation]);
@@ -84,7 +82,11 @@ export default function EditProfile({ navigation }) {
   async function createGetUserData() {
     axios
       .get(userDataURL, {}, { withCredentials: true })
-      .then(function (response) {})
+      .then(function (response) {
+        setUserName(response.data.name);
+        setUserSurname(response.data.surnames);
+        setUserEmail(response.data.email);
+      })
       .catch(function (error) {
         console.log("El error es " + error.response.data.message);
         errorControl(2);
@@ -94,18 +96,14 @@ export default function EditProfile({ navigation }) {
   async function createPutUser() {
     axios
       .put(
-        editProfileURL + userEmail,
+        editProfileURL,
         {
-          email: userEmail,
           name: userNewName,
           surnames: userNewSurname,
-          password: "test",
         },
         { withCredentials: true }
       )
       .then(function (response) {
-        console.log(response);
-        errorControl(7);
         navigation.navigate("Profile");
       })
       .catch(function (error) {
@@ -116,7 +114,7 @@ export default function EditProfile({ navigation }) {
 
   async function createDeleteUser() {
     axios
-      .delete(editProfileURL + userEmail, {}, { withCredentials: true })
+      .delete(userDeleteURL, {}, { withCredentials: true })
       .then(function (response) {
         console.log(response);
         errorControl(7);
@@ -164,7 +162,7 @@ export default function EditProfile({ navigation }) {
               style={styles.picture}
             ></Image>
           </TouchableOpacity>
-          <Text style={styles.headerText}> {t("Edit_Profile.User_Name")} </Text>
+          <Text style={styles.headerText}> {userName} </Text>
         </View>
         <View>
           <TouchableOpacity></TouchableOpacity>
@@ -176,7 +174,7 @@ export default function EditProfile({ navigation }) {
           </Text>
           <TextInput
             style={styles.textInput}
-            placeholder={t("Edit_Profile.Name")}
+            placeholder={userName}
             onChangeText={(newText) => setUserNewName(newText)}
             defaultValue={userNewName}
           />
@@ -188,7 +186,7 @@ export default function EditProfile({ navigation }) {
           </Text>
           <TextInput
             style={styles.textInput}
-            placeholder={t("Edit_Profile.Surnames")}
+            placeholder={userSurname}
             onChangeText={(newtext) => setUserNewSurname(newtext)}
             defaultValue={userNewSurname}
           />

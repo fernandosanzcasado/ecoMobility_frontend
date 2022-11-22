@@ -18,7 +18,7 @@ import axios from "axios";
 
 import "../../i18n.js";
 const logoutURL = "http://13.39.20.131:3000/api/v1/users/logout";
-const userDataURL = "http://13.39.20.131:3000/api/v1/users/";
+const userDataURL = "http://13.39.20.131:3000/api/v1/users/me/getInfo";
 
 function Profile({ navigation }) {
   const [userName, setUserName] = useState("");
@@ -29,8 +29,7 @@ function Profile({ navigation }) {
 
   React.useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
-      //createGetUserData();
-      //setUserName(response.name);
+      createGetUserData();
     });
     return chargeView;
   }, [navigation]);
@@ -38,7 +37,9 @@ function Profile({ navigation }) {
   async function createGetUserData() {
     axios
       .get(userDataURL, {}, { withCredentials: true })
-      .then(function (response) {})
+      .then(function (response) {
+        setUserName(response.data.name);
+      })
       .catch(function (error) {
         console.log("El error es " + error.response.data.message);
         errorControl(2);

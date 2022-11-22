@@ -69,5 +69,17 @@
   },
   "Search_Bar": {
     "Search": "Search"
+  },
+  "Error_Control": {
+    "Incorrect_Pass": "The password is incorrect",
+    "Void_Fields": "Debes rellenar todos los campos",
+    "Invalid_Email": "The inserted email is not valid",
+    "Registred_Email": "The inserted email is allready registred",
+    "Invalid_Size_Name": "The username should must contain between 3 and 15",
+    "Registred_Name": "The username is allready in use",
+    "Invalid_Size_Pass": "The password should contain more than 8 characters",
+    "Different_Pass": "You have not entered the same password",
+    "Registred_Ok": "You have successfully registered",
+    "Login_Ok": "You have successfully logged in"
   }
 }

@@ -69,5 +69,17 @@
   },
   "Search_Bar": {
     "Search": "Buscar"
+  },
+  "Error_Control": {
+    "Incorrect_Pass": "La contraseña es incorrecta",
+    "Void_Fields": "You should fill all the fields",
+    "Invalid_Email": "El correo electrónico introducido no es válido",
+    "Registred_Email": "El correo electrónico introducido ya se encuentra registrado",
+    "Invalid_Size_Name": "El nombre de usuario debe contener entre 3 y 15 carácteres",
+    "Registred_Name": "El nombre de usuario ya se encuentra en uso",
+    "Invalid_Size_Pass": "La contraseña debe tener más de 8 carácteres",
+    "Different_Pass": "No has introducido la misma contraseña",
+    "Registred_Ok": "Te has registrado satisfactoriamente",
+    "Login_Ok": "Has iniciado sesión satisfactoriamente"
   }
 }

@@ -22,7 +22,8 @@ import {
 } from "../helpers/Login.helper";
 import { useTranslation } from "react-i18next";
 
-const ConfirmPasswordURL = "http://13.39.20.131:3000/api/v1/me/updatePassword";
+const ConfirmPasswordURL =
+  "http://13.39.20.131:3000/api/v1/users/me/updatePassword";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -38,9 +39,10 @@ export default function Login({ navigation }) {
   const { t } = useTranslation();
   const validation = useValidation();
 
-  async function createPostPasswordChange() {
+  async function createPutPasswordChange() {
+    console.log("Entro a createPostPaswordChange");
     axios
-      .post(
+      .put(
         ConfirmPasswordURL,
         {
           checkOldPassword: userOldPassword,
@@ -82,6 +84,7 @@ export default function Login({ navigation }) {
           placeholder={t("Confirm_Current_Pass.Current_Pass")}
           onChangeText={(newtext) => setUserOldPassword(newtext)}
           defaultValue={userOldPassword}
+          //secureTextEntry
         />
       </View>
       <Separator2 />
@@ -93,6 +96,7 @@ export default function Login({ navigation }) {
           placeholder={t("Confirm_Current_Pass.New_Pass")}
           onChangeText={(newtext) => setUserNewPassword(newtext)}
           defaultValue={userNewPassword}
+          secureTextEntry
         />
       </View>
       <Separator2 />
@@ -108,7 +112,7 @@ export default function Login({ navigation }) {
                 userNewPassword
               )
             ) {
-              createPostPasswordChange();
+              createPutPasswordChange();
             }
           }}
         />

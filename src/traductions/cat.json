@@ -69,5 +69,17 @@
   },
   "Search_Bar": {
     "Search": "Cercar"
+  },
+  "Error_Control": {
+    "Incorrect_Pass": "La contrasenya es incorrecta",
+    "Void_Fields": "Has d'ompliir tots els camps",
+    "Invalid_Email": "El correu electrònic introduït no es vàlid",
+    "Registred_Email": "El correu electrònic introduït ja es troba registrat",
+    "Invalid_Size_Name": "El nom d'usuari ha de contenir entre 3 i 15 caràcters",
+    "Registred_Name": "El nom d'usuari ja es troba en ús",
+    "Invalid_Size_Pass": "La contrasenya ha de contenir més de 8 caràcters",
+    "Different_Pass": "No has introduït la mateixa contrasenya",
+    "Registred_Ok": "T'has enregistrat satisfactoriament",
+    "Login_Ok": "Has iniciat sessió satisfactoriament"
   }
 }
