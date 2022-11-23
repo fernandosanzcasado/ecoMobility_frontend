@@ -16,7 +16,7 @@ export default function MapScreen({ style, navigation }) {
     <SafeAreaView style={styles.safeAreaContainer}>
       <Toolbar navigation={navigation} />
       {/* <Mapa {...DIM} /> */}
-      <Mapa style={styles.map} />
+      <Mapa style={styles.map} navigation={navigation} />
       <NavigationTab style={styles.navBar} navigation={navigation} />
     </SafeAreaView>
   );
