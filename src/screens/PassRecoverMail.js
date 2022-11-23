@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
+const Separator3 = () => <View style={styles.separator3} />;
 
 export default function PassRecoverMail({ navigation }) {
   const { t } = useTranslation();
@@ -47,18 +48,17 @@ export default function PassRecoverMail({ navigation }) {
         />
       </View>
       <Separator2 />
-      <View>
-        <TouchableOpacity
-          style={styles.button}
+      <View style={styles.SearchButton}>
+        <Button
+          title={t("Pass_Recover_Mail.Search_Button")}
+          color="#27CF10"
+          style={styles.buttonSearch}
           onPress={() => {
             navigation.navigate("PassRecoverCodeConfirm");
           }}
-        >
-          <Image source={require("../../assets/images/Boton1Buscar.png")} />
-        </TouchableOpacity>
+        />
       </View>
-      <Separator2 />
-      <Separator2 />
+      <Separator3 />
       <View>
         <TouchableOpacity
           style={styles.buttonBack}
@@ -101,6 +101,14 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
   },
+  SearchButton: {
+    paddingTop: Constants.statusBarHeight * 0.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  buttonSearch: {
+    orderRadius: 30,
+  },
   but: {
     flex: 1,
     margin: 20,
@@ -118,12 +126,11 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginVertical: 11,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
   separator2: {
     marginVertical: 5,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  separator3: {
+    marginVertical: 110,
   },
 });

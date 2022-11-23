@@ -4,11 +4,15 @@
     "Name": "Nom",
     "Surnames": "Cognoms",
     "Password": "contrasenya",
-    "Confirm_Password": "Confirmar contrasenya"
+    "Confirm_Password": "Confirmar contrasenya",
+    "Register_Button": "Regístrat"
   },
   "Confirm_Current_Pass": {
     "Write_Current_Pass": "Introdueix la teva contrasenya actual",
-    "Current_Pass": "Contrasenya actual"
+    "Current_Pass": "Contrasenya actual",
+    "Continue_Button": "Continuar",
+    "Write_New_Pass": "Escriu la teva nuova contrasenya",
+    "New_Pass": "Contrasenya actual"
   },
   "Edit_Profile": {
     "User_Name": "Nom Usuari",
@@ -18,7 +22,10 @@
     "Surnames": "Cognoms",
     "Change_Password": "Canviar contrasenya",
     "Save_Changes": "Guardar canvis",
-    "Eliminate_Account": "Eliminar compte"
+    "Eliminate_Account": "Eliminar compte",
+    "Eliminate_AccountAdvice": "Et trobes a punt d'eliminar el teu compte",
+    "Eliminate_AccountAsk": "Estàs segur de que desitjes eliminar-la?",
+    "Cancel_Button": "Cancel·lar"
   },
   "Filters": {
     "Filter_By": "Filtrar per",
@@ -33,19 +40,23 @@
     "Email": "Email",
     "Password": "Contrasenya",
     "Forgot_Password": "Has oblidat la teva contrasenya?",
-    "Register_Text": "No tens compte? Registrat"
+    "Register_Text": "No tens compte? Registrat",
+    "Login_Button": "Iniciar sessió"
   },
   "Pass_Recover_Code_Confirm": {
     "Write_Code": "Introdueix el codi enviat al teu correu electronic",
-    "Code": "Codi de confirmació"
+    "Code": "Codi de confirmació",
+    "Continue_Button": "Continuar"
   },
   "Pass_Recover_Mail": {
     "Write_Email": "Introdueix el teu correu electronic per enviar el codi",
-    "Email": "Correu"
+    "Email": "Correu",
+    "Search_Button": "Buscar"
   },
   "Password_Change": {
     "New_Password": "Nova contrasenya",
-    "Confirm_New_Password": "Confirmar nova contrasenya"
+    "Confirm_New_Password": "Confirmar nova contrasenya",
+    "Change_Password_Button": "Cambiar contrasenya"
   },
   "Profile": {
     "User_Name": "Nom Usuari",
@@ -58,5 +69,17 @@
   },
   "Search_Bar": {
     "Search": "Cercar"
+  },
+  "Error_Control": {
+    "Incorrect_Pass": "La contrasenya es incorrecta",
+    "Void_Fields": "Has d'ompliir tots els camps",
+    "Invalid_Email": "El correu electrònic introduït no es vàlid",
+    "Registred_Email": "El correu electrònic introduït ja es troba registrat",
+    "Invalid_Size_Name": "El nom d'usuari ha de contenir entre 3 i 15 caràcters",
+    "Registred_Name": "El nom d'usuari ja es troba en ús",
+    "Invalid_Size_Pass": "La contrasenya ha de contenir més de 8 caràcters",
+    "Different_Pass": "No has introduït la mateixa contrasenya",
+    "Registred_Ok": "T'has enregistrat satisfactoriament",
+    "Login_Ok": "Has iniciat sessió satisfactoriament"
   }
 }

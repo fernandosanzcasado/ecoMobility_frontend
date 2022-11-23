@@ -1,4 +1,4 @@
-import React, { Component, useTransition } from "react";
+import React, { Component, useTransition, useState } from "react";
 import {
   Text,
   View,
@@ -12,14 +12,52 @@ import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
+import { errorControl } from "../helpers/Login.helper";
 import "../../i18n.js";
 
+const logoutURL = "http://13.39.20.131:3000/api/v1/users/logout";
+const userDataURL = "http://13.39.20.131:3000/api/v1/users/me/getInfo";
+
 function Profile({ navigation }) {
+  const [userName, setUserName] = useState("");
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
+
+  React.useEffect(() => {
+    const chargeView = navigation.addListener("focus", () => {
+      createGetUserData();
+    });
+    return chargeView;
+  }, [navigation]);
+
+  async function createGetUserData() {
+    axios
+      .get(userDataURL, {}, { withCredentials: true })
+      .then(function (response) {
+        setUserName(response.data.name);
+      })
+      .catch(function (error) {
+        console.log("El error es " + error.response.data.message);
+        errorControl(2);
+      });
+  }
+
+  async function createPostLogout() {
+    axios
+      .post(logoutURL, {}, { withCredentials: true })
+      .then(function (response) {
+        navigation.navigate("Login");
+      })
+      .catch(function (error) {
+        console.log("El error es " + error.response.data.message);
+        errorControl(2);
+      });
+  }
+
   return (
     <View style={styles.initialView}>
       <ScrollView>
@@ -40,7 +78,7 @@ function Profile({ navigation }) {
             source={require("../../assets/images/Profile.png")}
             style={styles.picture}
           ></Image>
-          <Text style={styles.headerText}> {t("Profile.User_Name")} </Text>
+          <Text style={styles.headerText}> {userName} </Text>
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -136,7 +174,7 @@ function Profile({ navigation }) {
           <Button
             buttonColor={"#27CF10"}
             mode="contained"
-            onPress={() => console.log("Pressed")}
+            onPress={() => createPostLogout();}
           >
             {t("Profile.Logout")}
           </Button>
