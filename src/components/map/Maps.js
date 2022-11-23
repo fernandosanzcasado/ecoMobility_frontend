@@ -18,7 +18,7 @@ export default function Mapa({ style, navigation }) {
     longitude: 2.169998,
   });
 
-  const [destination, setDestination] = useState({});
+  const [destination, setDestination] = useState(null);
 
   const [tapview, setTapView] = useState(false);
   const [id, setId] = useState("");
@@ -62,6 +62,7 @@ export default function Mapa({ style, navigation }) {
 
   const hideTapView = () => {
     setTapView(false);
+    setDestination(null);
   };
 
   async function startTravel(latitud, longitud) {
@@ -72,8 +73,12 @@ export default function Mapa({ style, navigation }) {
   }
 
   useEffect(() => {
-    setRuta(true);
+    setRuta(destination !== null);
   }, [destination]);
+
+  // useEffect(() => {
+  //   setRuta(true);
+  // }, [destination]);
 
   return (
     <>
@@ -156,27 +161,24 @@ export default function Mapa({ style, navigation }) {
         ))}
 
         {ruta && (
-          <>
-            <MapViewDirections
-              origin={origin}
-              destination={destination}
-              apikey={GOOGLE_KEY}
-              strokeColor="green"
-              strokeWidth={4}
-              optimizeWaypoints={true}
-              // onStart={(params) => {
-              //   console.log(
-              //     `Started routing between "${params.origin}" and "${params.destination}"`
-              //   );
-              // }}
-              // onReady={(result) => {
-              //   mapRef.current.fitToCoordinates(result.coordinates);
-              //   console.log(`Distance: ${result.distance} km.`);
-              //   console.log(`Duration: ${result.duration} min.`);
-              // }}
-            />
-            {/* <Button>Cancel</Button> */}
-          </>
+          <MapViewDirections
+            origin={origin}
+            destination={destination}
+            apikey={GOOGLE_KEY}
+            strokeColor="green"
+            strokeWidth={4}
+            optimizeWaypoints={true}
+            // onStart={(params) => {
+            //   console.log(
+            //     `Started routing between "${params.origin}" and "${params.destination}"`
+            //   );
+            // }}
+            // onReady={(result) => {
+            //   mapRef.current.fitToCoordinates(result.coordinates);
+            //   console.log(`Distance: ${result.distance} km.`);
+            //   console.log(`Duration: ${result.duration} min.`);
+            // }}
+          />
         )}
       </MapView>
     </>
