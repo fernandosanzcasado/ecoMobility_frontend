@@ -6,17 +6,17 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Button,
 } from "react-native";
 
-import { errorControl } from "../helpers/Login.helper";
-
+import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
+import { errorControl } from "../helpers/Login.helper";
 import "../../i18n.js";
+
 const logoutURL = "http://13.39.20.131:3000/api/v1/users/logout";
 const userDataURL = "http://13.39.20.131:3000/api/v1/users/me/getInfo";
 
@@ -172,13 +172,12 @@ function Profile({ navigation }) {
         </View>
         <View style={styles.buttonView}>
           <Button
-            title={t("Profile.Logout")}
-            color="#27CF10"
-            style={styles.button}
-            onPress={() => {
-              createPostLogout();
-            }}
-          />
+            buttonColor={"#27CF10"}
+            mode="contained"
+            onPress={() => createPostLogout();}
+          >
+            {t("Profile.Logout")}
+          </Button>
         </View>
       </ScrollView>
     </View>
@@ -232,9 +231,6 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
-  },
-  button: {
-    borderRadius: 30,
   },
   picture: {
     marginTop: Constants.statusBarHeight * 1.75,
