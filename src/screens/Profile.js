@@ -174,7 +174,7 @@ function Profile({ navigation }) {
           <Button
             buttonColor={"#27CF10"}
             mode="contained"
-            onPress={() => createPostLogout();}
+            onPress={() => createPostLogout()}
           >
             {t("Profile.Logout")}
           </Button>
