@@ -16,9 +16,8 @@ import OutsidePressHandler from "react-native-outside-press";
 import { BASE_URL } from "@env";
 
 const ancho = Dimensions.get("window").width;
-console.log(ancho);
+
 const alto = Dimensions.get("window").height;
-console.log(alto);
 
 export default function MiniTapView({
   ID,
@@ -26,6 +25,11 @@ export default function MiniTapView({
   hideFunction,
   startRoute,
 }) {
+  //DE MOMENT--------------------------------
+  const [tipuscorrent, setTipusCorrent] = useState(false);
+  const [tipusvehicle, setTipusVehicle] = useState(false);
+  const [tipusconexio, setTipusconexio] = useState(false);
+  //----------------------
   const [est, setEst] = useState({});
   useEffect(() => {
     async function getEstaciones() {
@@ -34,6 +38,11 @@ export default function MiniTapView({
           `http://${BASE_URL}/api/v1/estaciones/${ID}`
         );
         setEst(res.data);
+        //--------
+        if (est.tipoCorriente != "") setTipusCorrent(true);
+        if (est.tipoVehiculo != "") setTipusVehicle(true);
+        if (est.tipoConexion != "") setTipusconexio(true);
+        //--------
       } catch (error) {
         console.log(error);
       }
@@ -56,16 +65,28 @@ export default function MiniTapView({
         <Card.Content>
           <Text style={styles.Title}>{est.direccion}</Text>
           <View style={{ flexDirection: "row" }}>
-            <Icon name="flash" size={Constants.statusBarHeight / 1.75}></Icon>
-            <Text>{est.ID}</Text>
+            <Icon name="flash" size={Constants.statusBarHeight / 2.5}></Icon>
+            <Text style={styles.text}>
+              {tipuscorrent
+                ? "No hi ha informacio disponible"
+                : est.tipoCorriente}
+            </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Icon name="car" size={Constants.statusBarHeight / 2}></Icon>
-            <Text>COTXE/MOTO</Text>
+            <Icon name="car" size={Constants.statusBarHeight / 3}></Icon>
+            <Text style={styles.text}>
+              {tipusvehicle
+                ? est.tipoVehiculo
+                : "No hi ha informacio disponible"}
+            </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Icon name="plug" size={Constants.statusBarHeight / 2}></Icon>
-            <Text>{est.tipoConexion}</Text>
+            <Icon name="plug" size={Constants.statusBarHeight / 3}></Icon>
+            <Text style={styles.text}>
+              {tipusconexio
+                ? est.tipoConexion
+                : "No hi ha informacio disponible"}
+            </Text>
           </View>
         </Card.Content>
         <Card.Actions style={{ flexDirection: "column" }}>
@@ -146,6 +167,9 @@ const styles = StyleSheet.create({
   },
   Title: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 13,
+  },
+  text: {
+    fontSize: 13,
   },
 });

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 
 import * as Location from "expo-location";
@@ -7,6 +7,7 @@ import MapView from "react-native-map-clustering";
 import MapViewDirections from "react-native-maps-directions";
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import Button from "react-native-paper";
 
 import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
@@ -22,7 +23,8 @@ export default function Mapa({ style, navigation }) {
   const [tapview, setTapView] = useState(false);
   const [id, setId] = useState("");
   const [ruta, setRuta] = useState(false);
-
+  const mapRef = useRef();
+  const [estaciones, setEstaciones] = useState([]);
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
   de la posició de l'usuari*/
@@ -44,7 +46,6 @@ export default function Mapa({ style, navigation }) {
     setOrigin(current);
   }
 
-  const [estaciones, setEstaciones] = useState([]);
   useEffect(() => {
     async function getEstaciones() {
       try {
@@ -52,7 +53,6 @@ export default function Mapa({ style, navigation }) {
           `http://${BASE_URL}/api/v1/estaciones/coordenadas`
         );
         setEstaciones(res.data);
-        console.log("DEBUG");
       } catch (error) {
         console.log(error);
       }
@@ -66,8 +66,8 @@ export default function Mapa({ style, navigation }) {
 
   async function startTravel(latitud, longitud) {
     setDestination({
-      latitude: parseFloat(latitud.replace(",", ".")),
-      longitude: parseFloat(longitud.replace(",", ".")),
+      latitude: parseFloat(latitud),
+      longitude: parseFloat(longitud),
     });
   }
 
@@ -85,12 +85,12 @@ export default function Mapa({ style, navigation }) {
           startRoute={startTravel}
         />
       )}
-      {/* {tapview && <MiniTapView ID={id} navigation={navigation} />} */}
       <MapView
         // style={{
         //   height: props.heightMap,
         //   width: props.widthMap,
         // }}
+        ref={mapRef}
         style={[styles.map, style]}
         initialRegion={{
           latitude: origin.latitude,
@@ -135,8 +135,8 @@ export default function Mapa({ style, navigation }) {
           <Marker
             key={estacion.id}
             coordinate={{
-              longitude: parseFloat(estacion.longitud.replace(",", ".") ?? 0.0),
-              latitude: parseFloat(estacion.latitud.replace(",", ".") ?? 0.0),
+              longitude: parseFloat(estacion.longitud ?? 0.0),
+              latitude: parseFloat(estacion.latitud ?? 0.0),
             }}
             onPress={() => {
               setTapView(true);
@@ -154,21 +154,29 @@ export default function Mapa({ style, navigation }) {
             </View>
           </Marker>
         ))}
-        {/* // <Marker
-        //   draggable
-        //   coordinate={destination}
-        //   onDragEnd={(direction) =>
-             setDestination(direction.nativeEvent.coordinate)
-        }
-        /> */}
+
         {ruta && (
-          <MapViewDirections
-            origin={origin}
-            destination={destination}
-            apikey={GOOGLE_KEY}
-            strokeColor="green"
-            strokeWidth={3}
-          />
+          <>
+            <MapViewDirections
+              origin={origin}
+              destination={destination}
+              apikey={GOOGLE_KEY}
+              strokeColor="green"
+              strokeWidth={4}
+              optimizeWaypoints={true}
+              // onStart={(params) => {
+              //   console.log(
+              //     `Started routing between "${params.origin}" and "${params.destination}"`
+              //   );
+              // }}
+              // onReady={(result) => {
+              //   mapRef.current.fitToCoordinates(result.coordinates);
+              //   console.log(`Distance: ${result.distance} km.`);
+              //   console.log(`Duration: ${result.duration} min.`);
+              // }}
+            />
+            {/* <Button>Cancel</Button> */}
+          </>
         )}
       </MapView>
     </>
