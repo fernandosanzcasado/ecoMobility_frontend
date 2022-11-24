@@ -1,32 +1,40 @@
 import { Alert } from "react-native";
+//import { useTranslation } from "react-i18next";
 
-export const errorControl = (errorId) => {
+export const errorControlRegister = (errorId) => {
+  //const { t } = useTranslation();
   switch (errorId) {
     case 1:
-      Alert.alert("El correo electrónico introducido no es válido");
+      Alert.alert("Error_Control.Invalid_Email");
+      //Alert.alert(t("Error_Control.Invalid_Email"));
       break;
     case 2:
-      Alert.alert(
-        "El correo electrónico introducido ya se encuentra registrado"
-      );
+      Alert.alert("Error_Control.Registred_Email");
+      //Alert.alert(t("Error_Control.Registred_Email"));
       break;
     case 3:
-      Alert.alert("El nombre de usuario debe contener entre 3 y 15 carácteres");
+      Alert.alert("Error_Control.Invalid_Size_Name");
+      //Alert.alert(t("Error_Control.Invalid_Size_Name"));
       break;
     case 4:
-      Alert.alert("El nombre de usuario ya se encuentra en uso");
+      Alert.alert("Error_Control.Registred_Name");
+      //Alert.alert(t("Error_Control.Registred_Name"));
       break;
     case 5:
-      Alert.alert("La contraseña debe tener más de 8 carácteres");
+      Alert.alert("Error_Control.Invalid_Size_Pass");
+      //Alert.alert(t("Error_Control.Invalid_Size_Pass"));
       break;
     case 6:
-      Alert.alert("No has introducido la misma contraseña");
+      Alert.alert("Error_Control.Different_Pass");
+      //Alert.alert(t("Error_Control.Different_Pass"));
       break;
     case 7:
-      Alert.alert("Te has registrado satisfactoriamente");
+      Alert.alert("Error_Control.Registred_Ok");
+      //Alert.alert(t("Error_Control.Registred_Ok"));
       break;
     case 8:
-      Alert.alert("Debes rellenar todos los campos");
+      Alert.alert("Error_Control.Void_Fields");
+      //Alert.alert(t("Error_Control.Void_Fields"));
       break;
     default:
       break;
@@ -40,7 +48,14 @@ export const checkTextInputNotEmpty = (email, user, password1, password2) => {
     password1.length == 0 ||
     password2.length == 0
   ) {
-    errorControl(8);
+    errorControlRegister(8);
+    return false;
+  } else return true;
+};
+
+export const checkTextInputPassNotEmpty = (password1, password2) => {
+  if (password1.length == 0 || password2.length == 0) {
+    errorControlRegister(8);
     return false;
   } else return true;
 };
@@ -48,7 +63,7 @@ export const checkTextInputNotEmpty = (email, user, password1, password2) => {
 export const checkEmail = (email) => {
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
   if (reg.test(email) === false) {
-    errorControl(1);
+    errorControlRegister(1);
     return false;
   } else {
     return true;
@@ -57,7 +72,7 @@ export const checkEmail = (email) => {
 
 export const checkUser = (user) => {
   if (user.length <= 3 || user.length >= 15) {
-    errorControl(3);
+    errorControlRegister(3);
     return false;
   } else {
     return true;
@@ -65,25 +80,21 @@ export const checkUser = (user) => {
 };
 
 export const checkPassword = (password1, password2) => {
+  console.log(password1 + " " + password2);
   if (
     checkPasswordRequeriments(password1) &&
     checkPasswordRequeriments(password2)
   ) {
     if (password1 != password2) {
-      //alert("No has introducido la misma contraseña");
-      errorControl(6);
+      errorControlRegister(6);
       return false;
     } else {
-      //alert("Te has registrado satisfactoriamente");
-      //navigation.navigate("Login");
-      errorControl(7);
+      errorControlRegister(7);
       return true;
     }
   } else {
-    if (password1 != password2) errorControl(6);
-    //alert("No has introducido la misma contraseña");
-    else errorControl(5);
-    //alert("La contraseña debe tener más de 8 carácteres");
+    if (password1 != password2) errorControlRegister(6);
+    else errorControlRegister(5);
     return false;
   }
 };

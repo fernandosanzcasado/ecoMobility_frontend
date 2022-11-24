@@ -4,11 +4,15 @@
     "Name": "Name",
     "Surnames": "Surnames",
     "Password": "Password",
-    "Confirm_Password": "Confirm password"
+    "Confirm_Password": "Confirm password",
+    "Register_Button": "Sing up"
   },
   "Confirm_Current_Pass": {
     "Write_Current_Pass": "Write your current password",
-    "Current_Pass": "Current password"
+    "Current_Pass": "Current password",
+    "Continue_Button": "Continue",
+    "Write_New_Pass": "Write your new password",
+    "New_Pass": "New password"
   },
   "Edit_Profile": {
     "User_Name": "User Name",
@@ -18,7 +22,10 @@
     "Surnames": "Surnames",
     "Change_Password": "Change password",
     "Save_Changes": "Save changes",
-    "Eliminate_Account": "Eliminate account"
+    "Eliminate_Account": "Eliminate account",
+    "Eliminate_AccountAdvice": "You are about delete your account",
+    "Eliminate_AccountAsk": "Are you shure do you want to do it?",
+    "Cancel_Button": "Cancel"
   },
   "Filters": {
     "Filter_By": "Filter by",
@@ -33,19 +40,23 @@
     "Email": "Email",
     "Password": "Password",
     "Forgot_Password": "Have you forgotten your password?",
-    "Register_Text": "Not a member yet? Register"
+    "Register_Text": "Not a member yet? Register",
+    "Login_Button": "Login"
   },
   "Pass_Recover_Code_Confirm": {
     "Write_Code": "Write the confirmation code that you have received",
-    "Code": "Confirmation code"
+    "Code": "Confirmation code",
+    "Continue_Button": "Continue"
   },
   "Pass_Recover_Mail": {
     "Write_Email": "Write your email address to send the verification code",
-    "Email": "Email"
+    "Email": "Email",
+    "Search_Button": "Search"
   },
   "Password_Change": {
     "New_Password": "New password",
-    "Confirm_New_Password": "Confirm new password"
+    "Confirm_New_Password": "Confirm new password",
+    "Change_Password_Button": "Change password"
   },
   "Profile": {
     "User_Name": "User Name",
@@ -58,5 +69,17 @@
   },
   "Search_Bar": {
     "Search": "Search"
+  },
+  "Error_Control": {
+    "Incorrect_Pass": "The password is incorrect",
+    "Void_Fields": "Debes rellenar todos los campos",
+    "Invalid_Email": "The inserted email is not valid",
+    "Registred_Email": "The inserted email is allready registred",
+    "Invalid_Size_Name": "The username should must contain between 3 and 15",
+    "Registred_Name": "The username is allready in use",
+    "Invalid_Size_Pass": "The password should contain more than 8 characters",
+    "Different_Pass": "You have not entered the same password",
+    "Registred_Ok": "You have successfully registered",
+    "Login_Ok": "You have successfully logged in"
   }
 }

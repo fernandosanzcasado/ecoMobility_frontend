@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 
@@ -14,13 +14,29 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import {
+  clearText,
+  checkTextInputNotEmpty,
+  errorControl,
+} from "../helpers/Login.helper";
 import { useTranslation } from "react-i18next";
+
+import { createPutPasswordChange } from "../helpers/Axios.helper";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
+const Separator3 = () => <View style={styles.separator3} />;
+
+const useValidation = () => {
+  return { checkTextInputNotEmpty };
+};
 
 export default function Login({ navigation }) {
+  const [userOldPassword, setUserOldPassword] = useState("");
+  const [userNewPassword, setUserNewPassword] = useState("");
   const { t } = useTranslation();
+  const validation = useValidation();
+
   return (
     <SafeAreaView style={styles.container1}>
       <View>
@@ -44,21 +60,50 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.tinput}
           placeholder={t("Confirm_Current_Pass.Current_Pass")}
+          onChangeText={(newtext) => setUserOldPassword(newtext)}
+          defaultValue={userOldPassword}
+          //secureTextEntry
         />
       </View>
       <Separator2 />
+      <Separator2 />
       <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("PasswordChange");
-          }}
-        >
-          <Image source={require("../../assets/images/Boton1Buscar.png")} />
-        </TouchableOpacity>
+        <Text>{t("Confirm_Current_Pass.Write_New_Pass")}</Text>
+        <TextInput
+          style={styles.tinput}
+          placeholder={t("Confirm_Current_Pass.New_Pass")}
+          onChangeText={(newtext) => setUserNewPassword(newtext)}
+          defaultValue={userNewPassword}
+          secureTextEntry
+        />
       </View>
       <Separator2 />
-      <Separator2 />
+      <View style={styles.LoginButton}>
+        <Button
+          title={t("Confirm_Current_Pass.Continue_Button")}
+          color="#27CF10"
+          style={styles.buttonLogin}
+          onPress={() => {
+            if (
+              validation.checkTextInputNotEmpty(
+                userOldPassword,
+                userNewPassword
+              )
+            ) {
+              (async () => {
+                if (
+                  await createPutPasswordChange(
+                    userOldPassword,
+                    userNewPassword
+                  )
+                )
+                  navigation.navigate("Profile");
+              })();
+            }
+          }}
+        />
+      </View>
+      <Separator3 />
       <View>
         <TouchableOpacity
           style={styles.buttonBack}
@@ -106,10 +151,10 @@ const styles = StyleSheet.create({
     margin: 20,
     margintop: 22,
   },
-  button: {
-    alignItems: "center",
-    right: 5,
-    margintop: 2000,
+  LoginButton: {
+    paddingTop: Constants.statusBarHeight * 0.5,
+    paddingLeft: Constants.statusBarHeight * 2.5,
+    paddingRight: Constants.statusBarHeight * 2.5,
   },
   buttonBack: {
     //alignItems: "left",
@@ -125,5 +170,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     //borderBottomColor: "#737373",
     //borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  separator3: {
+    marginVertical: 60,
   },
 });

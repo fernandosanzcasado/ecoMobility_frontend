@@ -8,35 +8,25 @@ import {
   Button,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
 
-import "../../i18n.js";
+import {
+  createPutUser,
+  createDeleteUser,
+  createGetUserData,
+} from "../helpers/Axios.helper";
 
-const errorControl = (errorId) => {
-  switch (errorId) {
-    case 1:
-      alert("El correo electrónico introducido no es válido");
-      break;
-    case 2:
-      alert("El nombre de usuario debe contener entre 3 y 15 carácteres");
-      break;
-    case 3:
-      alert("El nombre de usuario ya se encuentra en uso");
-      break;
-    case 6:
-      alert("Tu cambios se han guardado satisfactoriamente");
-      break;
-    default:
-      break;
-  }
-};
+import "../../i18n.js";
+import { errorControlRegister } from "../helpers/AccountRegister.helper";
+
 const checkUser = (user) => {
   if (user.length <= 3 || user.length >= 15) {
-    errorControl(2);
+    errorControlRegister(3);
     return false;
   } else {
     return true;
@@ -47,20 +37,61 @@ const checkEmail = (email) => {
   if (email.Length > 0) {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(email) === false) {
-      errorControl(1);
+      errorControlRegister(1);
       return false;
     }
   } else {
     return true;
   }
 };
+
 export default function EditProfile({ navigation }) {
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
-  const [email, setEmail] = useState("");
-  const [user, setUser] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userSurname, setUserSurname] = useState("");
+  const [userNewName, setUserNewName] = useState("");
+  const [userNewSurname, setUserNewSurname] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+  React.useEffect(() => {
+    const chargeView = navigation.addListener("focus", () => {
+      let userDTO = [];
+      (async () => {
+        userDTO = await createGetUserData();
+        if (userDTO.length == 3) {
+          setUserName(userDTO[0]);
+          setUserSurname(userDTO[1]);
+          setUserEmail(userDTO[2]);
+        }
+      })();
+    });
+    return chargeView;
+  }, [navigation]);
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      t("Edit_Profile.Eliminate_AccountAdvice"),
+      t("Edit_Profile.Eliminate_AccountAsk"),
+      [
+        {
+          text: t("Edit_Profile.Cancel_Button"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            (async () => {
+              if (await createDeleteUser()) navigation.navigate("Login");
+            })();
+          },
+        },
+      ]
+    );
+
   return (
     <View style={styles.initialView}>
       <ScrollView>
@@ -83,7 +114,7 @@ export default function EditProfile({ navigation }) {
               style={styles.picture}
             ></Image>
           </TouchableOpacity>
-          <Text style={styles.headerText}> {t("Edit_Profile.User_Name")} </Text>
+          <Text style={styles.headerText}> {userName} </Text>
         </View>
         <View>
           <TouchableOpacity></TouchableOpacity>
@@ -95,9 +126,9 @@ export default function EditProfile({ navigation }) {
           </Text>
           <TextInput
             style={styles.textInput}
-            placeholder={t("Edit_Profile.Name")}
-            onChangeText={(newText) => setUser(newText)}
-            defaultValue={user}
+            placeholder={userName}
+            onChangeText={(newText) => setUserNewName(newText)}
+            defaultValue={userNewName}
           />
         </View>
         <View>
@@ -107,9 +138,9 @@ export default function EditProfile({ navigation }) {
           </Text>
           <TextInput
             style={styles.textInput}
-            placeholder={t("Edit_Profile.Surnames")}
-            onChangeText={(newtext) => setEmail(newtext)}
-            defaultValue={email}
+            placeholder={userSurname}
+            onChangeText={(newtext) => setUserNewSurname(newtext)}
+            defaultValue={userNewSurname}
           />
         </View>
         <View>
@@ -129,8 +160,11 @@ export default function EditProfile({ navigation }) {
             title={t("Edit_Profile.Save_Changes")}
             color="#27CF10"
             onPress={() => {
-              if (checkEmail(email)) {
-                checkUser(user);
+              if (checkUser(userNewName)) {
+                (async () => {
+                  if (await createPutUser(userNewName, userNewSurname))
+                    navigation.navigate("Profile");
+                })();
               }
             }}
           />
@@ -148,6 +182,9 @@ export default function EditProfile({ navigation }) {
               color={"#E03614"}
               size={40}
               style={styles.icons}
+              onPress={() => {
+                createTwoButtonAlert();
+              }}
             ></Icon>
           </TouchableOpacity>
         </View>

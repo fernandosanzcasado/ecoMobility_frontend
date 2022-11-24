@@ -3,14 +3,23 @@
 //   setPassword("");
 // };
 import { Alert } from "react-native";
+//import { useTranslation } from "react-i18next";
 
-export const errorControl = (errorId) => {
+//const { t } = useTranslation();
+
+export const errorControlLogin = (errorId) => {
   switch (errorId) {
+    case 2:
+      //Alert.alert(t("Error_Control.Incorrect_Pass"));
+      Alert.alert("Error_Control.Incorrect_Pass");
+      break;
     case 7:
-      Alert.alert("Has iniciado sesión satisfactoriamente");
+      //Alert.alert(t("Error_Control.Login_Ok"));
+      Alert.alert("Error_Control.Login_Ok");
       break;
     case 8:
-      Alert.alert("Debes rellenar todos los campos");
+      //Alert.alert(t("Error_Control.Void_Fields"));
+      Alert.alert("Error_Control.Void_Fields");
       break;
     default:
       break;
@@ -19,10 +28,10 @@ export const errorControl = (errorId) => {
 
 export const checkTextInputNotEmpty = (email, password) => {
   if (email === "" || password === "") {
-    errorControl(8);
+    errorControlLogin(8);
     return false;
   } else {
-    errorControl(7);
+    errorControlLogin(7);
     return true;
   }
 };
