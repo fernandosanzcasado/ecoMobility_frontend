@@ -1,7 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
-import axios from "axios";
 
 import {
   StyleSheet,
@@ -21,9 +20,10 @@ import {
   checkTextInputNotEmpty,
   errorControl,
 } from "../helpers/Login.helper";
-import { useTranslation } from "react-i18next";
 
-const loginURL = "http://13.39.20.131:3000/api/v1/users/login";
+import { createPostLogin } from "../helpers/Axios.helper";
+
+import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -48,23 +48,6 @@ export default function Login({ navigation }) {
     setUserEmail("");
     setUserPassword("");
   };
-
-  async function createPostLogin() {
-    console.log("Entro aqui");
-    axios
-      .post(loginURL, {
-        email: userEmail,
-        password: userPassword,
-      })
-      .then(function (response) {
-        //escribirCurrentUser(response.data);
-        navigation.navigate("MapScreen");
-      })
-      .catch(function (error) {
-        console.log(error.response.data.message);
-        errorControl(2);
-      });
-  }
 
   const { t } = useTranslation();
 
@@ -112,8 +95,10 @@ export default function Login({ navigation }) {
           style={styles.buttonLogin}
           onPress={() => {
             if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
-              createPostLogin();
-              //navigation.navigate("MapScreen");
+              (async () => {
+                if (await createPostLogin(userEmail, userPassword))
+                  navigation.navigate("MapScreen");
+              })();
             }
           }}
         />

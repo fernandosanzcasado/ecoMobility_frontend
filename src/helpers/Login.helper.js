@@ -7,7 +7,7 @@ import { Alert } from "react-native";
 
 //const { t } = useTranslation();
 
-export const errorControl = (errorId) => {
+export const errorControlLogin = (errorId) => {
   switch (errorId) {
     case 2:
       //Alert.alert(t("Error_Control.Incorrect_Pass"));
@@ -28,10 +28,10 @@ export const errorControl = (errorId) => {
 
 export const checkTextInputNotEmpty = (email, password) => {
   if (email === "" || password === "") {
-    errorControl(8);
+    errorControlLogin(8);
     return false;
   } else {
-    errorControl(7);
+    errorControlLogin(7);
     return true;
   }
 };

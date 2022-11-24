@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
-import axios from "axios";
 
 import {
   StyleSheet,
@@ -22,8 +21,7 @@ import {
 } from "../helpers/Login.helper";
 import { useTranslation } from "react-i18next";
 
-const ConfirmPasswordURL =
-  "http://13.39.20.131:3000/api/v1/users/me/updatePassword";
+import { createPutPasswordChange } from "../helpers/Axios.helper";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -38,26 +36,6 @@ export default function Login({ navigation }) {
   const [userNewPassword, setUserNewPassword] = useState("");
   const { t } = useTranslation();
   const validation = useValidation();
-
-  async function createPutPasswordChange() {
-    console.log("Entro a createPostPaswordChange");
-    axios
-      .put(
-        ConfirmPasswordURL,
-        {
-          checkOldPassword: userOldPassword,
-          newPassword: userNewPassword,
-        },
-        { withCredentials: true }
-      )
-      .then(function (response) {
-        navigation.navigate("Profile");
-      })
-      .catch(function (error) {
-        console.log(error.response.data.message);
-        errorControl(2);
-      });
-  }
 
   return (
     <SafeAreaView style={styles.container1}>
@@ -112,7 +90,15 @@ export default function Login({ navigation }) {
                 userNewPassword
               )
             ) {
-              createPutPasswordChange();
+              (async () => {
+                if (
+                  await createPutPasswordChange(
+                    userOldPassword,
+                    userNewPassword
+                  )
+                )
+                  navigation.navigate("Profile");
+              })();
             }
           }}
         />
