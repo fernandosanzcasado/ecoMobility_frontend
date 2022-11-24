@@ -15,9 +15,6 @@ import {
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
-
-const registerURL = "http://13.39.20.131:3000/api/v1/users/register";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -30,6 +27,8 @@ import {
   checkPasswordRequeriments,
   errorControl,
 } from "../helpers/AccountRegister.helper";
+
+import { createPostRegister } from "../helpers/Axios.helper";
 
 const useValidation = () => {
   return {
@@ -50,25 +49,6 @@ export default function Login({ navigation }) {
   const validation = useValidation();
 
   const { t } = useTranslation();
-
-  async function createPostRegister() {
-    axios
-      .post(registerURL, {
-        email: userEmail,
-        name: userName,
-        surnames: userSurname,
-        password: password1,
-      })
-      .then(function (response) {
-        console.log(response);
-        errorControl(7);
-        navigation.navigate("Login");
-      })
-      .catch(function (error) {
-        console.log(error);
-        errorControl(2);
-      });
-  }
 
   return (
     <SafeAreaView style={styles.container1}>
@@ -148,7 +128,17 @@ export default function Login({ navigation }) {
               if (validation.checkEmail(userEmail)) {
                 if (validation.checkUser(userName)) {
                   if (validation.checkPassword(password1, password2)) {
-                    createPostRegister();
+                    (async () => {
+                      if (
+                        await createPostRegister(
+                          userEmail,
+                          userName,
+                          userSurname,
+                          password1
+                        )
+                      )
+                        navigation.navigate("Login");
+                    })();
                   }
                 }
               }
@@ -161,7 +151,7 @@ export default function Login({ navigation }) {
         <TouchableOpacity
           style={styles.buttonBack}
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate("Login");
           }}
         >
           <Image source={require("../../assets/images/BotonAtras.png")} />

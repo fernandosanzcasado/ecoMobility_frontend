@@ -1,7 +1,7 @@
 import { Alert } from "react-native";
 //import { useTranslation } from "react-i18next";
 
-export const errorControl = (errorId) => {
+export const errorControlRegister = (errorId) => {
   //const { t } = useTranslation();
   switch (errorId) {
     case 1:
@@ -48,14 +48,14 @@ export const checkTextInputNotEmpty = (email, user, password1, password2) => {
     password1.length == 0 ||
     password2.length == 0
   ) {
-    errorControl(8);
+    errorControlRegister(8);
     return false;
   } else return true;
 };
 
 export const checkTextInputPassNotEmpty = (password1, password2) => {
   if (password1.length == 0 || password2.length == 0) {
-    errorControl(8);
+    errorControlRegister(8);
     return false;
   } else return true;
 };
@@ -63,7 +63,7 @@ export const checkTextInputPassNotEmpty = (password1, password2) => {
 export const checkEmail = (email) => {
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
   if (reg.test(email) === false) {
-    errorControl(1);
+    errorControlRegister(1);
     return false;
   } else {
     return true;
@@ -72,7 +72,7 @@ export const checkEmail = (email) => {
 
 export const checkUser = (user) => {
   if (user.length <= 3 || user.length >= 15) {
-    errorControl(3);
+    errorControlRegister(3);
     return false;
   } else {
     return true;
@@ -86,15 +86,15 @@ export const checkPassword = (password1, password2) => {
     checkPasswordRequeriments(password2)
   ) {
     if (password1 != password2) {
-      errorControl(6);
+      errorControlRegister(6);
       return false;
     } else {
-      errorControl(7);
+      errorControlRegister(7);
       return true;
     }
   } else {
-    if (password1 != password2) errorControl(6);
-    else errorControl(5);
+    if (password1 != password2) errorControlRegister(6);
+    else errorControlRegister(5);
     return false;
   }
 };

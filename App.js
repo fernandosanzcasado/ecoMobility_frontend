@@ -27,7 +27,7 @@ export default function App({ t }) {
     <EventProvider style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="MapScreen"
+          initialRouteName="Login"
           screenOptions={{
             headerShown: false,
           }}
