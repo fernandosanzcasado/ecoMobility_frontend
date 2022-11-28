@@ -15,8 +15,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 import LogoText from "../components/ecomobility/LogoText";
+
+import { BASE_URL } from "@env";
 
 const listStations = [
   "França",
@@ -45,6 +48,7 @@ const listStations = [
 export default function SearchBar({ navigation }) {
   //Pantalla negra al escriure
   const [searchBarFocused, setSearchBarFocused] = useState(false);
+  const [estaciones, setEstaciones] = useState([]);
 
   //Filtre de la pantalla
   const [filterData, setfilterData] = useState([]);
@@ -54,13 +58,24 @@ export default function SearchBar({ navigation }) {
   const { t } = useTranslation();
 
   useEffect(() => {
-    stations();
+    async function getEstaciones() {
+      try {
+        const res = await axios.get(
+          `http://${BASE_URL}/api/v1/estaciones/coordenadas`
+        );
+        setEstaciones(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getEstaciones();
   }, []);
 
-  const stations = () => {
-    setfilterData(listStations);
-    setmasterData(listStations);
-  };
+  //MIRAR JUNTOS FERNANDO--------------------------------
+  useEffect(() => {
+    setfilterData(estaciones.direccion);
+    setmasterData(estaciones.direccion);
+  }, estaciones);
 
   const searchFilter = (
     text,
