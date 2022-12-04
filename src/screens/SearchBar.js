@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-
-import Icon from "react-native-vector-icons/FontAwesome5";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -15,35 +13,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
 import { useTranslation } from "react-i18next";
+
 import axios from "axios";
-
+import Icon from "react-native-vector-icons/FontAwesome5";
 import LogoText from "../components/ecomobility/LogoText";
-
 import { BASE_URL } from "@env";
-
-const listStations = [
-  "França",
-  "Muntaner",
-  "Av.Sarria",
-  "Urgell",
-  "Borrell",
-  "Diagonal",
-  "Londres",
-  "Paris",
-  "Jaume I",
-  "Bisbe",
-  "Portal de l'Àngel",
-  "Pau Claris",
-  "Passeig de Gracia",
-  "Esculleders",
-  "Rambla",
-  "ueeeee",
-  "sadasdad",
-  "dadasdsa",
-  "fsegfsad",
-  "HolaBuenasTardes",
-  "HolaBuenosDias",
-];
 
 export default function SearchBar({ navigation }) {
   //Pantalla negra al escriure
@@ -54,6 +28,9 @@ export default function SearchBar({ navigation }) {
   const [filterData, setfilterData] = useState([]);
   const [masterData, setmasterData] = useState([]);
   const [search, setSearch] = useState("");
+
+  //ID de la estació a la que volem accedir
+  const [stationID, setStationID] = useState([]);
 
   const { t } = useTranslation();
 
@@ -71,7 +48,6 @@ export default function SearchBar({ navigation }) {
     getEstaciones();
   }, []);
 
-  //MIRAR JUNTOS FERNANDO--------------------------------
   useEffect(() => {
     setfilterData(estaciones.map((estacion) => estacion.direccion));
     setmasterData(estaciones.map((estacion) => estacion.direccion));
@@ -122,6 +98,18 @@ export default function SearchBar({ navigation }) {
     };
   }, []);
 
+  const primeraExec = useRef(false);
+  useEffect(() => {
+    if (primeraExec.current) {
+      navigation.navigate("ChargePoint", { idStation: stationID });
+    } else primeraExec.current = true;
+  }, [stationID]);
+
+  const goToChargePoint = (item) => {
+    const id = estaciones.find((x) => x.direccion === item).id;
+    setStationID(id);
+  };
+
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <View style={styles.mainView}>
@@ -150,12 +138,19 @@ export default function SearchBar({ navigation }) {
           <Animatable.View
             animation={searchBarFocused ? "fadeInLeft" : "fadeInRight"}
           ></Animatable.View>
-          <Icon
-            name={searchBarFocused ? "arrow-left" : "search"}
-            size={25}
-            color="#000000"
-            style={styles.lupe}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              setSearchBarFocused(false);
+              Keyboard.dismiss();
+            }}
+          >
+            <Icon
+              name={searchBarFocused ? "arrow-left" : "search"}
+              size={25}
+              color="#000000"
+              style={styles.lupe}
+            />
+          </TouchableOpacity>
           <TextInput
             placeholder={t("Search_Bar.Search")}
             onSubmitEditing={Keyboard.dismiss}
@@ -172,15 +167,21 @@ export default function SearchBar({ navigation }) {
         data={filterData}
         renderItem={({ item }) => (
           <View style={styles.separador}>
-            <Text style={{ padding: 20, fontSize: 20 }}>{item}</Text>
-            <View
-              style={{
-                alignSelf: "center",
-                paddingHorizontal: Constants.statusBarHeight,
+            <Text style={{ margin: 15, fontSize: 15 }}>{item}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                goToChargePoint(item);
               }}
             >
-              <Icon name="arrow-right" size={25}></Icon>
-            </View>
+              <View
+                style={{
+                  marginHorizontal: Constants.statusBarHeight,
+                  marginVertical: 15,
+                }}
+              >
+                <Icon name="eye" size={20}></Icon>
+              </View>
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
