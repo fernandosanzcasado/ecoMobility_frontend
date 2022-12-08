@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
 import { useTranslation } from "react-i18next";
+import { Card, Button } from "react-native-paper";
 
 import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -159,6 +160,7 @@ export default function SearchBar({ navigation }) {
             onChangeText={(text) =>
               searchFilter(text, setfilterData, setSearch, masterData)
             }
+            style={{ width: 250 }}
           />
         </Animatable.View>
       </View>
@@ -167,21 +169,21 @@ export default function SearchBar({ navigation }) {
         data={filterData}
         renderItem={({ item }) => (
           <View style={styles.separador}>
-            <Text style={{ margin: 15, fontSize: 15 }}>{item}</Text>
-            <TouchableOpacity
-              onPress={() => {
-                goToChargePoint(item);
-              }}
-            >
-              <View
-                style={{
-                  marginHorizontal: Constants.statusBarHeight,
-                  marginVertical: 15,
-                }}
-              >
-                <Icon name="eye" size={20}></Icon>
-              </View>
-            </TouchableOpacity>
+            <Card elevation={5} style={{ flexGrow: 1 }}>
+              <Card.Content style={{ display: "flex", flexDirection: "row" }}>
+                <Text numberOfLines={1} style={{ alignSelf: "center" }}>
+                  {item.length < 50 ? `${item}` : `${item.substring(0, 49)}...`}
+                </Text>
+                <Button
+                  onPress={() => {
+                    goToChargePoint(item);
+                  }}
+                  icon="car-info"
+                  compact={true}
+                  labelStyle={{ fontSize: Constants.statusBarHeight / 1.5 }}
+                />
+              </Card.Content>
+            </Card>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
@@ -223,6 +225,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 2,
     opacity: 0.2,
-    borderColor: "#2D803F",
+    borderColor: "#FFFFFF",
   },
 });

@@ -5,17 +5,45 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
-import { Button } from "react-native-paper";
+import { Button, Card, Divider } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
+
+import axios from "axios";
+import { BASE_URL } from "@env";
 
 export default function ChargePoint({ route, navigation }) {
   [favourite, setFavourite] = useState(false);
   const { idStation } = route.params;
   //Pillar los atributos y en caso de que estén vacíos poner un booleano a false
   //renderizar los atributos de la estación en función de los booleanos
+  //DE MOMENT--------------------------------
+  const [tipuscorrent, setTipusCorrent] = useState(false);
+  const [tipusvehicle, setTipusVehicle] = useState(false);
+  const [tipusconexio, setTipusconexio] = useState(false);
+  //--------------------------------------------------------
+  const [est, setEst] = useState({});
+  useEffect(() => {
+    async function getEstaciones() {
+      try {
+        const res = await axios.get(
+          `http://${BASE_URL}/api/v1/estaciones/${idStation}`
+        );
+        setEst(res.data);
+        //--------
+        if (est.tipoCorriente != "") setTipusCorrent(true);
+        if (est.tipoVehiculo != "") setTipusVehicle(true);
+        if (est.tipoConexion != "") setTipusconexio(true);
+        //--------
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getEstaciones();
+  }, []);
 
   return (
     <View>
@@ -62,199 +90,96 @@ export default function ChargePoint({ route, navigation }) {
             marginBottom: Constants.statusBarHeight,
           }}
         >
-          Nombre de la estación + {idStation}
+          {est.direccion}
         </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignSelf: "center",
-          }}
-        >
-          <Icon
-            name="star"
-            color="#F1FF45"
-            size={Constants.statusBarHeight / 1.5}
-            style={{ marginRight: Constants.statusBarHeight / 8 }}
-          />
-          <Icon
-            name="star"
-            color="#F1FF45"
-            size={Constants.statusBarHeight / 1.5}
-            style={{ marginRight: Constants.statusBarHeight / 8 }}
-          />
-          <Icon
-            name="star"
-            color="#F1FF45"
-            size={Constants.statusBarHeight / 1.5}
-            style={{ marginRight: Constants.statusBarHeight / 8 }}
-          />
-          <Icon
-            name="star"
-            color="#F1FF45"
-            size={Constants.statusBarHeight / 1.5}
-            style={{ marginRight: Constants.statusBarHeight / 8 }}
-          />
-          <Icon
-            name="star-half-full"
-            color="#F1FF45"
-            size={Constants.statusBarHeight / 1.5}
-          />
-        </View>
       </SafeAreaView>
-      <ScrollView>
-        <View style={styles.container}>
-          <Icon name="car" size={Constants.statusBarHeight}></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              paddingLeft: Constants.statusBarHeight,
-            }}
-          >
-            TIPUS DE VEHICLE
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="bolt"
-            size={Constants.statusBarHeight}
-            color="#F0B523"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            TIPUS DE CORRENT
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="clock-o"
-            size={Constants.statusBarHeight}
-            color="#25971D"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            TIPUS VELOCITAT
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="plug"
-            size={Constants.statusBarHeight}
-            color="#2B7F9E"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            TIPUS CONNEXIÓ
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="map-marker"
-            size={Constants.statusBarHeight}
-            color="#C23E1E"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            ADREÇA/MUNICIPI/PROVINCIA
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="superpowers"
-            size={Constants.statusBarHeight}
-            color="#6A258D"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            POTENCIA
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="sort-numeric-asc"
-            size={Constants.statusBarHeight}
-            color="#BEB919"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            NOMBRE DE PLACES
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="location-arrow"
-            size={Constants.statusBarHeight}
-            color="#CC8C3B"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            COORDENADES
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon
-            name="sort-amount-desc"
-            size={Constants.statusBarHeight}
-            color="#A42D80"
-          ></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            DESIGNACIÓ DESCRIPTIVA
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-        <View style={styles.container}>
-          <Icon name="universal-access" size={Constants.statusBarHeight}></Icon>
-          <Text
-            style={{
-              alignSelf: "center",
-              marginLeft: Constants.statusBarHeight,
-            }}
-          >
-            ACCES
-          </Text>
-        </View>
-        <View style={styles.separador}></View>
-      </ScrollView>
+      <Card>
+        <Card.Content>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="car" size={25} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.tipoVehiculo != null
+                ? est.tipoVehiculo
+                : "No hay información disponible"}
+            </Text>
+          </View>
+          <Divider />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="bolt" size={30} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.tipoCorriente != null
+                ? est.tipoCorriente
+                : `No hay información disponible`}
+            </Text>
+          </View>
+          <Divider />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="clock-o" size={30} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.tipoVelocidad != null
+                ? est.tipoVelocidad
+                : `No hay información disponible`}
+            </Text>
+          </View>
+          <Divider />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="plug" size={30} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.tipoConexion != null
+                ? est.tipoConexion
+                : `No hay información disponible`}
+            </Text>
+          </View>
+          <Divider />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="map-marker" size={30} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.provincia != null
+                ? est.provincia
+                : `No hay información disponible`}
+            </Text>
+            <Text style={{ alignSelf: "center" }}>
+              {est.municipio != null
+                ? est.municipio
+                : `No hay información disponible`}
+            </Text>
+            <Divider />
+          </View>
+          <Divider />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="superpowers" size={30} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.potencia != null
+                ? est.potencia
+                : `No hay información disponible`}
+            </Text>
+          </View>
+          <Divider />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="sort-numeric-asc" size={30} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.nPlazas != null
+                ? est.nPlazas
+                : `No hay información disponible`}
+            </Text>
+          </View>
+          <Divider />
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Icon name="location-arrow" size={30} />
+            <Text style={{ alignSelf: "center" }}>
+              {est.longitud != null
+                ? est.longitud
+                : `No hay información disponible`}
+            </Text>
+            <Text style={{ alignSelf: "center" }}>
+              {est.latitud != null
+                ? est.latitud
+                : `No hay información disponible`}
+            </Text>
+          </View>
+        </Card.Content>
+      </Card>
+
       <View style={styles.buttons}>
         <View style={{ flexDirection: "column" }}>
           <Text style={{ marginTop: Constants.statusBarHeight }}>Check In</Text>
@@ -316,7 +241,7 @@ export default function ChargePoint({ route, navigation }) {
 const styles = StyleSheet.create({
   capcalera: {
     backgroundColor: "#2D803F",
-    height: "25%",
+    height: "30%",
     width: "100%",
     flexDirection: "column",
     marginBottom: Constants.statusBarHeight,
