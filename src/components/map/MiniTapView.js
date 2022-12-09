@@ -25,11 +25,6 @@ export default function MiniTapView({
   hideFunction,
   startRoute,
 }) {
-  //DE MOMENT--------------------------------
-  const [tipuscorrent, setTipusCorrent] = useState(false);
-  const [tipusvehicle, setTipusVehicle] = useState(false);
-  const [tipusconexio, setTipusconexio] = useState(false);
-  //----------------------
   const [est, setEst] = useState({});
   useEffect(() => {
     async function getEstaciones() {
@@ -38,11 +33,6 @@ export default function MiniTapView({
           `http://${BASE_URL}/api/v1/estaciones/${ID}`
         );
         setEst(res.data);
-        //--------
-        if (est.tipoCorriente != "") setTipusCorrent(true);
-        if (est.tipoVehiculo != "") setTipusVehicle(true);
-        if (est.tipoConexion != "") setTipusconexio(true);
-        //--------
       } catch (error) {
         console.log(error);
       }
@@ -67,25 +57,25 @@ export default function MiniTapView({
           <View style={{ flexDirection: "row" }}>
             <Icon name="flash" size={Constants.statusBarHeight / 2.5}></Icon>
             <Text style={styles.text}>
-              {tipuscorrent
-                ? "No hi ha informacio disponible"
-                : est.tipoCorriente}
+              {est.tipoCorriente != null
+                ? est.tipoCorriente
+                : `No hay información disponible`}
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <Icon name="car" size={Constants.statusBarHeight / 3}></Icon>
             <Text style={styles.text}>
-              {tipusvehicle
+              {est.tipoVehiculo != null
                 ? est.tipoVehiculo
-                : "No hi ha informacio disponible"}
+                : "No hay información disponible"}
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <Icon name="plug" size={Constants.statusBarHeight / 3}></Icon>
             <Text style={styles.text}>
-              {tipusconexio
+              {est.tipoConexion != null
                 ? est.tipoConexion
-                : "No hi ha informacio disponible"}
+                : `No hay información disponible`}
             </Text>
           </View>
         </Card.Content>

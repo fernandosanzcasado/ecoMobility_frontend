@@ -14,17 +14,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 import axios from "axios";
 import { BASE_URL } from "@env";
+import ListOfAttributes from "../components/estaciones/ListOfAttributes";
 
 export default function ChargePoint({ route, navigation }) {
   [favourite, setFavourite] = useState(false);
   const { idStation } = route.params;
-  //Pillar los atributos y en caso de que estén vacíos poner un booleano a false
-  //renderizar los atributos de la estación en función de los booleanos
-  //DE MOMENT--------------------------------
-  const [tipuscorrent, setTipusCorrent] = useState(false);
-  const [tipusvehicle, setTipusVehicle] = useState(false);
-  const [tipusconexio, setTipusconexio] = useState(false);
-  //--------------------------------------------------------
+
   const [est, setEst] = useState({});
   useEffect(() => {
     async function getEstaciones() {
@@ -33,11 +28,6 @@ export default function ChargePoint({ route, navigation }) {
           `http://${BASE_URL}/api/v1/estaciones/${idStation}`
         );
         setEst(res.data);
-        //--------
-        if (est.tipoCorriente != "") setTipusCorrent(true);
-        if (est.tipoVehiculo != "") setTipusVehicle(true);
-        if (est.tipoConexion != "") setTipusconexio(true);
-        //--------
       } catch (error) {
         console.log(error);
       }
@@ -93,94 +83,9 @@ export default function ChargePoint({ route, navigation }) {
           {est.direccion}
         </Text>
       </SafeAreaView>
-      <Card>
-        <Card.Content>
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="car" size={25} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.tipoVehiculo != null
-                ? est.tipoVehiculo
-                : "No hay información disponible"}
-            </Text>
-          </View>
-          <Divider />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="bolt" size={30} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.tipoCorriente != null
-                ? est.tipoCorriente
-                : `No hay información disponible`}
-            </Text>
-          </View>
-          <Divider />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="clock-o" size={30} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.tipoVelocidad != null
-                ? est.tipoVelocidad
-                : `No hay información disponible`}
-            </Text>
-          </View>
-          <Divider />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="plug" size={30} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.tipoConexion != null
-                ? est.tipoConexion
-                : `No hay información disponible`}
-            </Text>
-          </View>
-          <Divider />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="map-marker" size={30} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.provincia != null
-                ? est.provincia
-                : `No hay información disponible`}
-            </Text>
-            <Text style={{ alignSelf: "center" }}>
-              {est.municipio != null
-                ? est.municipio
-                : `No hay información disponible`}
-            </Text>
-            <Divider />
-          </View>
-          <Divider />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="superpowers" size={30} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.potencia != null
-                ? est.potencia
-                : `No hay información disponible`}
-            </Text>
-          </View>
-          <Divider />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="sort-numeric-asc" size={30} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.nPlazas != null
-                ? est.nPlazas
-                : `No hay información disponible`}
-            </Text>
-          </View>
-          <Divider />
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Icon name="location-arrow" size={30} />
-            <Text style={{ alignSelf: "center" }}>
-              {est.longitud != null
-                ? est.longitud
-                : `No hay información disponible`}
-            </Text>
-            <Text style={{ alignSelf: "center" }}>
-              {est.latitud != null
-                ? est.latitud
-                : `No hay información disponible`}
-            </Text>
-          </View>
-        </Card.Content>
-      </Card>
-
-      <View style={styles.buttons}>
+      <ListOfAttributes estacion={est} />
+      {/* CREAR COMPONENT DELS 3 BOTONS CHECK IN CHECK OUT I ANAR-HI PER REAPROFITAR */}
+      {/* <View style={styles.buttons}>
         <View style={{ flexDirection: "column" }}>
           <Text style={{ marginTop: Constants.statusBarHeight }}>Check In</Text>
           <Button
@@ -233,7 +138,7 @@ export default function ChargePoint({ route, navigation }) {
             }}
           ></Button>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -241,7 +146,7 @@ export default function ChargePoint({ route, navigation }) {
 const styles = StyleSheet.create({
   capcalera: {
     backgroundColor: "#2D803F",
-    height: "30%",
+    //height: "30%",
     width: "100%",
     flexDirection: "column",
     marginBottom: Constants.statusBarHeight,
