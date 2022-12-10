@@ -42,9 +42,7 @@ export default function ListOfAttributes({ estacion }) {
         </List.Accordion>
         <List.Accordion
           title="Promotor: "
-          left={(props) => (
-            <List.Icon {...props} icon="book-information-variant" />
-          )}
+          left={(props) => <List.Icon {...props} icon="tools" />}
         >
           <Card>
             <Card.Content>
