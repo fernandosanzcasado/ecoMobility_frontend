@@ -169,7 +169,7 @@ export default function SearchBar({ navigation }) {
         data={filterData}
         renderItem={({ item }) => (
           <View style={styles.separador}>
-            <Card elevation={5} style={{ flexGrow: 1 }}>
+            <Card elevation={1} style={{ flexGrow: 1 }}>
               <Card.Content style={{ display: "flex", flexDirection: "row" }}>
                 <Text numberOfLines={1} style={{ alignSelf: "center" }}>
                   {item.length < 50 ? `${item}` : `${item.substring(0, 49)}...`}

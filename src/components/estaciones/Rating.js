@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   struct: {
     display: "flex",
     flexDirection: "column",
+    marginBottom: 5,
   },
   button: {
     backgroundColor: "#EEF3F1",

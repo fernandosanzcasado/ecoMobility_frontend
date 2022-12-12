@@ -79,7 +79,7 @@ export default function MiniTapView({
             </Text>
           </View>
         </Card.Content>
-        <Card.Actions style={{ flexDirection: "column" }}>
+        <Card.Actions style={{ flexDirection: "row" }}>
           <Button
             contentStyle={styles.buttonstyle}
             theme={{
@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
   },
   buttonstyle: {
     backgroundColor: "#518BDF",
-    height: 30,
-    width: 70,
+    height: 40,
+    width: 90,
   },
   Title: {
     fontWeight: "bold",
