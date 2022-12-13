@@ -1,4 +1,4 @@
-import {  useState, useEffect , useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 
 import * as Location from "expo-location";
@@ -113,11 +113,7 @@ export default function Mapa({ style, navigation }) {
         // }}
         radius={50}
       >
-        <TouchableOpacity
-          onPress={() => {
-            console.log("AAAAAAAAAAAAAAAAAAAA");
-          }}
-        >
+        <TouchableOpacity>
           <Marker
             coordinate={origin}
             onDragEnd={(direction) =>

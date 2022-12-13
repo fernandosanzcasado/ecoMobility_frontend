@@ -55,7 +55,11 @@ export default function MiniTapView({
         <Card.Content>
           <Text style={styles.Title}>{est.direccion}</Text>
           <View style={{ flexDirection: "row" }}>
-            <Icon name="flash" size={Constants.statusBarHeight / 2.5}></Icon>
+            <Icon
+              name="flash"
+              size={Constants.statusBarHeight / 2.5}
+              style={{ alignSelf: "center" }}
+            ></Icon>
             <Text style={styles.text}>
               {est.tipoCorriente != null
                 ? est.tipoCorriente
@@ -63,7 +67,11 @@ export default function MiniTapView({
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Icon name="car" size={Constants.statusBarHeight / 3}></Icon>
+            <Icon
+              name="car"
+              size={Constants.statusBarHeight / 3}
+              style={{ alignSelf: "center" }}
+            ></Icon>
             <Text style={styles.text}>
               {est.tipoVehiculo != null
                 ? est.tipoVehiculo
@@ -71,7 +79,11 @@ export default function MiniTapView({
             </Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <Icon name="plug" size={Constants.statusBarHeight / 3}></Icon>
+            <Icon
+              name="plug"
+              size={Constants.statusBarHeight / 3}
+              style={{ alignSelf: "center" }}
+            ></Icon>
             <Text style={styles.text}>
               {est.tipoConexion != null
                 ? est.tipoConexion
@@ -95,10 +107,12 @@ export default function MiniTapView({
             ANAR-HI
           </Button>
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
+            style={
+              {
+                //flexDirection: "row",
+                //justifyContent: "space-between",
+              }
+            }
           >
             <Button
               labelStyle={{ fontSize: Constants.statusBarHeight / 3.5 }}
@@ -138,7 +152,7 @@ const styles = StyleSheet.create({
   miniview: {
     position: "absolute",
     top: "30%",
-    left: "25%",
+    left: "20%",
     // backgroundColor: "#FFFFFF",
     // width: 200,
     // height: 100,
@@ -146,13 +160,13 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     backgroundColor: "#FFFFFF",
-    width: 220,
+    width: 240,
     height: 180,
     elevation: 5,
   },
   buttonstyle: {
     backgroundColor: "#518BDF",
-    height: 40,
+    height: 35,
     width: 90,
   },
   Title: {
@@ -161,5 +175,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 13,
+    marginLeft: 2,
+    alignSelf: "center",
   },
 });

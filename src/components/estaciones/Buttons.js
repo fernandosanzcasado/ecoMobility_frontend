@@ -9,7 +9,7 @@ export default function Buttons() {
       <View style={styles.botons}>
         <IconButton
           icon="account-plus"
-          color="#29CD5D"
+          iconColor="#29CD5D"
           onPress={() => {
             console.log("Pressed");
           }}
@@ -20,7 +20,7 @@ export default function Buttons() {
       <View style={styles.botons}>
         <IconButton
           icon="clock-start"
-          color="#86B9DF"
+          iconColor="#86B9DF"
           onPress={() => {
             console.log("Pressed");
           }}
@@ -31,7 +31,7 @@ export default function Buttons() {
       <View style={styles.botons}>
         <IconButton
           icon="account-remove"
-          color="#DA6460"
+          iconColor="#DA6460"
           onPress={() => {
             console.log("Pressed");
           }}
