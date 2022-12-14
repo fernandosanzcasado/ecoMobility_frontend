@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { List, Card } from "react-native-paper";
+import { List, Card, Switch } from "react-native-paper";
 import Slider from "@react-native-community/slider";
 import Constants from "expo-constants";
 import { useTranslation } from "react-i18next";
@@ -17,12 +17,23 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import LogoText from "../components/ecomobility/LogoText";
 
 export default function FilterScreen({ navigation }) {
-  [bicicletes, setBicicletes] = useState(false);
-  [vehicles, setVehicles] = useState(false);
-  [supercharge, setSupercharge] = useState(false);
-  [preu, setPreu] = useState(false);
-  [range, setRange] = useState(5);
-  [apply, setApply] = useState(false);
+  //Tipo de Corriente
+  const [ac, setAc] = useState(true);
+  const [dc, setDc] = useState(true);
+  //Tipo de Velocidad
+  const [rapid, setRapid] = useState(true);
+  const [semirapid, setSemiRapid] = useState(true);
+  const [normal, setNormal] = useState(true);
+  const [superrapid, setSuperRapid] = useState(true);
+  //Tipo de Vehículo
+  const [cotxe, setCotxe] = useState(true);
+  const [moto, setMoto] = useState(true);
+  const [taxi, setTaxi] = useState(true);
+  const [mercaderies, setMercaderies] = useState(true);
+  //Tipo de Conexión
+
+  const [range, setRange] = useState(10);
+  const [apply, setApply] = useState(false);
 
   const { t } = useTranslation();
 
@@ -45,78 +56,188 @@ export default function FilterScreen({ navigation }) {
           <LogoText />
         </View>
       </SafeAreaView>
-      <List.Section title="Filtrar Por: ">
-        <List.Accordion
-          title="Tipo de Corriente"
-          left={(props) => (
-            <List.Icon {...props} icon="book-information-variant" />
-          )}
-        >
+      <View style={styles.content}>
+        <List.Section title="Filtrar por: ">
+          <List.Accordion
+            title="Tipo de Corriente"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
+          >
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>AC</Text>
+                  <Switch value={ac} onValueChange={() => setAc(!ac)} />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>DC</Text>
+                  <Switch value={dc} onValueChange={() => setDc(!dc)} />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Tipo de Velocidad"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
+          >
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Rapid</Text>
+                  <Switch
+                    value={rapid}
+                    onValueChange={() => setRapid(!rapid)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>SemiRapid</Text>
+                  <Switch
+                    value={semirapid}
+                    onValueChange={() => setSemiRapid(!semirapid)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Normal</Text>
+                  <Switch
+                    value={normal}
+                    onValueChange={() => setNormal(!normal)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>SuperRapid</Text>
+                  <Switch
+                    value={superrapid}
+                    onValueChange={() => setSuperRapid(!superrapid)}
+                  />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Tipo de Vehículo"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
+          >
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Cotxe</Text>
+                  <Switch
+                    value={cotxe}
+                    onValueChange={() => setCotxe(!cotxe)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Moto</Text>
+                  <Switch value={moto} onValueChange={() => setMoto(!moto)} />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Taxi</Text>
+                  <Switch value={taxi} onValueChange={() => setTaxi(!taxi)} />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Mercaderies</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Tipo de Conexion"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
+          >
+            <Card>
+              <Card.Content>
+                <Text>TESLA</Text>
+                <Text>schuko</Text>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Potencia"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
+          >
+            <Card>
+              <Card.Content>
+                <Text>POWER</Text>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
           <Card>
-            <Card.Content>
-              <Text>AC</Text>
-              <Text>DC</Text>
-              <Text>AC-DC</Text>
+            <Card.Title title="Distancia en Km: " />
+            <Card.Content style={{ flexDirection: "row" }}>
+              <Slider
+                style={{ width: 300 }}
+                minimumValue={1}
+                maximumValue={20}
+                minimumTrackTintColor="#60F4B9"
+                maximumTrackTintColor="#000000"
+                value={range}
+                onValueChange={(value) => setRange(parseInt(value))}
+              />
+              <Text>{range} Km</Text>
             </Card.Content>
           </Card>
-        </List.Accordion>
-        <List.Accordion
-          title="Tipo de Velocidad"
-          left={(props) => (
-            <List.Icon {...props} icon="book-information-variant" />
-          )}
-        >
-          <Card>
-            <Card.Content>
-              <Text>RAPID</Text>
-              <Text>semiRAPID</Text>
-              <Text>NORMAL</Text>
-              <Text>superRapid</Text>
-            </Card.Content>
-          </Card>
-        </List.Accordion>
-        <List.Accordion
-          title="Tipo de Vehículo"
-          left={(props) => (
-            <List.Icon {...props} icon="book-information-variant" />
-          )}
-        >
-          <Card>
-            <Card.Content>
-              <Text>cotxe</Text>
-              <Text>moto</Text>
-              <Text>taxi</Text>
-            </Card.Content>
-          </Card>
-        </List.Accordion>
-        <List.Accordion
-          title="Tipo de Conexion"
-          left={(props) => (
-            <List.Icon {...props} icon="book-information-variant" />
-          )}
-        >
-          <Card>
-            <Card.Content>
-              <Text>TESLA</Text>
-              <Text>schuko</Text>
-            </Card.Content>
-          </Card>
-        </List.Accordion>
-      </List.Section>
+        </List.Section>
+      </View>
+      <TouchableOpacity
+        style={styles.buttonapply}
+        onPress={() => {
+          setApply(!apply);
+        }}
+      >
+        <Text style={styles.buttonTxt}>{t("Filters.Apply_Filters")}</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  button: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
+  buttonapply: {
+    marginTop: 30,
+    backgroundColor: "#2D803F",
+    borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+    marginLeft: Constants.statusBarHeight,
+    marginRight: Constants.statusBarHeight,
+  },
+  buttonTxt: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
   capcalera: {
     backgroundColor: "#2D803F",
     display: "flex",
     flexDirection: "row",
-    height: 150,
+  },
+  content: {
+    marginVertical: Constants.statusBarHeight,
   },
   logo: {
     display: "flex",
     marginLeft: Constants.statusBarHeight * 2,
-    marginVertical: Constants.statusBarHeight,
+    marginVertical: Constants.statusBarHeight / 2.5,
+  },
+  textButton: {
+    alignSelf: "center",
+    marginRight: Constants.statusBarHeight,
   },
 });
