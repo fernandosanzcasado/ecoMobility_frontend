@@ -60,112 +60,58 @@ function Profile({ navigation }) {
         </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("EditProfile");
+            navigation.navigate();
           }}
           style={styles.separationViews}
         >
-          <Icon
-            name="pen"
-            color={"#00000"}
-            size={28}
-            style={styles.icons}
-          ></Icon>
-          <Text style={styles.smallText}> {t("Profile.Edit_Profile")} </Text>
+          <Image
+            source={require("../../assets/images/Archievements/Logro1/0-Routes.png")}
+            style={styles.picture2}
+          ></Image>
+          <Text style={styles.smallText}> {"Logro"} </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.separationViews}
-          onPress={() => {
-            navigation.navigate("MyCalendar");
-          }}
-        >
-          <Icon
-            name="calendar-alt"
-            color={"#0E7CE4"}
-            size={31}
-            style={styles.icons}
-          ></Icon>
-          <Text style={styles.smallText}> {t("Profile.My_Calendar")} </Text>
+        <TouchableOpacity onPress={() => {}} style={styles.separationViews}>
+          <Image
+            source={require("../../assets/images/Archievements/Logro2/1-Forest.png")}
+            style={styles.picture2}
+          ></Image>
+          <Text style={styles.smallText}> {"Logro 2"} </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.separationViews}>
-          <Icon
-            name="tree"
-            color={"#206D17"}
-            size={36}
-            style={styles.icons}
-          ></Icon>
-          <Text style={styles.smallText}> {t("Profile.My_Forest")} </Text>
+        <TouchableOpacity onPress={() => {}} style={styles.separationViews}>
+          <Image
+            source={require("../../assets/images/Archievements/Logro3/2-CO2.png")}
+            style={styles.picture2}
+          ></Image>
+          <Text style={styles.smallText}> {"Logro 3"} </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.separationViews}>
-          <Icon
-            name="headphones-alt"
-            color={"#000000"}
-            size={30}
-            style={styles.icons}
-          ></Icon>
-          <Text style={styles.smallText}>
-            {" "}
-            {t("Profile.Technical_Assistance")}{" "}
-          </Text>
+        <TouchableOpacity onPress={() => {}} style={styles.separationViews}>
+          <Image
+            source={require("../../assets/images/Archievements/Logro4/3-Rate.png")}
+            style={styles.picture2}
+          ></Image>
+          <Text style={styles.smallText}> {"Logro 4"} </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Achievements");
-          }}
-          style={styles.separationViews}
-        >
-          <Icon
-            name="trophy"
-            color={"#E8C711"}
-            size={28}
-            style={styles.icons}
-          ></Icon>
-          <Text style={styles.smallText}> {t("Profile.Achievements")} </Text>
+        <TouchableOpacity onPress={() => {}} style={styles.separationViews}>
+          <Image
+            source={require("../../assets/images/Archievements/Logro5/4-Car.png")}
+            style={styles.picture2}
+          ></Image>
+          <Text style={styles.smallText}> {"Logro 5"} </Text>
         </TouchableOpacity>
-        <View style={styles.flagsView}>
-          <TouchableOpacity
-            onPress={() => {
-              changeLanguage("en");
-            }}
-          >
-            <Image
-              source={require("../../assets/images/BanderaInglesa.jpg")}
-              style={styles.flags}
-            ></Image>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              changeLanguage("cast");
-            }}
-          >
-            <Image
-              source={require("../../assets/images/BanderaEspañola.jpg")}
-              style={styles.flags}
-            ></Image>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              changeLanguage("cat");
-            }}
-          >
-            <Image
-              source={require("../../assets/images/BanderaCatalana.jpg")}
-              style={styles.flags}
-            ></Image>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonView}>
-          <Button
-            buttonColor={"#27CF10"}
-            mode="contained"
-            onPress={() => {
-              (async () => {
-                if (await createPostLogout()) navigation.navigate("Login");
-              })();
-            }}
-          >
-            {t("Profile.Logout")}
-          </Button>
-        </View>
+        <TouchableOpacity onPress={() => {}} style={styles.separationViews}>
+          <Image
+            source={require("../../assets/images/Archievements/Logro6/5-Bike.png")}
+            style={styles.picture2}
+          ></Image>
+          <Text style={styles.smallText}> {"Logro 6"} </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}} style={styles.separationViews}>
+          <Image
+            source={require("../../assets/images/Archievements/Logro7/5(2)-Fav.png")}
+            style={styles.picture2}
+          ></Image>
+          <Text style={styles.smallText}> {"Logro 7"} </Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -182,7 +128,8 @@ const styles = StyleSheet.create({
   smallText: {
     fontSize: 20,
     // fontFamily: "Comfortaa",
-    paddingTop: Constants.statusBarHeight + 15,
+    marginTop: Constants.statusBarHeight * 1,
+    //paddingTop: Constants.statusBarHeight + 25,
     paddingRight: Constants.statusBarHeight,
     paddingLeft: Constants.statusBarHeight,
     fontColor: "#0000",
@@ -225,6 +172,14 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 0.5,
     height: Constants.statusBarHeight * 1.5,
     width: Constants.statusBarHeight * 1.5,
+    borderRadius: 45,
+  },
+  picture2: {
+    marginTop: Constants.statusBarHeight * 0.5,
+    marginLeft: Constants.statusBarHeight,
+    marginRight: Constants.statusBarHeight * 0.5,
+    height: Constants.statusBarHeight * 1.65,
+    width: Constants.statusBarHeight * 1.65,
     borderRadius: 45,
   },
   goBack: {
