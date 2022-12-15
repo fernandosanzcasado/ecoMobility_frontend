@@ -36,6 +36,7 @@ export default function Login({ navigation }) {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const validation = useValidation();
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
@@ -48,8 +49,6 @@ export default function Login({ navigation }) {
     setUserEmail("");
     setUserPassword("");
   };
-
-  const { t } = useTranslation();
 
   return (
     <SafeAreaView style={styles.container1}>

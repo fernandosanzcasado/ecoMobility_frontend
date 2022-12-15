@@ -56,7 +56,9 @@
   "Password_Change": {
     "New_Password": "Nueva contraseña",
     "Confirm_New_Password": "Confirmar nueva contraseña",
-    "Change_Password_Button": "Cambiar contraseña"
+    "Change_Password_Button": "Cambiar contraseña",
+    "Write_New_Pass": "Escribe tu nueva contraseña",
+    "Write_New_PassAgain": "Escribe tu nueva contraseña otra vez"
   },
   "Profile": {
     "User_Name": "Nombre Usuario",

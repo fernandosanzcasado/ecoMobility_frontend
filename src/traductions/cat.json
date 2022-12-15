@@ -56,7 +56,9 @@
   "Password_Change": {
     "New_Password": "Nova contrasenya",
     "Confirm_New_Password": "Confirmar nova contrasenya",
-    "Change_Password_Button": "Cambiar contrasenya"
+    "Change_Password_Button": "Cambiar contrasenya",
+    "Write_New_Pass": "Escriu la teva nuova contrasenya",
+    "Write_New_PassAgain": "Escriu la teva nuova contrasenya altre cop"
   },
   "Profile": {
     "User_Name": "Nom Usuari",

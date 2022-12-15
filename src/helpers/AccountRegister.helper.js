@@ -60,6 +60,17 @@ export const checkTextInputPassNotEmpty = (password1, password2) => {
   } else return true;
 };
 
+export const checkTextInputCodeAndPassNotEmpty = (
+  code,
+  password1,
+  password2
+) => {
+  if (password1.length == 0 || password2.length == 0 || code.length == 0) {
+    errorControlRegister(8);
+    return false;
+  } else return true;
+};
+
 export const checkEmail = (email) => {
   let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
   if (reg.test(email) === false) {

@@ -43,7 +43,6 @@ export default function PasswordChange({ navigation }) {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const validation = useValidation();
-
   const { t } = useTranslation();
 
   return (
@@ -92,7 +91,10 @@ export default function PasswordChange({ navigation }) {
           style={styles.buttonChangePass}
           onPress={() => {
             if (validation.checkTextInputPassNotEmpty(password1, password2)) {
-              validation.checkPassword(password1, password2);
+              if (
+                validation.checkPassword(password1, password2)
+                //llamada de cambio de pass
+              );
             }
           }}
         />
