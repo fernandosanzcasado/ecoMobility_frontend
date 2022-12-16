@@ -4,14 +4,14 @@ import { errorControlLogin } from "../helpers/Login.helper";
 
 import { errorControlRegister } from "../helpers/AccountRegister.helper";
 
-const loginURL = "http://13.39.20.131:3000/api/v1/users/login";
-const registerURL = "http://13.39.20.131:3000/api/v1/users/register";
-const editProfileURL = "http://13.39.20.131:3000/api/v1/users/me/updateInfo";
-const logoutURL = "http://13.39.20.131:3000/api/v1/users/logout";
-const userDeleteURL = "http://13.39.20.131:3000/api/v1/users/me/deleteUser";
-const userDataURL = "http://13.39.20.131:3000/api/v1/users/me/getInfo";
+const loginURL = "http://15.188.52.76:3000/api/v2/users/login";
+const registerURL = "http://15.188.52.76:3000/api/v2/users/register";
+const editProfileURL = "http://15.188.52.76:3000/api/v2/users/me/updateInfo";
+const logoutURL = "http://15.188.52.76:3000/api/v2/users/logout";
+const userDeleteURL = "http://15.188.52.76:3000/api/v2/users/me/deleteUser";
+const userDataURL = "http://15.188.52.76:3000/api/v2/users/me/getInfo";
 const ConfirmPasswordURL =
-  "http://13.39.20.131:3000/api/v1/users/me/updatePassword";
+  "http://15.188.52.76:3000/api/v2/users/me/updatePassword";
 
 export async function createPostLogin(userEmail, userPassword) {
   return await axios

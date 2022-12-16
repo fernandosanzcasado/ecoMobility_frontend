@@ -35,7 +35,7 @@ export default function MiniTapView({
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          `http://${BASE_URL}/api/v1/estaciones/${ID}`
+          `http://${BASE_URL}/api/v2/estaciones/${ID}`
         );
         setEst(res.data);
         //--------

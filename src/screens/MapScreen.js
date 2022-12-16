@@ -6,6 +6,7 @@ import Mapa from "../components/map/Maps";
 import Toolbar from "../components/ecomobility/Toolbar";
 import NavigationTab from "../components/navigation/NavigationTab";
 import UserChat from "./UserChat";
+import MessagesScreen from "../components/chat/MessagesScreen";
 
 const DIM = {
   heightMap: "100%",
@@ -18,7 +19,7 @@ export default function MapScreen({ style, navigation }) {
       {/* <Toolbar navigation={navigation} /> */}
       {/* <Mapa {...DIM} /> */}
       {/* <Mapa style={styles.map} navigation={navigation} /> */}
-      <UserChat />
+      <MessagesScreen />
       {/* <NavigationTab style={styles.navBar} navigation={navigation} /> */}
     </SafeAreaView>
   );
