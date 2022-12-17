@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,59 +6,81 @@ import {
   ScrollView,
   TextInput,
   Image,
-  Button,
   Alert,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 
+import { Button } from "react-native-paper";
+import { Hideo } from "react-native-textinput-effects";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
+
+import { checkEmailInputNotEmpty } from "../helpers/AccountRegister.helper";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
 const Separator3 = () => <View style={styles.separator3} />;
 
+const useValidation = () => {
+  return { checkEmailInputNotEmpty };
+};
+
 export default function PassRecoverMail({ navigation }) {
+  const [userEmail, setUserEmail] = useState("");
+  const validation = useValidation();
   const { t } = useTranslation();
   return (
-    <SafeAreaView style={styles.container1}>
-      <View>
+    <View style={styles.container1}>
+      <View style={styles.topContainer}>
         <Image
           style={styles.logo}
           source={require("../../assets/images/EcoMobilityIcon2.png")}
         />
       </View>
       <Separator />
-      <View>
+      <Separator />
+      <View style={styles.separationViews}>
         <Image
           style={styles.lema}
           source={require("../../assets/images/LetrasLema3.png")}
         />
       </View>
-      <Separator2 />
-      <Separator2 />
-      <Separator2 />
-      <View>
+      <View style={styles.textInput}>
         <Text>{t("Pass_Recover_Mail.Write_Email")}</Text>
-        <TextInput
-          style={styles.tinput}
+        <Separator2 />
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"envelope"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
           placeholder={t("Pass_Recover_Mail.Email")}
+          onChangeText={(newtext) => setUserEmail(newtext)}
+          defaultValue={userEmail}
         />
       </View>
-      <Separator2 />
-      <View style={styles.SearchButton}>
+      <Separator />
+      <View style={styles.buttonView}>
         <Button
-          title={t("Pass_Recover_Mail.Search_Button")}
-          color="#27CF10"
-          style={styles.buttonSearch}
+          height={40}
+          buttonColor={"#27CF10"}
+          mode="contained"
           onPress={() => {
-            navigation.navigate("PassRecoverCodeConfirm");
+            if (validation.checkEmailInputNotEmpty(userEmail)) {
+              //llamada de enviar el email
+              navigation.navigate("PassRecoverCodeConfirm");
+            }
           }}
-        />
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>
+            {t("Pass_Recover_Mail.Send_Button")}
+          </Text>
+        </Button>
       </View>
-      <Separator3 />
       <View>
         <TouchableOpacity
           style={styles.buttonBack}
@@ -70,59 +92,50 @@ export default function PassRecoverMail({ navigation }) {
         </TouchableOpacity>
       </View>
       <Separator />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container1: {
-    justifyContent: "center",
-    paddingTop: 50,
-    paddingLeft: 10,
+    paddingBottom: Constants.statusBarHeight,
+  },
+  topContainer: {
+    width: Constants.paddingBottom,
+    height: Constants.statusBarHeight * 4,
+    display: "flex",
+    flexDirection: "row",
+  },
+  separationViews: {
+    display: "flex",
+    flexDirection: "row",
   },
   logo: {
-    justifyContent: "center",
-    left: 60,
-    //padding: 90,
-    //width: 260,
-    //height: 170,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
   lema: {
-    justifyContent: "center",
-    left: 70,
-    //width: 260,
-    //height: 170,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
-  tinput: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+  textInput: {
+    marginTop: Constants.statusBarHeight * 1,
+    marginLeft: Constants.statusBarHeight * 0.2,
+    marginRight: Constants.statusBarHeight * 0.2,
   },
-  SearchButton: {
-    paddingTop: Constants.statusBarHeight * 0.5,
+  buttonView: {
+    paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },
   buttonSearch: {
     orderRadius: 30,
   },
-  but: {
-    flex: 1,
-    margin: 20,
-    margintop: 22,
-  },
-  button: {
-    alignItems: "center",
-    right: 5,
-    margintop: 2000,
-  },
   buttonBack: {
-    //alignItems: "left",
-    right: -10,
-    margintop: 200,
+    paddingTop: Constants.statusBarHeight * 5,
+    paddingLeft: Constants.statusBarHeight * 0.3,
   },
   separator: {
     marginVertical: 11,
@@ -131,6 +144,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   separator3: {
-    marginVertical: 110,
+    marginVertical: 70,
   },
 });

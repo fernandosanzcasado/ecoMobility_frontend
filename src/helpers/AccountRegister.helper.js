@@ -41,6 +41,13 @@ export const errorControlRegister = (errorId) => {
   }
 };
 
+export const checkEmailInputNotEmpty = (email) => {
+  if (email.length == 0) {
+    errorControlRegister(8);
+    return false;
+  } else return true;
+};
+
 export const checkTextInputNotEmpty = (email, user, password1, password2) => {
   if (
     email.length == 0 ||
@@ -55,6 +62,21 @@ export const checkTextInputNotEmpty = (email, user, password1, password2) => {
 
 export const checkTextInputPassNotEmpty = (password1, password2) => {
   if (password1.length == 0 || password2.length == 0) {
+    errorControlRegister(8);
+    return false;
+  } else return true;
+};
+
+export const checkTextInputConfirmCurrentPassNotEmpty = (
+  oldpassword,
+  password1,
+  password2
+) => {
+  if (
+    oldpassword.length == 0 ||
+    password1.length == 0 ||
+    password2.length == 0
+  ) {
     errorControlRegister(8);
     return false;
   } else return true;

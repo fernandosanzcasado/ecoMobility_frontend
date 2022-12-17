@@ -11,8 +11,10 @@
     "Write_Current_Pass": "Introdueix la teva contrasenya actual",
     "Current_Pass": "Contrasenya actual",
     "Continue_Button": "Continuar",
-    "Write_New_Pass": "Escriu la teva nuova contrasenya",
-    "New_Pass": "Contrasenya actual"
+    "Write_New_Pass": "Escriu la teva nova contrasenya",
+    "Write_New_Pass_Again": "Escriu la teva nova contrasenya altra cop",
+    "New_Pass": "Nova contrasenya",
+    "Repeat_New_Pass": "Repeteix la nova contrasenya"
   },
   "Edit_Profile": {
     "User_Name": "Nom Usuari",
@@ -51,7 +53,7 @@
   "Pass_Recover_Mail": {
     "Write_Email": "Introdueix el teu correu electronic per enviar el codi",
     "Email": "Correu",
-    "Search_Button": "Buscar"
+    "Send_Button": "Eviar"
   },
   "Password_Change": {
     "New_Password": "Nova contrasenya",

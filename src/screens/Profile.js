@@ -155,6 +155,7 @@ function Profile({ navigation }) {
         </View>
         <View style={styles.buttonView}>
           <Button
+            height={40}
             buttonColor={"#27CF10"}
             mode="contained"
             onPress={() => {
@@ -163,7 +164,11 @@ function Profile({ navigation }) {
               })();
             }}
           >
-            {t("Profile.Logout")}
+            <Text
+              style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}
+            >
+              {t("Profile.Logout")}
+            </Text>
           </Button>
         </View>
       </ScrollView>

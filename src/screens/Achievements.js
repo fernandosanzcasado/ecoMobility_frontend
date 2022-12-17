@@ -8,13 +8,12 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
+import "../../i18n.js";
 
 import { createPostLogout, createGetUserData } from "../helpers/Axios.helper";
-import "../../i18n.js";
 
 function Profile({ navigation }) {
   const [userName, setUserName] = useState("");
@@ -107,7 +106,7 @@ function Profile({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {}} style={styles.separationViews}>
           <Image
-            source={require("../../assets/images/Archievements/Logro7/5(2)-Fav.png")}
+            source={require("../../assets/images/Archievements/Logro7/5-Fav.png")}
             style={styles.picture2}
           ></Image>
           <Text style={styles.smallText}> {"Logro 7"} </Text>

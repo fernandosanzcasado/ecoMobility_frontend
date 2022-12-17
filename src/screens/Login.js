@@ -9,21 +9,21 @@ import {
   ScrollView,
   TextInput,
   Image,
-  Button,
   Alert,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import { Button } from "react-native-paper";
+import { Hideo } from "react-native-textinput-effects";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import { useTranslation } from "react-i18next";
 
 import {
   clearText,
   checkTextInputNotEmpty,
   errorControl,
 } from "../helpers/Login.helper";
-
 import { createPostLogin } from "../helpers/Axios.helper";
-
-import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -51,35 +51,44 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container1}>
-      <View>
+    <View style={styles.container1}>
+      <View style={styles.topContainer}>
         <Image
           style={styles.logo}
           source={require("../../assets/images/EcoMobilityIcon2.png")}
         />
       </View>
       <Separator />
-      <View>
+      <Separator />
+      <View style={styles.separationViews}>
         <Image
           style={styles.lema}
           source={require("../../assets/images/LetrasLema3.png")}
         />
       </View>
-      <Separator2 />
-      <Separator2 />
-      <Separator2 />
-      <View>
-        <TextInput
-          style={styles.tinput}
+      <View style={styles.textInput}>
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"envelope"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
           placeholder={t("Login.Email")}
           onChangeText={(newtext) => setUserEmail(newtext)}
           defaultValue={userEmail}
         />
       </View>
-      <Separator2 />
-      <View>
-        <TextInput
-          style={styles.tinput}
+      <Separator />
+      <Separator />
+      <View style={styles.textInput}>
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
           placeholder={t("Login.Password")}
           onChangeText={(newtext) => setUserPassword(newtext)}
           defaultValue={userPassword}
@@ -87,12 +96,13 @@ export default function Login({ navigation }) {
         />
       </View>
       <Separator />
-      <View style={styles.LoginButton}>
+      <View style={styles.buttonView}>
         <Button
-          title={t("Login.Login_Button")}
-          color="#27CF10"
-          style={styles.buttonLogin}
+          height={40}
+          buttonColor={"#27CF10"}
+          mode="contained"
           onPress={() => {
+            navigation.navigate("Profile");
             if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
               (async () => {
                 if (await createPostLogin(userEmail, userPassword))
@@ -100,8 +110,13 @@ export default function Login({ navigation }) {
               })();
             }
           }}
-        />
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>
+            {t("Login.Login_Button")}
+          </Text>
+        </Button>
       </View>
+      <Separator />
       <Separator />
       <View>
         <TouchableOpacity
@@ -110,7 +125,9 @@ export default function Login({ navigation }) {
             navigation.navigate("PassRecoverMail");
           }}
         >
-          <Text>{t("Login.Forgot_Password")}</Text>
+          <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
+            {t("Login.Forgot_Password")}
+          </Text>
         </TouchableOpacity>
       </View>
       <Separator />
@@ -122,47 +139,48 @@ export default function Login({ navigation }) {
             navigation.navigate("AccountRegister");
           }}
         >
-          <Text>{t("Login.Register_Text")}</Text>
+          <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
+            {t("Login.Register_Text")}
+          </Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container1: {
-    justifyContent: "center",
-    paddingTop: 50,
-    paddingLeft: 10,
+    paddingBottom: Constants.statusBarHeight,
+  },
+  topContainer: {
+    width: Constants.paddingBottom,
+    height: Constants.statusBarHeight * 4,
+    display: "flex",
+    flexDirection: "row",
+  },
+  separationViews: {
+    display: "flex",
+    flexDirection: "row",
   },
   logo: {
-    justifyContent: "center",
-    left: 60,
-    //padding: 90,
-    //width: 260,
-    //height: 170,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
   lema: {
-    justifyContent: "center",
-    left: 70,
-    //width: 260,
-    //height: 170,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
-  tinput: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+  textInput: {
+    marginTop: Constants.statusBarHeight * 1,
+    marginLeft: Constants.statusBarHeight * 0.2,
+    marginRight: Constants.statusBarHeight * 0.2,
   },
-  LoginButton: {
-    paddingTop: Constants.statusBarHeight * 0.5,
+  buttonView: {
+    paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
-  },
-  buttonLogin: {
-    orderRadius: 30,
   },
   button: {
     alignItems: "center",
@@ -170,13 +188,9 @@ const styles = StyleSheet.create({
     margintop: 2000,
   },
   separator: {
-    marginVertical: 11,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
+    marginVertical: 10,
   },
   separator2: {
     marginVertical: 5,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

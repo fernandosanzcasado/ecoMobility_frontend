@@ -6,11 +6,17 @@ import {
   ScrollView,
   TextInput,
   Image,
-  Button,
   Alert,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+
+import { Button } from "react-native-paper";
+import { Hideo } from "react-native-textinput-effects";
+import Constants from "expo-constants";
+import * as Font from "expo-font";
+import { useTranslation } from "react-i18next";
+
 import {
   checkTextInputPassNotEmpty,
   checkEmail,
@@ -19,10 +25,6 @@ import {
   checkPasswordRequeriments,
   errorControl,
 } from "../helpers/AccountRegister.helper";
-
-import Constants from "expo-constants";
-import * as Font from "expo-font";
-import { useTranslation } from "react-i18next";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -46,8 +48,8 @@ export default function PasswordChange({ navigation }) {
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView style={styles.container1}>
-      <View>
+    <View style={styles.container1}>
+      <View style={styles.topContainer}>
         <Image
           style={styles.logo}
           source={require("../../assets/images/EcoMobilityIcon2.png")}
@@ -84,11 +86,10 @@ export default function PasswordChange({ navigation }) {
       </View>
       <Separator2 />
       <Separator2 />
-      <View style={styles.ChangePassButton}>
+      <View style={styles.buttonView}>
         <Button
-          title={t("Pass_Recover_Code_Confirm.Continue_Button")}
-          color="#27CF10"
-          style={styles.buttonChangePass}
+          buttonColor={"#27CF10"}
+          mode="contained"
           onPress={() => {
             if (validation.checkTextInputPassNotEmpty(password1, password2)) {
               if (
@@ -97,7 +98,9 @@ export default function PasswordChange({ navigation }) {
               );
             }
           }}
-        />
+        >
+          {t("Pass_Recover_Code_Confirm.Continue_Button")}
+        </Button>
       </View>
       <Separator3 />
       <View>
@@ -111,34 +114,41 @@ export default function PasswordChange({ navigation }) {
         </TouchableOpacity>
       </View>
       <Separator />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container1: {
-    justifyContent: "center",
-    paddingTop: 50,
-    paddingLeft: 10,
+    paddingBottom: Constants.statusBarHeight,
+  },
+  topContainer: {
+    width: Constants.paddingBottom,
+    height: Constants.statusBarHeight * 4,
+    display: "flex",
+    flexDirection: "row",
+  },
+  separationViews: {
+    display: "flex",
+    flexDirection: "row",
   },
   logo: {
-    justifyContent: "center",
-    left: 60,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
   lema: {
-    justifyContent: "center",
-    left: 70,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
-  tinput: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+  textInput: {
+    marginTop: Constants.statusBarHeight * 1,
+    marginLeft: Constants.statusBarHeight * 0.2,
+    marginRight: Constants.statusBarHeight * 0.2,
   },
-  ChangePassButton: {
-    paddingTop: Constants.statusBarHeight * 0.5,
+  buttonView: {
+    paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },

@@ -12,7 +12,9 @@
     "Current_Pass": "Contraseña actual",
     "Continue_Button": "Continuar",
     "Write_New_Pass": "Escribe tu nueva contraseña",
-    "New_Pass": "Nueva contraseña"
+    "Write_New_Pass_Again": "Escribe tu nueva contraseña otra vez",
+    "New_Pass": "Nueva contraseña",
+    "Repeat_New_Pass": "Repite la nueva contraseña"
   },
   "Edit_Profile": {
     "User_Name": "Nombre Usuario",
@@ -51,7 +53,7 @@
   "Pass_Recover_Mail": {
     "Write_Email": "Introduce tu correo electrónico para enviar el código",
     "Email": "Correo",
-    "Search_Button": "Buscar"
+    "Send_Button": "Enviar"
   },
   "Password_Change": {
     "New_Password": "Nueva contraseña",
