@@ -19,7 +19,7 @@ export default function MapScreen({ style, navigation }) {
       {/* <Toolbar navigation={navigation} /> */}
       {/* <Mapa {...DIM} /> */}
       {/* <Mapa style={styles.map} navigation={navigation} /> */}
-      <MessagesScreen />
+      <UserChat />
       {/* <NavigationTab style={styles.navBar} navigation={navigation} /> */}
     </SafeAreaView>
   );
