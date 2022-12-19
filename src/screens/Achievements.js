@@ -13,7 +13,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
 import "../../i18n.js";
 
-import { createPostLogout, createGetUserData } from "../helpers/Axios.helper";
+import { createGetUserData } from "../helpers/Axios.helper";
 
 function Profile({ navigation }) {
   const [userName, setUserName] = useState("");

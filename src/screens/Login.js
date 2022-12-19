@@ -102,8 +102,8 @@ export default function Login({ navigation }) {
           buttonColor={"#27CF10"}
           mode="contained"
           onPress={() => {
-            navigation.navigate("Profile");
             if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
+              console.log("Entro y cumplo el priemr check");
               (async () => {
                 if (await createPostLogin(userEmail, userPassword))
                   navigation.navigate("MapScreen");

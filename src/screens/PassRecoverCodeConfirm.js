@@ -26,6 +26,7 @@ import {
   checkPasswordRequeriments,
   errorControl,
 } from "../helpers/AccountRegister.helper";
+import { createPostRecoverPassword } from "../helpers/Axios.helper";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -102,6 +103,7 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           placeholder={t("Password_Change.New_Password")}
           onChangeText={(newText) => setPassword1(newText)}
           defaultValue={password1}
+          secureTextEntry
         />
       </View>
       <Separator />
@@ -118,6 +120,7 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           placeholder={t("Password_Change.Confirm_New_Password")}
           onChangeText={(newText) => setPassword2(newText)}
           defaultValue={password2}
+          secureTextEntry
         />
       </View>
       <Separator2 />
@@ -129,12 +132,19 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           mode="contained"
           onPress={() => {
             if (
-              validation.checkTextInputCodeAndPassNotEmpty(password1, password2)
+              validation.checkTextInputCodeAndPassNotEmpty(
+                code,
+                password1,
+                password2
+              )
             ) {
-              if (
-                validation.checkPassword(password1, password2)
-                //llamada de cambio de pass con el codigo enviaod por mail
-              );
+              console.log("CheckTextInputCode ha pasado");
+              if (validation.checkPassword(password1, password2)) {
+                (async () => {
+                  if (await createPostRecoverPassword(code, password1))
+                    navigation.navigate("Login");
+                })();
+              }
             }
           }}
         >

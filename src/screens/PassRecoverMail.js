@@ -18,6 +18,7 @@ import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
 
+import { createPostRecoverMail } from "../helpers/Axios.helper";
 import { checkEmailInputNotEmpty } from "../helpers/AccountRegister.helper";
 
 const Separator = () => <View style={styles.separator} />;
@@ -71,8 +72,10 @@ export default function PassRecoverMail({ navigation }) {
           mode="contained"
           onPress={() => {
             if (validation.checkEmailInputNotEmpty(userEmail)) {
-              //llamada de enviar el email
-              navigation.navigate("PassRecoverCodeConfirm");
+              (async () => {
+                if (await createPostRecoverMail(userEmail))
+                  navigation.navigate("PassRecoverCodeConfirm");
+              })();
             }
           }}
         >

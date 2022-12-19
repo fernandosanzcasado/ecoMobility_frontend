@@ -151,7 +151,7 @@ export default function EditProfile({ navigation }) {
           // this is used as backgroundColor of icon container view.
           iconBackgroundColor={"#27CF10"}
           inputStyle={{ color: "#464949" }}
-          placeholder={userName}
+          placeholder={userSurname}
           onChangeText={(newtext) => setUserNewSurname(newtext)}
           defaultValue={userNewSurname}
         />
