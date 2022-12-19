@@ -1,8 +1,14 @@
 import { Alert } from "react-native";
-//import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
+//import "../../i18n.js";
 
 export const errorControlRegister = (errorId) => {
-  //const { t } = useTranslation();
+  /*
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+  */
   switch (errorId) {
     case 1:
       Alert.alert("Error_Control.Invalid_Email");
@@ -41,6 +47,13 @@ export const errorControlRegister = (errorId) => {
   }
 };
 
+export const checkEmailInputNotEmpty = (email) => {
+  if (email.length == 0) {
+    errorControlRegister(8);
+    return false;
+  } else return true;
+};
+
 export const checkTextInputNotEmpty = (email, user, password1, password2) => {
   if (
     email.length == 0 ||
@@ -55,6 +68,32 @@ export const checkTextInputNotEmpty = (email, user, password1, password2) => {
 
 export const checkTextInputPassNotEmpty = (password1, password2) => {
   if (password1.length == 0 || password2.length == 0) {
+    errorControlRegister(8);
+    return false;
+  } else return true;
+};
+
+export const checkTextInputConfirmCurrentPassNotEmpty = (
+  oldpassword,
+  password1,
+  password2
+) => {
+  if (
+    oldpassword.length == 0 ||
+    password1.length == 0 ||
+    password2.length == 0
+  ) {
+    errorControlRegister(8);
+    return false;
+  } else return true;
+};
+
+export const checkTextInputCodeAndPassNotEmpty = (
+  code,
+  password1,
+  password2
+) => {
+  if (password1.length == 0 || password2.length == 0 || code.length == 0) {
     errorControlRegister(8);
     return false;
   } else return true;

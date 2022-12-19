@@ -5,12 +5,14 @@ import {
   ScrollView,
   TextInput,
   Image,
-  Button,
   TouchableOpacity,
   StyleSheet,
   Alert,
 } from "react-native";
 
+import { Button } from "react-native-paper";
+import { Hideo } from "react-native-textinput-effects";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
@@ -20,9 +22,11 @@ import {
   createDeleteUser,
   createGetUserData,
 } from "../helpers/Axios.helper";
-
 import "../../i18n.js";
 import { errorControlRegister } from "../helpers/AccountRegister.helper";
+
+const Separator = () => <View style={styles.separator} />;
+const Separator2 = () => <View style={styles.separator2} />;
 
 const checkUser = (user) => {
   if (user.length <= 3 || user.length >= 15) {
@@ -94,101 +98,113 @@ export default function EditProfile({ navigation }) {
 
   return (
     <View style={styles.initialView}>
-      <ScrollView>
-        <View style={styles.topContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            <Icon
-              name="arrow-left"
-              color={"#00000"}
-              size={25}
-              style={styles.goBack}
-            ></Icon>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              source={require("../../assets/images/Profile.png")}
-              style={styles.picture}
-            ></Image>
-          </TouchableOpacity>
-          <Text style={styles.headerText}> {userName} </Text>
-        </View>
-        <View>
-          <TouchableOpacity></TouchableOpacity>
-        </View>
-        <View style={styles.separationViews}>
-          <Text style={styles.changeUserName}>
-            {" "}
-            {t("Edit_Profile.Change_Name")}{" "}
+      <View style={styles.topContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon
+            name="arrow-left"
+            color={"#00000"}
+            size={25}
+            style={styles.goBack}
+          ></Icon>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            source={require("../../assets/images/Profile.png")}
+            style={styles.picture}
+          ></Image>
+        </TouchableOpacity>
+        <Text style={styles.headerText}> {userName} </Text>
+      </View>
+
+      <View style={styles.textInput}>
+        <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
+          {t("Edit_Profile.User_Name")}
+        </Text>
+        <Separator2 />
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={userName}
+          onChangeText={(newtext) => setUserName(newtext)}
+          defaultValue={userName}
+        />
+      </View>
+      <Separator />
+      <Separator />
+      <View style={styles.textInput}>
+        <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
+          {t("Edit_Profile.Surnames")}
+        </Text>
+        <Separator2 />
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={userSurname}
+          onChangeText={(newtext) => setUserNewSurname(newtext)}
+          defaultValue={userNewSurname}
+        />
+      </View>
+      <Separator />
+      <Separator />
+      <View style={styles.buttonView}>
+        <Button
+          height={40}
+          buttonColor={"#27CF10"}
+          mode="contained"
+          onPress={() => {
+            if (checkUser(userNewName)) {
+              (async () => {
+                if (await createPutUser(userNewName, userNewSurname))
+                  navigation.navigate("Profile");
+              })();
+            }
+          }}
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>
+            {t("Edit_Profile.Save_Changes")}
           </Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder={userName}
-            onChangeText={(newText) => setUserNewName(newText)}
-            defaultValue={userNewName}
-          />
-        </View>
-        <View>
-          <Text style={styles.smallText}>
-            {" "}
-            {t("Edit_Profile.Change_Surnames")}{" "}
+        </Button>
+      </View>
+      <View style={styles.buttonViewPass}>
+        <Button
+          height={40}
+          buttonColor={"#27CF10"}
+          mode="contained"
+          onPress={() => {
+            navigation.navigate("ConfirmCurrentPass");
+          }}
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>
+            {t("Edit_Profile.Change_Password")}
           </Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder={userSurname}
-            onChangeText={(newtext) => setUserNewSurname(newtext)}
-            defaultValue={userNewSurname}
-          />
-        </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("ConfirmCurrentPass");
-            }}
-          >
-            <Text style={styles.smallText}>
-              {" "}
-              {t("Edit_Profile.Change_Password")}{" "}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonView}>
-          <Button
-            title={t("Edit_Profile.Save_Changes")}
-            color="#27CF10"
-            onPress={() => {
-              if (checkUser(userNewName)) {
-                (async () => {
-                  if (await createPutUser(userNewName, userNewSurname))
-                    navigation.navigate("Profile");
-                })();
-              }
-            }}
-          />
-        </View>
-        <View>
-          <Text style={styles.eliminateAccount}>
-            {" "}
-            {t("Edit_Profile.Eliminate_Account")}{" "}
+        </Button>
+      </View>
+      <View style={styles.buttonViewPass}>
+        <Button
+          height={40}
+          buttonColor={"#ff0000"}
+          mode="contained"
+          onPress={() => {
+            createTwoButtonAlert();
+          }}
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>
+            {t("Edit_Profile.Eliminate_Account")}
           </Text>
-        </View>
-        <View>
-          <TouchableOpacity>
-            <Icon
-              name="window-close"
-              color={"#E03614"}
-              size={40}
-              style={styles.icons}
-              onPress={() => {
-                createTwoButtonAlert();
-              }}
-            ></Icon>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </Button>
+      </View>
     </View>
   );
 }
@@ -226,10 +242,9 @@ const styles = StyleSheet.create({
     fontColor: "#0000",
   },
   textInput: {
-    height: Constants.statusBarHeight,
-    margin: Constants.statusBarHeight,
-    borderWidth: 1,
-    paddingLeft: Constants.statusBarHeight,
+    marginTop: Constants.statusBarHeight * 1,
+    marginLeft: Constants.statusBarHeight * 0.2,
+    marginRight: Constants.statusBarHeight * 0.2,
   },
   eliminateAccount: {
     fontSize: 15,
@@ -265,5 +280,16 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
+  },
+  buttonViewPass: {
+    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingLeft: Constants.statusBarHeight * 1.7,
+    paddingRight: Constants.statusBarHeight * 1.7,
+  },
+  separator: {
+    marginVertical: 10,
+  },
+  separator2: {
+    marginVertical: 5,
   },
 });

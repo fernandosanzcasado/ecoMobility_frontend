@@ -12,7 +12,9 @@
     "Current_Pass": "Contraseña actual",
     "Continue_Button": "Continuar",
     "Write_New_Pass": "Escribe tu nueva contraseña",
-    "New_Pass": "Nueva contraseña"
+    "Write_New_Pass_Again": "Escribe tu nueva contraseña otra vez",
+    "New_Pass": "Nueva contraseña",
+    "Repeat_New_Pass": "Repite la nueva contraseña"
   },
   "Edit_Profile": {
     "User_Name": "Nombre Usuario",
@@ -51,12 +53,14 @@
   "Pass_Recover_Mail": {
     "Write_Email": "Introduce tu correo electrónico para enviar el código",
     "Email": "Correo",
-    "Search_Button": "Buscar"
+    "Send_Button": "Enviar"
   },
   "Password_Change": {
     "New_Password": "Nueva contraseña",
     "Confirm_New_Password": "Confirmar nueva contraseña",
-    "Change_Password_Button": "Cambiar contraseña"
+    "Change_Password_Button": "Cambiar contraseña",
+    "Write_New_Pass": "Escribe tu nueva contraseña",
+    "Write_New_PassAgain": "Escribe tu nueva contraseña otra vez"
   },
   "Profile": {
     "User_Name": "Nombre Usuario",
@@ -64,7 +68,7 @@
     "My_Calendar": "Mi calendario",
     "My_Forest": "Mi bosque",
     "Technical_Assistance": "Servicio técnico",
-    "Trophys": "Trofeos",
+    "Achievements": "Logros",
     "Logout": "Cerrar sesión"
   },
   "Search_Bar": {
