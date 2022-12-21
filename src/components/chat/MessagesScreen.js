@@ -11,6 +11,7 @@ import {
 import Message from "./Message";
 import io from "socket.io-client";
 import Constants from "expo-constants";
+import LottieView from "lottie-react-native";
 
 var chats = [];
 
@@ -21,6 +22,7 @@ export default function MessagesScreen({ hidefunc }) {
   const [messageReceived, setMessageReceived] = useState("");
   const [connected, setConnected] = useState(false);
   const [chatList, setChatList] = useState([]);
+  const [animation, setAnimation] = useState(true);
 
   useEffect(() => {
     if (!connected) {
@@ -30,6 +32,7 @@ export default function MessagesScreen({ hidefunc }) {
   }, []);
 
   const submitChatMessage = () => {
+    if (animation) setAnimation(false);
     chats = [...chats, { msg: message, sentMsg: true }];
     setChatList([...chats].reverse());
     socket.emit("chat message", message);
@@ -45,7 +48,7 @@ export default function MessagesScreen({ hidefunc }) {
   }, [socket]);
 
   useEffect(() => {
-    if (!primer) Setprimer(false);
+    if (primer) Setprimer(false);
     else {
       console.log("RECIBIDO MI COMPA!!!" + messageReceived);
       chats = [...chats, { msg: messageReceived, respuesta: true }];
@@ -56,11 +59,11 @@ export default function MessagesScreen({ hidefunc }) {
 
   useEffect(() => {
     const show = Keyboard.addListener("keyboardDidShow", () => {
-      hidefunc();
+      hidefunc(false);
     });
 
     const hide = Keyboard.addListener("keyboardDidHide", () => {
-      hidefunc();
+      hidefunc(true);
     });
 
     return () => {
@@ -71,6 +74,18 @@ export default function MessagesScreen({ hidefunc }) {
 
   return (
     <View>
+      {animation && Object.keys(chats).length === 0 && (
+        <View style={styles.animcontainer}>
+          <LottieView
+            source={require("../../../assets/animation/chatanim.json")}
+            autoPlay
+            style={styles.animation}
+          />
+          <Text style={styles.text}>
+            Escriu un missatge per establir una conversació...
+          </Text>
+        </View>
+      )}
       <FlatList
         style={{
           height: "90%",
@@ -103,7 +118,6 @@ export default function MessagesScreen({ hidefunc }) {
             { backgroundColor: message ? "#61AE19" : "grey" },
           ]}
           disabled={message ? false : true}
-          keyboardShouldPersistTaps={"handled"}
           onPress={() => {
             submitChatMessage();
           }}
@@ -116,6 +130,15 @@ export default function MessagesScreen({ hidefunc }) {
 }
 
 const styles = StyleSheet.create({
+  animation: {
+    height: 200,
+    width: 200,
+    alignSelf: "center",
+  },
+  animcontainer: {
+    position: "absolute",
+    alignSelf: "center",
+  },
   buttontext: {
     color: "#FFFFFF",
   },
@@ -144,5 +167,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     textColor: "#FFFFFF",
+  },
+  text: {
+    fontSize: 16,
+    alignSelf: "center",
   },
 });

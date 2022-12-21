@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { StyleSheet, View, Dimensions } from "react-native";
 import Swiper from "react-native-swiper";
 import { FAB } from "react-native-paper";
 
-import Chatbanner from "../components/chat/Chatbanner";
-import Constants from "expo-constants";
 import LottieView from "lottie-react-native";
+
+import Chatbanner from "../components/chat/Chatbanner";
 import MessagesScreen from "../components/chat/MessagesScreen";
+import ArchivedChats from "../components/chat/ArchivedChats";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -16,27 +16,21 @@ export default function UserChat() {
   const [newchat, setNewChat] = useState(false);
   const [showbuttons, setShowButtons] = useState(true);
 
-  const hideButtons = () => {
-    setShowButtons(!showbuttons);
+  const hideButtons = (value) => {
+    setShowButtons(value);
   };
 
   return (
     <View>
       <Chatbanner />
-      <Swiper showsPagination={showbuttons}>
+      <Swiper
+        showsPagination={showbuttons}
+        keyboardShouldPersistTaps={"handled"}
+      >
         <View>
-          <View
-            style={
-              {
-                //display: "flex",
-                //justifyContent: "center",
-                //marginBottom: windowHeight / 2,
-                //marginTop: windowHeight / 7,
-              }
-            }
-          >
+          <View>
             {!newchat && (
-              <>
+              <View style={styles.animation}>
                 <LottieView
                   source={require("../../assets/animation/chatanim.json")}
                   autoPlay
@@ -49,13 +43,13 @@ export default function UserChat() {
                   label="Start new conversation"
                   color="#E6ECE6"
                 />
-              </>
+              </View>
             )}
             {newchat && <MessagesScreen hidefunc={hideButtons} />}
           </View>
         </View>
         <View>
-          <Text style={{ fontSize: 30 }}>ADIOS</Text>
+          <ArchivedChats />
         </View>
       </Swiper>
     </View>
@@ -63,6 +57,9 @@ export default function UserChat() {
 }
 
 const styles = StyleSheet.create({
+  animation: {
+    marginTop: windowHeight / 5,
+  },
   fab: {
     marginVertical: 20,
     marginLeft: windowWidth / 4,
