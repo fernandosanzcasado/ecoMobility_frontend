@@ -5,16 +5,16 @@ import {
   View,
   TextInput,
   FlatList,
-  ScrollView,
+  TouchableOpacity,
+  Keyboard,
 } from "react-native";
-import { Button } from "react-native-paper";
 import Message from "./Message";
 import io from "socket.io-client";
 import Constants from "expo-constants";
 
 var chats = [];
 
-export default function MessagesScreen() {
+export default function MessagesScreen({ hidefunc }) {
   const [primer, Setprimer] = useState(true);
   const [socket, setSocket] = useState();
   const [message, setMessage] = useState("");
@@ -45,7 +45,7 @@ export default function MessagesScreen() {
   }, [socket]);
 
   useEffect(() => {
-    if (primer) Setprimer(false);
+    if (!primer) Setprimer(false);
     else {
       console.log("RECIBIDO MI COMPA!!!" + messageReceived);
       chats = [...chats, { msg: messageReceived, respuesta: true }];
@@ -54,10 +54,27 @@ export default function MessagesScreen() {
     }
   }, [messageReceived]);
 
+  useEffect(() => {
+    const show = Keyboard.addListener("keyboardDidShow", () => {
+      hidefunc();
+    });
+
+    const hide = Keyboard.addListener("keyboardDidHide", () => {
+      hidefunc();
+    });
+
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
+
   return (
     <View>
       <FlatList
-        style={{ height: "90%", bottom: "20%" }}
+        style={{
+          height: "90%",
+        }}
         inverted={true}
         keyExtractor={(_, index) => index.toString()}
         data={chatList}
@@ -72,34 +89,40 @@ export default function MessagesScreen() {
       <View style={styles.messagecontainer}>
         <TextInput
           style={styles.message}
+          blurOnSubmit={false}
           value={message}
           placeholder=" Escriu aquí..."
-          onSubmitEditing={() => submitChatMessage()}
+          onSubmitEditing={Keyboard.dismiss}
           onChangeText={(chatMessage) => {
             setMessage(chatMessage);
           }}
         />
-        <Button
-          style={styles.sendbutton}
+        <TouchableOpacity
+          style={[
+            styles.sendbutton,
+            { backgroundColor: message ? "#61AE19" : "grey" },
+          ]}
+          disabled={message ? false : true}
+          keyboardShouldPersistTaps={"handled"}
           onPress={() => {
             submitChatMessage();
           }}
-          buttonColor={message ? "#61AE19" : "grey"}
-          textColor={"#FFFFFF"}
         >
-          Send
-        </Button>
+          <Text style={styles.buttontext}>Send</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  buttontext: {
+    color: "#FFFFFF",
+  },
   container: {
     flex: 1,
     display: "flex",
     backgroundColor: "#F5FCFF",
-    //marginVertical: 50,
   },
   message: {
     borderWidth: 0.8,
@@ -112,11 +135,14 @@ const styles = StyleSheet.create({
   messagecontainer: {
     flexDirection: "row",
     marginHorizontal: 5,
-    bottom: Constants.statusBarHeight * 2,
+    marginTop: 5,
   },
   sendbutton: {
     width: "20%",
     alignItems: "center",
     justifyContent: "center",
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    textColor: "#FFFFFF",
   },
 });

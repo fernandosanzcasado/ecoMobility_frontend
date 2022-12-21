@@ -14,18 +14,26 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function UserChat() {
   const [newchat, setNewChat] = useState(false);
+  const [showbuttons, setShowButtons] = useState(true);
+
+  const hideButtons = () => {
+    setShowButtons(!showbuttons);
+  };
 
   return (
     <View>
-      <Swiper>
+      <Chatbanner />
+      <Swiper showsPagination={showbuttons}>
         <View>
-          <Chatbanner />
           <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginVertical: windowHeight / 5,
-            }}
+            style={
+              {
+                //display: "flex",
+                //justifyContent: "center",
+                //marginBottom: windowHeight / 2,
+                //marginTop: windowHeight / 7,
+              }
+            }
           >
             {!newchat && (
               <>
@@ -43,11 +51,10 @@ export default function UserChat() {
                 />
               </>
             )}
-            {newchat && <MessagesScreen />}
+            {newchat && <MessagesScreen hidefunc={hideButtons} />}
           </View>
         </View>
         <View>
-          <Chatbanner />
           <Text style={{ fontSize: 30 }}>ADIOS</Text>
         </View>
       </Swiper>
