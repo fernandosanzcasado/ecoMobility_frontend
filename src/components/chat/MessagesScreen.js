@@ -72,6 +72,8 @@ export default function MessagesScreen({ hidefunc }) {
     };
   }, []);
 
+  console.log(chatList);
+
   return (
     <View>
       {animation && Object.keys(chats).length === 0 && (
