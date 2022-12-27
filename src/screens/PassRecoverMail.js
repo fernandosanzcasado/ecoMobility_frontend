@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
@@ -51,7 +51,22 @@ export default function PassRecoverMail({ navigation }) {
       </View>
       <View style={styles.textInput}>
         <Text>{t("Pass_Recover_Mail.Write_Email")}</Text>
+        <Fumi
+          label={t("Pass_Recover_Mail.Email")}
+          iconClass={FontAwesomeIcon}
+          iconName={"envelope"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserEmail(newtext)}
+          defaultValue={userEmail}
+        />
+
         <Separator2 />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"envelope"}
@@ -63,6 +78,7 @@ export default function PassRecoverMail({ navigation }) {
           onChangeText={(newtext) => setUserEmail(newtext)}
           defaultValue={userEmail}
         />
+  */}
       </View>
       <Separator />
       <View style={styles.buttonView}>
@@ -71,6 +87,7 @@ export default function PassRecoverMail({ navigation }) {
           buttonColor={"#27CF10"}
           mode="contained"
           onPress={() => {
+            navigation.navigate("PassRecoverCodeConfirm");
             if (validation.checkEmailInputNotEmpty(userEmail)) {
               (async () => {
                 if (await createPostRecoverMail(userEmail))
@@ -129,7 +146,7 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 0.2,
   },
   buttonView: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0.05,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },

@@ -85,5 +85,23 @@
     "Different_Pass": "You have not entered the same password",
     "Registred_Ok": "You have successfully registered",
     "Login_Ok": "You have successfully logged in"
+  },
+  "Achievements": {
+    "Achievement1": "Router",
+    "Achievement2": "Treedom",
+    "Achievement3": "CO2 Saver",
+    "Achievement4": "Critic",
+    "Achievement5": "Car Nomad",
+    "Achievement6": "Bike Nomand",
+    "Achievement7": "Favoritism",
+    "Progress": "Progress",
+    "CurrentProgress": "Current Progress: ",
+    "Achievement1Alert": "realized routes",
+    "Achievement2Alert": "trees planted",
+    "Achievement3Alert": "CO2 saved",
+    "Achievement4Alert": "stations valued",
+    "Achievement5Alert": "Car km traveled",
+    "Achievement6Alert": "Bike km traveled",
+    "Achievement7Alert": "favourite stations"
   }
 }

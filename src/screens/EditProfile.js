@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
+import { Hideo, Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -125,6 +125,20 @@ export default function EditProfile({ navigation }) {
           {t("Edit_Profile.User_Name")}
         </Text>
         <Separator2 />
+        <Fumi
+          label={userName}
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserName(newtext)}
+          defaultValue={userName}
+        />
+        {/*}
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"user"}
@@ -136,14 +150,27 @@ export default function EditProfile({ navigation }) {
           onChangeText={(newtext) => setUserName(newtext)}
           defaultValue={userName}
         />
+        */}
       </View>
-      <Separator />
-      <Separator />
       <View style={styles.textInput}>
         <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
           {t("Edit_Profile.Surnames")}
         </Text>
         <Separator2 />
+        <Fumi
+          label={userSurname}
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserNewSurname(newtext)}
+          defaultValue={userNewSurname}
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"user"}
@@ -155,6 +182,7 @@ export default function EditProfile({ navigation }) {
           onChangeText={(newtext) => setUserNewSurname(newtext)}
           defaultValue={userNewSurname}
         />
+      */}
       </View>
       <Separator />
       <Separator />
@@ -277,7 +305,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   buttonView: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },

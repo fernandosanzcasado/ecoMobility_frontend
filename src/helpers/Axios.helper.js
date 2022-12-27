@@ -15,10 +15,9 @@ const userDataURL = url + "users/me/getInfo";
 const ConfirmPasswordURL = url + "users/me/updatePassword";
 const recoverEmailURL = url + "users/resetForgottenPassword/sendMail";
 const recoverPasswordURL = url + "users/resetForgottenPassword/resetPassword";
+const userAchievements = url + "users/me/getAchievements/";
 
 export async function createPostLogin(userEmail, userPassword) {
-  console.log("El email es: " + userEmail + " El pass es : " + userPassword);
-  console.log(loginURL);
   return await axios
     .post(loginURL, {
       email: userEmail,
@@ -41,17 +40,6 @@ export async function createPostRegister(
   userSurname,
   password1
 ) {
-  console.log("Entro a createPostRegister");
-  console.log(
-    "Email: " +
-      userEmail +
-      ", Name: " +
-      userName +
-      ", Surname: " +
-      userSurname +
-      ", Pass: " +
-      password1
-  );
   return await axios
     .post(registerURL, {
       email: userEmail,
@@ -198,5 +186,20 @@ export async function createPostRecoverPassword(
       console.log("Da error el createPostRecoverPassword");
       console.log(error.response.data.message);
       return false;
+    });
+}
+
+export async function createGetUserAchievements() {
+  let achievemtsDTO = [];
+  return await axios
+    .get(userAchievements, {}, { withCredentials: true })
+    .then(function (response) {
+      achievemtsDTO = [response.data.achievements];
+      return achievemtsDTO;
+    })
+    .catch(function (error) {
+      console.log("El error es " + error.response.data.message);
+      //errorControl(2);
+      return achievemtsDTO;
     });
 }

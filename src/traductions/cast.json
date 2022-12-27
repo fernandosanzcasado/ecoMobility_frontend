@@ -85,5 +85,23 @@
     "Different_Pass": "No has introducido la misma contraseña",
     "Registred_Ok": "Te has registrado satisfactoriamente",
     "Login_Ok": "Has iniciado sesión satisfactoriamente"
+  },
+  "Achievements": {
+    "Achievement1": "Router",
+    "Achievement2": "Libertad Arbolada",
+    "Achievement3": "Ahorrador de CO2",
+    "Achievement4": "Crítico",
+    "Achievement5": "Nómada en coche",
+    "Achievement6": "Nómada en bici",
+    "Achievement7": "Favoritismo",
+    "Progress": "Progreso",
+    "CurrentProgress": "Progreso actual: ",
+    "Achievement1Alert": "rutas realizadas",
+    "Achievement2Alert": "árboles plantados",
+    "Achievement3Alert": "CO2 ahorrado",
+    "Achievement4Alert": "estaciones valoradas",
+    "Achievement5Alert": "km recorridos en coche",
+    "Achievement6Alert": "km recorridos en bici",
+    "Achievement7Alert": "estaciones favoritas"
   }
 }

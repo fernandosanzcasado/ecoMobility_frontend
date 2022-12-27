@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
@@ -67,6 +67,20 @@ export default function Login({ navigation }) {
         />
       </View>
       <View style={styles.textInput}>
+        <Fumi
+          label={t("Login.Email")}
+          iconClass={FontAwesomeIcon}
+          iconName={"envelope"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserEmail(newtext)}
+          defaultValue={userEmail}
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"envelope"}
@@ -78,9 +92,24 @@ export default function Login({ navigation }) {
           onChangeText={(newtext) => setUserEmail(newtext)}
           defaultValue={userEmail}
         />
+      */}
       </View>
-      <Separator />
+      <Separator2 />
       <View style={styles.textInput}>
+        <Fumi
+          label={t("Account_Register.Name")}
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newText) => setUserName(newText)}
+          defaultValue={userName}
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"user"}
@@ -92,9 +121,24 @@ export default function Login({ navigation }) {
           onChangeText={(newText) => setUserName(newText)}
           defaultValue={userName}
         />
+    */}
       </View>
-      <Separator />
+      <Separator2 />
       <View style={styles.textInput}>
+        <Fumi
+          label={t("Account_Register.Surnames")}
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newText) => setUserSurname(newText)}
+          defaultValue={userSurname}
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"user"}
@@ -106,9 +150,25 @@ export default function Login({ navigation }) {
           onChangeText={(newText) => setUserSurname(newText)}
           defaultValue={userSurname}
         />
+  */}
       </View>
-      <Separator />
+      <Separator2 />
       <View style={styles.textInput}>
+        <Fumi
+          label={t("Account_Register.Password")}
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newText) => setPassword1(newText)}
+          defaultValue={password1}
+          secureTextEntry
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"lock"}
@@ -121,9 +181,25 @@ export default function Login({ navigation }) {
           onChangeText={(newText) => setPassword1(newText)}
           defaultValue={password1}
         />
+*/}
       </View>
-      <Separator />
+      <Separator2 />
       <View style={styles.textInput}>
+        <Fumi
+          label={t("Account_Register.Confirm_Password")}
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newText) => setPassword2(newText)}
+          defaultValue={password2}
+          secureTextEntry
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"lock"}
@@ -136,6 +212,7 @@ export default function Login({ navigation }) {
           onChangeText={(newText) => setPassword2(newText)}
           defaultValue={password2}
         />
+*/}
       </View>
       <Separator2 />
       <View style={styles.buttonView}>
@@ -177,7 +254,6 @@ export default function Login({ navigation }) {
           </Text>
         </Button>
       </View>
-      <Separator2 />
       <View>
         <TouchableOpacity
           style={styles.buttonBack}
@@ -214,12 +290,12 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 1,
   },
   textInput: {
-    marginTop: Constants.statusBarHeight * 1,
+    marginTop: Constants.statusBarHeight * 0.0005,
     marginLeft: Constants.statusBarHeight * 0.2,
     marginRight: Constants.statusBarHeight * 0.2,
   },
   buttonView: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0.05,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },

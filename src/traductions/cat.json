@@ -85,5 +85,23 @@
     "Different_Pass": "No has introduït la mateixa contrasenya",
     "Registred_Ok": "T'has enregistrat satisfactoriament",
     "Login_Ok": "Has iniciat sessió satisfactoriament"
+  },
+  "Achievements": {
+    "Achievement1": "Router",
+    "Achievement2": "Llibertad Arbolada",
+    "Achievement3": "Estalviador de CO2",
+    "Achievement4": "Crític",
+    "Achievement5": "Nómada en cotxe",
+    "Achievement6": "Nómada en bici",
+    "Achievement7": "Favoritisme",
+    "Progress": "Progrés",
+    "CurrentProgress": "progrés actual: ",
+    "Achievement1Alert": "rutes realitzades",
+    "Achievement2Alert": "arbres plantats",
+    "Achievement3Alert": "CO2 estalviat",
+    "Achievement4Alert": "estacions valorades",
+    "Achievement5Alert": "km recorreguts en cotxe",
+    "Achievement6Alert": "km recorreguts en bici",
+    "Achievement7Alert": "estacions preferides"
   }
 }

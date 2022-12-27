@@ -14,7 +14,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { useTranslation } from "react-i18next";
 
@@ -40,6 +40,7 @@ export default function Login({ navigation }) {
 
   React.useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
+      window.location.reload(false);
       clearText();
     });
     return chargeView;
@@ -67,6 +68,20 @@ export default function Login({ navigation }) {
         />
       </View>
       <View style={styles.textInput}>
+        <Fumi
+          label={t("Login.Email")}
+          iconClass={FontAwesomeIcon}
+          iconName={"envelope"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserEmail(newtext)}
+          defaultValue={userEmail}
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"envelope"}
@@ -78,10 +93,24 @@ export default function Login({ navigation }) {
           onChangeText={(newtext) => setUserEmail(newtext)}
           defaultValue={userEmail}
         />
+  */}
       </View>
-      <Separator />
-      <Separator />
       <View style={styles.textInput}>
+        <Fumi
+          label={t("Login.Password")}
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserPassword(newtext)}
+          defaultValue={userPassword}
+          secureTextEntry
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"lock"}
@@ -94,8 +123,8 @@ export default function Login({ navigation }) {
           defaultValue={userPassword}
           secureTextEntry
         />
+        */}
       </View>
-      <Separator />
       <View style={styles.buttonView}>
         <Button
           height={40}
@@ -103,7 +132,6 @@ export default function Login({ navigation }) {
           mode="contained"
           onPress={() => {
             if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
-              console.log("Entro y cumplo el priemr check");
               (async () => {
                 if (await createPostLogin(userEmail, userPassword))
                   navigation.navigate("MapScreen");
@@ -178,7 +206,7 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 0.2,
   },
   buttonView: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0.75,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },
