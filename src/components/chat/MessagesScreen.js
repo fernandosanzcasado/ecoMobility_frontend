@@ -72,7 +72,7 @@ export default function MessagesScreen({ hidefunc }) {
     };
   }, []);
 
-  console.log(chatList);
+  //console.log(chatList);
 
   return (
     <View>
