@@ -39,7 +39,7 @@ export default function SearchBar({ navigation }) {
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          `http://${BASE_URL}/api/v1/estaciones/direccion`
+          `http://${BASE_URL}/api/v2/estaciones/direccion`
         );
         setEstaciones(res.data);
       } catch (error) {

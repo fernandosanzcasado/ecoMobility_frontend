@@ -8,7 +8,6 @@ import Buttons from "../components/estaciones/Buttons";
 import CapcaleraEstacio from "../components/estaciones/CapcaleraEstacio";
 
 export default function ChargePoint({ route, navigation }) {
-  [favourite, setFavourite] = useState(false);
   const { idStation } = route.params;
 
   const [est, setEst] = useState({});
@@ -16,7 +15,7 @@ export default function ChargePoint({ route, navigation }) {
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          `http://${BASE_URL}/api/v1/estaciones/${idStation}`
+          `http://${BASE_URL}/api/v2/estaciones/info/${idStation}`
         );
         setEst(res.data);
       } catch (error) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Rating from "./Rating";
 
 export default function CapcaleraEstacio({ estacion, navigation }) {
+  const [favourite, setFavourite] = useState(false);
   return (
     <View>
       <SafeAreaView style={styles.capcalera}>

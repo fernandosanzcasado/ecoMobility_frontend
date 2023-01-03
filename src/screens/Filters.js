@@ -8,13 +8,49 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { List, Card, Switch } from "react-native-paper";
+import { List, Card, Switch, TextInput } from "react-native-paper";
 import Slider from "@react-native-community/slider";
 import Constants from "expo-constants";
 import { useTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import LogoText from "../components/ecomobility/LogoText";
+
+var listaParametros = {
+  //Tipo de Corriente (valores posibles AC, DC y AC-DC)
+  tipoCorriente: {
+    AC: true,
+    DC: true,
+  },
+  //Tipo de Velocidad
+  tipoVelocidad: {
+    rapid: true,
+    semirapid: true,
+    normal: true,
+    superrapid: true,
+  },
+  //Tipo de Vehículo
+  tipoVehiculo: {
+    cotxe: true,
+    moto: true,
+    taxi: true,
+    mercaderies: true,
+  },
+  //Tipo Conexion
+  tipoConexion: {
+    tesla: true, //TESLA
+    schuko: true, //Schuko
+    MennekesF: true, //Mennekes.F
+    ccsCombo: true, //CCS Combo2
+    chadeMo: true, //ChadeMO // CHAdeMO
+    J1772F: true, //J1772.F
+  },
+  power: {
+    min: 0,
+    max: 100,
+  },
+  distancia: null,
+};
 
 export default function FilterScreen({ navigation }) {
   //Tipo de Corriente
@@ -157,8 +193,48 @@ export default function FilterScreen({ navigation }) {
           >
             <Card>
               <Card.Content>
-                <Text>TESLA</Text>
-                <Text>schuko</Text>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Tesla</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Schuko</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Mennekes</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>ccsCombo</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>chadeMo</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>J1772F</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
               </Card.Content>
             </Card>
           </List.Accordion>
@@ -170,7 +246,14 @@ export default function FilterScreen({ navigation }) {
           >
             <Card>
               <Card.Content>
-                <Text>POWER</Text>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Potencia mínima: </Text>
+                  <TextInput
+                    keyboardType="numeric"
+                    placeholder="MinPow"
+                    maxLength={2}
+                  />
+                </View>
               </Card.Content>
             </Card>
           </List.Accordion>
