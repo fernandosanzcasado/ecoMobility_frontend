@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -21,9 +21,18 @@ import MyCalendar from "./src/screens/MyCalendar";
 import ChargePoint from "./src/screens/ChargePoint";
 import Achievements from "./src/screens/Achievements";
 
+import { useFonts } from "expo-font";
+
 const Stack = createStackNavigator();
 
 export default function App({ t }) {
+  const [fontsloaded, setFontsloaded] = useFonts({
+    comfortaa: require("./assets/fonts/Comfortaa-Regular.ttf"),
+    comfortaaBold: require("./assets/fonts/Comfortaa-Bold.ttf"),
+  });
+
+  if (!fontsloaded) return null;
+
   return (
     <EventProvider style={{ flex: 1 }}>
       <NavigationContainer>

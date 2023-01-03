@@ -5,6 +5,7 @@ import Constants from "expo-constants";
 import Mapa from "../components/map/Maps";
 import Toolbar from "../components/ecomobility/Toolbar";
 import NavigationTab from "../components/navigation/NavigationTab";
+import VirtualTree from "./VirtualTree";
 
 const DIM = {
   heightMap: "100%",
@@ -14,10 +15,11 @@ const DIM = {
 export default function MapScreen({ style, navigation }) {
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
-      <Toolbar navigation={navigation} />
+      {/* <Toolbar navigation={navigation} /> */}
       {/* <Mapa {...DIM} /> */}
-      <Mapa style={styles.map} navigation={navigation} />
-      <NavigationTab style={styles.navBar} navigation={navigation} />
+      {/* <Mapa style={styles.map} navigation={navigation} />
+      <NavigationTab style={styles.navBar} navigation={navigation} /> */}
+      <VirtualTree />
     </SafeAreaView>
   );
 }
@@ -25,7 +27,7 @@ export default function MapScreen({ style, navigation }) {
 const styles = StyleSheet.create({
   safeAreaContainer: {
     display: "flex",
-    alignItems: "flex-start",
+    //alignItems: "flex-start",
   },
   navBar: {
     position: "absolute",
