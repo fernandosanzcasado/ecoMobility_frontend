@@ -5,18 +5,20 @@ import * as Location from "expo-location";
 import { Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import MapViewDirections from "react-native-maps-directions";
-import axios from "axios";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Button from "react-native-paper";
 
 import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
 
-export default function Mapa({ style, navigation }) {
+export default function Mapa({ style, navigation, estacionesParam }) {
+  // Origin coordinates
   const [origin, setOrigin] = useState({
     latitude: 41.386976,
     longitude: 2.169998,
   });
+
+  const [params, setParams] = useState();
 
   const [destination, setDestination] = useState(null);
 
@@ -24,7 +26,9 @@ export default function Mapa({ style, navigation }) {
   const [id, setId] = useState("");
   const [ruta, setRuta] = useState(false);
   const mapRef = useRef();
-  const [estaciones, setEstaciones] = useState([]);
+  const estaciones = estacionesParam;
+  console.log("ESTACOINEEEEEES");
+  console.log(estaciones);
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
   de la posició de l'usuari*/
@@ -45,20 +49,6 @@ export default function Mapa({ style, navigation }) {
     };
     setOrigin(current);
   }
-
-  useEffect(() => {
-    async function getEstaciones() {
-      try {
-        const res = await axios.get(
-          `http://${BASE_URL}/api/v2/estaciones/coordenadas`
-        );
-        setEstaciones(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getEstaciones();
-  }, []);
 
   const hideTapView = () => {
     setTapView(false);
@@ -132,7 +122,7 @@ export default function Mapa({ style, navigation }) {
           </Marker>
         </TouchableOpacity>
 
-        {estaciones.map((estacion) => (
+        {estaciones?.map((estacion) => (
           <Marker
             key={estacion.id}
             coordinate={{

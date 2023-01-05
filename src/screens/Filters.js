@@ -16,41 +16,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 import LogoText from "../components/ecomobility/LogoText";
 
-var listaParametros = {
-  //Tipo de Corriente (valores posibles AC, DC y AC-DC)
-  tipoCorriente: {
-    AC: true,
-    DC: true,
-  },
-  //Tipo de Velocidad
-  tipoVelocidad: {
-    rapid: true,
-    semirapid: true,
-    normal: true,
-    superrapid: true,
-  },
-  //Tipo de Vehículo
-  tipoVehiculo: {
-    cotxe: true,
-    moto: true,
-    taxi: true,
-    mercaderies: true,
-  },
-  //Tipo Conexion
-  tipoConexion: {
-    tesla: true, //TESLA
-    schuko: true, //Schuko
-    MennekesF: true, //Mennekes.F
-    ccsCombo: true, //CCS Combo2
-    chadeMo: true, //ChadeMO // CHAdeMO
-    J1772F: true, //J1772.F
-  },
-  power: {
-    min: 0,
-    max: 100,
-  },
-  distancia: null,
-};
+import paramsList from "../helpers/ParamsMapCall";
 
 export default function FilterScreen({ navigation }) {
   //Tipo de Corriente
@@ -67,7 +33,6 @@ export default function FilterScreen({ navigation }) {
   const [taxi, setTaxi] = useState(true);
   const [mercaderies, setMercaderies] = useState(true);
   //Tipo de Conexión
-
   const [range, setRange] = useState(10);
   const [apply, setApply] = useState(false);
 
@@ -278,6 +243,17 @@ export default function FilterScreen({ navigation }) {
         style={styles.buttonapply}
         onPress={() => {
           setApply(!apply);
+          //ACTUALIZAR PARAMETROS DE PARAMSMAPCALL
+          paramsList.setParams({
+            tipoCorriente: null,
+            tipoVelocidad: null,
+            tipoVehiculo: "moto",
+            tipoConexion: "ccs combo",
+            potencia: null,
+            distancia: null,
+          });
+
+          navigation.navigate("MapScreen", { update: Math.random() });
         }}
       >
         <Text style={styles.buttonTxt}>{t("Filters.Apply_Filters")}</Text>
