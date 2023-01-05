@@ -23,9 +23,10 @@ export default function MapScreen({ style, navigation, route }) {
       let res = await axios.get(`http://${BASE_URL}/api/v2/estaciones`, {
         params: paramsList.getParams(),
       });
-      console.log("PARAMSLIST");
-      console.log(paramsList.getParams());
-      if (res.data.status === 200 && res.data) {
+      // console.log("PARAMSLIST");
+      // console.log(paramsList.getParams());
+      // console.log(res.status);
+      if (res.status === 200) {
         console.log("DATA CORRECTA");
         setEstaciones(res.data);
       } else {
@@ -44,7 +45,6 @@ export default function MapScreen({ style, navigation, route }) {
     getEstaciones();
   }, [update]);
 
-  console.log(navigation);
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <Toolbar navigation={navigation} />

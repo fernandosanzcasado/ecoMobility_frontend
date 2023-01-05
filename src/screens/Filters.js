@@ -34,9 +34,69 @@ export default function FilterScreen({ navigation }) {
   const [mercaderies, setMercaderies] = useState(true);
   //Tipo de Conexión
   const [range, setRange] = useState(10);
-  const [apply, setApply] = useState(false);
 
   const { t } = useTranslation();
+
+  //FUTBOL LA RIOJA
+  const generateStrings = (boolsAndStrings, separator) => {
+    var first = true;
+    var resultString = "";
+    boolsAndStrings.forEach((item) => {
+      if (item.bool) {
+        if (first) {
+          first = false;
+        } else {
+          resultString += separator;
+        }
+        resultString += item.string;
+      }
+    });
+    console.log("RESULT : " + resultString);
+    return resultString;
+  };
+
+  const computeParams = () => {
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoCorriente = ac ? (dc ? "AC-DC" : "AC") : dc ? "DC" : null;
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoVelocidad = null;
+    console.log(
+      generateStrings(
+        [
+          { bool: rapid, string: "RAPID" },
+          { bool: semirapid, string: "semiRAPID" },
+          { bool: normal, string: "NORMAL" },
+          { bool: superrapid, string: "superRAPID" },
+        ],
+        " i "
+      )
+    );
+
+    //RAPID/SUPERAPID/
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoVehiculo = null;
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoConexion = null;
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramPotencia = null;
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramDistancia = null;
+
+    // Pasamos las strings a nuestra instancia de la clase ParamsMapCall
+    paramsList.setParams({
+      tipoCorriente: null,
+      tipoVelocidad: null,
+      tipoVehiculo: "moto",
+      tipoConexion: null,
+      potencia: null,
+      distancia: null,
+    });
+  };
 
   return (
     <ScrollView>
@@ -242,17 +302,7 @@ export default function FilterScreen({ navigation }) {
       <TouchableOpacity
         style={styles.buttonapply}
         onPress={() => {
-          setApply(!apply);
-          //ACTUALIZAR PARAMETROS DE PARAMSMAPCALL
-          paramsList.setParams({
-            tipoCorriente: null,
-            tipoVelocidad: null,
-            tipoVehiculo: "moto",
-            tipoConexion: "ccs combo",
-            potencia: null,
-            distancia: null,
-          });
-
+          computeParams();
           navigation.navigate("MapScreen", { update: Math.random() });
         }}
       >

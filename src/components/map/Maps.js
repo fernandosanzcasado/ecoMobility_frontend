@@ -27,8 +27,8 @@ export default function Mapa({ style, navigation, estacionesParam }) {
   const [ruta, setRuta] = useState(false);
   const mapRef = useRef();
   const estaciones = estacionesParam;
-  console.log("ESTACOINEEEEEES");
-  console.log(estaciones);
+  // console.log("ESTACOINEEEEEES");
+  // console.log(estaciones);
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
   de la posició de l'usuari*/

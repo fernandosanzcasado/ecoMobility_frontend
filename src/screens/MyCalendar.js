@@ -8,7 +8,6 @@ import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, FAB } from "react-native-paper";
 import * as Animatable from "react-native-animatable";
-import { color } from "react-native-reanimated";
 
 const timeToString = (time) => {
   const date = new Date(time);
