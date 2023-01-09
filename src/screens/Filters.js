@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { List, Card, Switch, TextInput } from "react-native-paper";
@@ -14,26 +15,81 @@ import Constants from "expo-constants";
 import { useTranslation } from "react-i18next";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import LogoText from "../components/ecomobility/LogoText";
 
 import paramsList from "../helpers/ParamsMapCall";
+import { use } from "i18next";
+
+var buttonsState = {
+  ac: true,
+  dc: true,
+  rapid: true,
+  semirapid: true,
+  normal: true,
+  superrapid: true,
+  cotxe: true,
+  moto: true,
+  taxi: true,
+  mercaderies: true,
+  ccscombo2: true,
+  chademo: true,
+  tesla: true,
+  mennekes: true,
+  j1772f: true,
+  schuko: true,
+  power: 50,
+  distancia: 10,
+};
+
+const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem("@buttonsData");
+    if (value !== null) buttonsState = value;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const storeData = async () => {
+  try {
+    const jsonValue = JSON.stringify(buttonsState);
+    await AsyncStorage.setItem("@buttonsData", jsonValue);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export default function FilterScreen({ navigation }) {
+  useEffect(() => {
+    getData();
+  }, []);
+
   //Tipo de Corriente
-  const [ac, setAc] = useState(true);
-  const [dc, setDc] = useState(true);
+  const [ac, setAc] = useState(buttonsState.ac);
+  const [dc, setDc] = useState(buttonsState.dc);
   //Tipo de Velocidad
-  const [rapid, setRapid] = useState(true);
-  const [semirapid, setSemiRapid] = useState(true);
-  const [normal, setNormal] = useState(true);
-  const [superrapid, setSuperRapid] = useState(true);
+  const [rapid, setRapid] = useState(buttonsState.rapid);
+  const [semirapid, setSemiRapid] = useState(buttonsState.semirapid);
+  const [normal, setNormal] = useState(buttonsState.normal);
+  const [superrapid, setSuperRapid] = useState(buttonsState.superrapid);
   //Tipo de Vehículo
-  const [cotxe, setCotxe] = useState(true);
-  const [moto, setMoto] = useState(true);
-  const [taxi, setTaxi] = useState(true);
-  const [mercaderies, setMercaderies] = useState(true);
+  const [cotxe, setCotxe] = useState(buttonsState.cotxe);
+  const [moto, setMoto] = useState(buttonsState.moto);
+  const [taxi, setTaxi] = useState(buttonsState.taxi);
+  const [mercaderies, setMercaderies] = useState(buttonsState.mercaderies);
   //Tipo de Conexión
-  const [range, setRange] = useState(10);
+  const [ccscombo2, setCcsCombo2] = useState(buttonsState.ccscombo2);
+  const [chademo, setChadeMo] = useState(buttonsState.chademo);
+  const [tesla, setTesla] = useState(buttonsState.tesla);
+  const [mennekes, setMennekes] = useState(buttonsState.mennekes);
+  const [j1772f, setJ1772F] = useState(buttonsState.j1772f);
+  const [schuko, setSchuko] = useState(buttonsState.schuko);
+  //Potencia
+  const [power, setPower] = useState(buttonsState.power);
+  //Distància
+  const [distancia, setDistancia] = useState(buttonsState.distancia);
 
   const { t } = useTranslation();
 
@@ -60,33 +116,54 @@ export default function FilterScreen({ navigation }) {
     let paramTipoCorriente = ac ? (dc ? "AC-DC" : "AC") : dc ? "DC" : null;
 
     // Parametro en string del tipo de corriente (por defecto null)
-    let paramTipoVelocidad = null;
-    console.log(
-      generateStrings(
-        [
-          { bool: rapid, string: "RAPID" },
-          { bool: semirapid, string: "semiRAPID" },
-          { bool: normal, string: "NORMAL" },
-          { bool: superrapid, string: "superRAPID" },
-        ],
-        " i "
-      )
+    let paramTipoVelocidad = generateStrings(
+      [
+        { bool: rapid, string: "RAPID" },
+        { bool: semirapid, string: "semiRAPID" },
+        { bool: normal, string: "NORMAL" },
+        { bool: superrapid, string: "superRAPID" },
+      ],
+      " i "
     );
-
+    console.log("TIPOVELOCIDAD");
+    console.log(paramTipoVelocidad);
     //RAPID/SUPERAPID/
 
     // Parametro en string del tipo de corriente (por defecto null)
-    let paramTipoVehiculo = null;
+    let paramTipoVehiculo = generateStrings(
+      [
+        { bool: mercaderies, string: "mercaderies" },
+        { bool: moto, string: "moto" },
+        { bool: cotxe, string: "cotxe" },
+        { bool: taxi, string: "taxi" },
+      ],
+      " i "
+    );
+    console.log("TIPOVEHICULO");
+    console.log(paramTipoVehiculo);
 
     // Parametro en string del tipo de corriente (por defecto null)
-    let paramTipoConexion = null;
-
+    let paramTipoConexion = generateStrings(
+      [
+        { bool: ccscombo2, string: "CCS Combo2" },
+        { bool: chademo, string: "ChadeMO" },
+        { bool: tesla, string: "TESLA" },
+        { bool: mennekes, string: "MENNEKES.M" },
+        { bool: j1772f, string: "J1772.F" },
+        { bool: schuko, string: "Schuko" },
+      ],
+      "+"
+    );
+    console.log("TIPOCONEXION");
+    console.log(paramTipoConexion);
     // Parametro en string del tipo de corriente (por defecto null)
-    let paramPotencia = null;
-
+    let paramPotencia = power;
+    console.log("POTENCIA");
+    console.log(paramPotencia);
     // Parametro en string del tipo de corriente (por defecto null)
-    let paramDistancia = null;
-
+    let paramDistancia = distancia;
+    console.log("DISTANCIA");
+    console.log(paramDistancia);
     // Pasamos las strings a nuestra instancia de la clase ParamsMapCall
     paramsList.setParams({
       tipoCorriente: null,
@@ -96,6 +173,28 @@ export default function FilterScreen({ navigation }) {
       potencia: null,
       distancia: null,
     });
+
+    buttonsState = {
+      ac: ac,
+      dc: dc,
+      rapid: rapid,
+      semirapid: semirapid,
+      normal: normal,
+      superrapid: superrapid,
+      cotxe: cotxe,
+      moto: moto,
+      taxi: taxi,
+      mercaderies: mercaderies,
+      ccscombo2: ccscombo2,
+      chademo: chademo,
+      tesla: tesla,
+      mennekes: mennekes,
+      j1772f: j1772f,
+      schuko: schuko,
+      power: power,
+      distancia: distancia,
+    };
+    storeData();
   };
 
   return (
@@ -221,43 +320,43 @@ export default function FilterScreen({ navigation }) {
                 <View style={styles.button}>
                   <Text style={styles.textButton}>Tesla</Text>
                   <Switch
-                    value={mercaderies}
-                    onValueChange={() => setMercaderies(!mercaderies)}
+                    value={tesla}
+                    onValueChange={() => setTesla(!tesla)}
                   />
                 </View>
                 <View style={styles.button}>
                   <Text style={styles.textButton}>Schuko</Text>
                   <Switch
-                    value={mercaderies}
-                    onValueChange={() => setMercaderies(!mercaderies)}
+                    value={schuko}
+                    onValueChange={() => setSchuko(!schuko)}
                   />
                 </View>
                 <View style={styles.button}>
                   <Text style={styles.textButton}>Mennekes</Text>
                   <Switch
-                    value={mercaderies}
-                    onValueChange={() => setMercaderies(!mercaderies)}
+                    value={mennekes}
+                    onValueChange={() => setMennekes(!mennekes)}
                   />
                 </View>
                 <View style={styles.button}>
                   <Text style={styles.textButton}>ccsCombo</Text>
                   <Switch
-                    value={mercaderies}
-                    onValueChange={() => setMercaderies(!mercaderies)}
+                    value={ccscombo2}
+                    onValueChange={() => setCcsCombo2(!ccscombo2)}
                   />
                 </View>
                 <View style={styles.button}>
                   <Text style={styles.textButton}>chadeMo</Text>
                   <Switch
-                    value={mercaderies}
-                    onValueChange={() => setMercaderies(!mercaderies)}
+                    value={chademo}
+                    onValueChange={() => setChadeMo(!chademo)}
                   />
                 </View>
                 <View style={styles.button}>
                   <Text style={styles.textButton}>J1772F</Text>
                   <Switch
-                    value={mercaderies}
-                    onValueChange={() => setMercaderies(!mercaderies)}
+                    value={j1772f}
+                    onValueChange={() => setJ1772F(!j1772f)}
                   />
                 </View>
               </Card.Content>
@@ -277,6 +376,7 @@ export default function FilterScreen({ navigation }) {
                     keyboardType="numeric"
                     placeholder="MinPow"
                     maxLength={2}
+                    onChangeText={(text) => setPower(parseInt(text))}
                   />
                 </View>
               </Card.Content>
@@ -287,14 +387,14 @@ export default function FilterScreen({ navigation }) {
             <Card.Content style={{ flexDirection: "row" }}>
               <Slider
                 style={{ width: 300 }}
-                minimumValue={1}
+                minimumValue={10}
                 maximumValue={20}
                 minimumTrackTintColor="#60F4B9"
                 maximumTrackTintColor="#000000"
-                value={range}
-                onValueChange={(value) => setRange(parseInt(value))}
+                value={distancia}
+                onValueChange={(value) => setDistancia(parseInt(value))}
               />
-              <Text>{range} Km</Text>
+              <Text>{distancia} Km</Text>
             </Card.Content>
           </Card>
         </List.Section>
