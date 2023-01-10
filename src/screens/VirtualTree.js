@@ -1,37 +1,38 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, Dimensions, Alert } from "react-native";
-import { Divider, IconButton } from "react-native-paper";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
+import { Divider, IconButton, ProgressBar } from "react-native-paper";
+
 import HeaderTitle from "../components/ecomobility/HeaderTitle";
 import Constants from "expo-constants";
+import Forest from "../components/virtualTree/Forest";
+import ArrayOfForests from "../components/virtualTree/ArrayOfForests";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-/*
-0-> arbusto1
-1-> arbusto2
-2-> pi
-3-> tresarbres
-4-> arbre redó
-*/
-const treetypes = [
-  { arbol: require("../../assets/images/Forest/arbusto1.png") },
-  { arbol: require("../../assets/images/Forest/4arbustos.png") },
-  { arbol: require("../../assets/images/Forest/aveto.png") },
-  { arbol: require("../../assets/images/Forest/tres_arbres.png") },
-  { arbol: require("../../assets/images/Forest/arbol_redondo.png") },
-];
+const ECOPOINTS = 1020;
 
 export default function VirtualTree() {
-  const [trees, setTrees] = useState(5);
-  const [usertrees, setUserTrees] = useState([{}, {}, {}, {}]);
+  const [trees, setTrees] = useState();
+
+  useEffect(() => {
+    //obtenerEcopoints;
+    let ntrees = ECOPOINTS / 20;
+    let mytrees = [];
+    while (ntrees > 25) {
+      mytrees = [...mytrees, { narbres: 25 }];
+      ntrees = ntrees - 25;
+    }
+    mytrees = [...mytrees, { narbres: ntrees }];
+    setTrees(mytrees);
+  }, []);
 
   return (
     <View>
       <HeaderTitle name={"My Forest"} />
       <Divider bold={true} style={{ backgroundColor: "#FFFFFF" }} />
       <View style={styles.subheader}>
-        <Text style={styles.subtitle}>Number of trees saved: {trees}</Text>
+        <Text style={styles.subtitle}>Number of trees saved:</Text>
         <IconButton
           icon={"forest"}
           size={25}
@@ -40,33 +41,48 @@ export default function VirtualTree() {
         />
       </View>
       <View>
-        <Image
-          source={require("../../assets/images/Forest/ground.png")}
-          style={styles.ground}
-        />
-
-        <IconButton
-          icon={treetypes[0].arbol}
-          iconColor="#548A21"
-          size={35}
-          style={styles.tree}
-          onPress={() => {
-            Alert.alert(
-              "Estado del arbusto",
-              "A este árbol le faltan 100kg de cO2 para crecer"
-            );
-          }}
-        />
+        <ArrayOfForests ntrees={trees} />
+        {/* <ScrollView
+          horizontal
+          pagingEnabled
+          nestedScrollEnabled
+          showsHorizontalScrollIndicator={true}
+        >
+          {trees.map((arbres) => (
+            <Forest nArbres={arbres} />
+          ))}
+        </ScrollView> */}
+        {/* <View style={styles.ecobar}>
+          <Text style={styles.ecopoints}>
+            Ecopoints necesarios para hacer crecer{"\n"}
+          </Text>
+          <Text style={styles.ecopoints}>un nuevo árbol:</Text>
+          <ProgressBar progress={0.2} color="#67B221" style={styles.bar} />
+        </View> */}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  ground: {
+  bar: {
+    width: windowWidth / 2,
+    alignSelf: "center",
+    height: Constants.statusBarHeight / 2,
+    marginVertical: Constants.statusBarHeight / 2,
+    borderRadius: 10,
+  },
+  ecobar: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
     marginVertical: Constants.statusBarHeight,
-    height: windowHeight / 2.7,
-    width: windowWidth,
+  },
+  ecopoints: {
+    fontSize: 17,
+    fontFamily: "comfortaa",
+    marginHorizontal: Constants.statusBarHeight / 2,
+    alignSelf: "center",
   },
   icon: {
     backgroundColor: "#FFFFFF",
@@ -83,12 +99,5 @@ const styles = StyleSheet.create({
     fontFamily: "comfortaa",
     marginVertical: Constants.statusBarHeight / 2,
     color: "#FFFFFF",
-  },
-  tree: {
-    height: Constants.statusBarHeight * 1.25,
-    width: Constants.statusBarHeight * 1.25,
-    position: "absolute",
-    marginTop: windowHeight / 5,
-    marginLeft: windowWidth / 2,
   },
 });
