@@ -40,10 +40,6 @@ export default function MapScreen({ style, navigation, route }) {
   }
 
   async function getCatCulturaEvents() {
-    // useEffect(() => {
-
-    // }, [userCoords])
-
     try {
       console.log(userCoords.latitude ?? "no latitude");
       console.log(userCoords.longitude ?? "no long");
@@ -72,7 +68,6 @@ export default function MapScreen({ style, navigation, route }) {
   }, [update]);
 
   useEffect(() => {
-    console.log("HOLa");
     getCatCulturaEvents();
   }, [userCoords]);
 
