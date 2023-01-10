@@ -1,4 +1,10 @@
-import React, { Component, useTransition, useState, useEffect } from "react";
+import React, {
+  Component,
+  useTransition,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import {
   Text,
   View,
@@ -13,6 +19,7 @@ import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { createPostLogout, createGetUserData } from "../helpers/Axios.helper";
 import "../../i18n.js";
@@ -36,19 +43,21 @@ function Profile({ navigation }) {
     }
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const value = await AsyncStorage.getItem("@showCulturalEvents");
-        if (value !== null) {
-          setCulturalEvents(value === "true");
+  useFocusEffect(
+    useCallback(() => {
+      const getData = async () => {
+        try {
+          const value = await AsyncStorage.getItem("@showCulturalEvents");
+          if (value !== null) {
+            setCulturalEvents(value === "true");
+          }
+        } catch (e) {
+          console.log(e);
         }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getData();
-  }, []);
+      };
+      getData();
+    }, [])
+  );
 
   useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {

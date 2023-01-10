@@ -16,6 +16,7 @@ export default function Mapa({
   navigation,
   estacionesParam,
   catCulturaEventsParam,
+  setParentCoords,
 }) {
   // Origin coordinates
   const [origin, setOrigin] = useState({
@@ -23,19 +24,15 @@ export default function Mapa({
     longitude: 2.169998,
   });
 
-  const [params, setParams] = useState();
-
   const [destination, setDestination] = useState(null);
 
-  const [tapview, setTapView] = useState(false);
+  const [tapView, setTapView] = useState(false);
   const [id, setId] = useState("");
   const [ruta, setRuta] = useState(false);
   const mapRef = useRef();
   const estaciones = estacionesParam;
   const eventos = catCulturaEventsParam;
-  console.log(catCulturaEventsParam);
-  // console.log("ESTACOINEEEEEES");
-  // console.log(estaciones);
+
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
   de la posició de l'usuari*/
@@ -44,17 +41,30 @@ export default function Mapa({
   }, []);
 
   async function getLocationPermission() {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      alert("Permission denied");
-      return;
-    }
-    let location = await Location.getCurrentPositionAsync({});
-    const current = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    };
-    setOrigin(current);
+    await Location.requestForegroundPermissionsAsync()
+      .then(async (res) => {
+        console.log("RES");
+        console.log(res);
+        if (res.status === "granted") {
+          console.log("GRANTED");
+          await Location.getCurrentPositionAsync({})
+            .then((location) => {
+              console.log("COORDS");
+              console.log(location);
+              const current = {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+              };
+              setOrigin(current);
+              setParentCoords(current);
+            })
+            .catch(console.log("Error getCurrentPositionAsync"));
+        } else {
+          alert("Permission denied");
+          return;
+        }
+      })
+      .catch(console.log("Error requestForegroundPermissionsAsync"));
   }
 
   const hideTapView = () => {
@@ -63,6 +73,7 @@ export default function Mapa({
   };
 
   async function startTravel(latitud, longitud) {
+    setTapView(false);
     setDestination({
       latitude: parseFloat(latitud),
       longitude: parseFloat(longitud),
@@ -79,7 +90,7 @@ export default function Mapa({
 
   return (
     <>
-      {tapview && (
+      {tapView && (
         <MiniTapView
           ID={id}
           navigation={navigation}
@@ -98,16 +109,16 @@ export default function Mapa({
           latitude: origin.latitude,
           longitude: origin.longitude,
           //La quantitat de distància d'est a oest mesurada en graus a mostrar per a la regió del mapa
-          latitudeDelta: 0.09, // coordenadas para iOS (hay que cambiarlas)
-          longitudeDelta: 0.04, // coordenadas para iOS (hay que cambiarlas)
+          latitudeDelta: 0.1, // coordenadas para iOS (hay que cambiarlas)
+          longitudeDelta: 0.1, // coordenadas para iOS (hay que cambiarlas)
         }}
-        // camera={{
-        //   center: { latitude: origin.latitude, longitude: origin.longitude },
-        //   pitch: 0,
-        //   zoom: 15,
-        //   heading: 0,
-        //   altitude: 0,
-        // }}
+        camera={{
+          center: { latitude: origin.latitude, longitude: origin.longitude },
+          pitch: 0,
+          zoom: destination ? 20 : 30,
+          heading: 0,
+          altitude: 0,
+        }}
         radius={50}
       >
         <TouchableOpacity>

@@ -19,6 +19,10 @@ const DIM = {
 
 export default function MapScreen({ style, navigation, route }) {
   const { update } = route?.params || 0;
+  const [userCoords, setUserCoords] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
 
   async function getEstaciones() {
     try {
@@ -26,10 +30,8 @@ export default function MapScreen({ style, navigation, route }) {
         params: paramsList.getParams(),
       });
       if (res.status === 200) {
-        console.log("DATA CORRECTA ESTACIONES");
         setEstaciones(res.data);
       } else {
-        console.log("DATA VACIA ESTACIONES");
         setEstaciones([]);
       }
     } catch (error) {
@@ -38,17 +40,23 @@ export default function MapScreen({ style, navigation, route }) {
   }
 
   async function getCatCulturaEvents() {
+    // useEffect(() => {
+
+    // }, [userCoords])
+
     try {
+      console.log(userCoords.latitude ?? "no latitude");
+      console.log(userCoords.longitude ?? "no long");
       let res = await axios.get(`http://4.231.36.42:8080/events`, {
-        lat: "41.403866",
-        long: "2.1743618",
-        radius: "1",
+        params: {
+          lat: userCoords.latitude.toString(),
+          long: userCoords.longitude.toString(),
+          radius: "2.5",
+        },
       });
       if (res.status === 200) {
-        console.log("DATA CORRECTA EVENTOS");
         setCatCulturaEvents(res.data);
       } else {
-        console.log("DATA VACIA EVENTOS");
         setCatCulturaEvents([]);
       }
     } catch (error) {
@@ -62,6 +70,11 @@ export default function MapScreen({ style, navigation, route }) {
   useEffect(() => {
     getEstaciones();
   }, [update]);
+
+  useEffect(() => {
+    console.log("HOLa");
+    getCatCulturaEvents();
+  }, [userCoords]);
 
   useFocusEffect(
     useCallback(() => {
@@ -99,6 +112,7 @@ export default function MapScreen({ style, navigation, route }) {
         navigation={navigation}
         estacionesParam={estaciones}
         catCulturaEventsParam={catCulturaEvents}
+        setParentCoords={setUserCoords}
       />
       <NavigationTab style={styles.navBar} navigation={navigation} />
     </SafeAreaView>
