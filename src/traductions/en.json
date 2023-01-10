@@ -12,7 +12,9 @@
     "Current_Pass": "Current password",
     "Continue_Button": "Continue",
     "Write_New_Pass": "Write your new password",
-    "New_Pass": "New password"
+    "Write_New_Pass_Again": "Write your new password again",
+    "New_Pass": "New password",
+    "Repeat_New_Pass": "Reapeat new password"
   },
   "Edit_Profile": {
     "User_Name": "User Name",
@@ -51,12 +53,14 @@
   "Pass_Recover_Mail": {
     "Write_Email": "Write your email address to send the verification code",
     "Email": "Email",
-    "Search_Button": "Search"
+    "Send_Button": "Send"
   },
   "Password_Change": {
     "New_Password": "New password",
     "Confirm_New_Password": "Confirm new password",
-    "Change_Password_Button": "Change password"
+    "Change_Password_Button": "Change password",
+    "Write_New_Pass": "Write your new password",
+    "Write_New_PassAgain": "Write your new password again"
   },
   "Profile": {
     "User_Name": "User Name",
@@ -64,9 +68,11 @@
     "My_Calendar": "My calendar",
     "My_Forest": "My forest",
     "Technical_Assistance": "Technical Assistance",
-    "Trophys": "Trophys",
+    "Trophys": "Trophies",
     "Logout": "Logout",
     "Cultural_Events": "Cultural events"
+    "Achievements": "Achievements",
+    "Logout": "Logout"
   },
   "Search_Bar": {
     "Search": "Search"

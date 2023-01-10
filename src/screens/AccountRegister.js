@@ -6,18 +6,17 @@ import {
   ScrollView,
   TextInput,
   Image,
-  Button,
   Alert,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
 
+import { Button } from "react-native-paper";
+import { Hideo } from "react-native-textinput-effects";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
-
-const Separator = () => <View style={styles.separator} />;
-const Separator2 = () => <View style={styles.separator2} />;
 
 import {
   checkTextInputNotEmpty,
@@ -27,9 +26,10 @@ import {
   checkPasswordRequeriments,
   errorControl,
 } from "../helpers/AccountRegister.helper";
-
 import { createPostRegister } from "../helpers/Axios.helper";
 
+const Separator = () => <View style={styles.separator} />;
+const Separator2 = () => <View style={styles.separator2} />;
 const useValidation = () => {
   return {
     checkTextInputNotEmpty,
@@ -51,13 +51,14 @@ export default function Login({ navigation }) {
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView style={styles.container1}>
-      <View>
+    <View style={styles.container1}>
+      <View style={styles.topContainer}>
         <Image
           style={styles.logo}
           source={require("../../assets/images/EcoMobilityIcon2.png")}
         />
       </View>
+      <Separator />
       <Separator />
       <View>
         <Image
@@ -65,57 +66,83 @@ export default function Login({ navigation }) {
           source={require("../../assets/images/LetrasLema3.png")}
         />
       </View>
+      <View style={styles.textInput}>
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"envelope"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={t("Login.Email")}
+          onChangeText={(newtext) => setUserEmail(newtext)}
+          defaultValue={userEmail}
+        />
+      </View>
+      <Separator />
+      <View style={styles.textInput}>
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={t("Account_Register.Name")}
+          onChangeText={(newText) => setUserName(newText)}
+          defaultValue={userName}
+        />
+      </View>
+      <Separator />
+      <View style={styles.textInput}>
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={t("Account_Register.Surnames")}
+          onChangeText={(newText) => setUserSurname(newText)}
+          defaultValue={userSurname}
+        />
+      </View>
+      <Separator />
+      <View style={styles.textInput}>
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={t("Account_Register.Password")}
+          secureTextEntry
+          onChangeText={(newText) => setPassword1(newText)}
+          defaultValue={password1}
+        />
+      </View>
+      <Separator />
+      <View style={styles.textInput}>
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={t("Account_Register.Confirm_Password")}
+          secureTextEntry
+          onChangeText={(newText) => setPassword2(newText)}
+          defaultValue={password2}
+        />
+      </View>
       <Separator2 />
-      <ScrollView>
-        <View>
-          <TextInput
-            style={styles.tinput}
-            placeholder={t("Account_Register.Email")}
-            onChangeText={(newtext) => setUserEmail(newtext)}
-            defaultValue={userEmail}
-          />
-        </View>
-        <View>
-          <TextInput
-            style={styles.tinput}
-            placeholder={t("Account_Register.Name")}
-            onChangeText={(newText) => setUserName(newText)}
-            defaultValue={userName}
-          />
-        </View>
-        <View>
-          <TextInput
-            style={styles.tinput}
-            placeholder={t("Account_Register.Surnames")}
-            onChangeText={(newText) => setUserSurname(newText)}
-            defaultValue={userSurname}
-          />
-        </View>
-        <View>
-          <TextInput
-            style={styles.tinputPassword}
-            placeholder={t("Account_Register.Password")}
-            secureTextEntry
-            onChangeText={(newText) => setPassword1(newText)}
-            defaultValue={password1}
-          />
-        </View>
-        <View>
-          <TextInput
-            style={styles.tinputPassword}
-            placeholder={t("Account_Register.Confirm_Password")}
-            secureTextEntry
-            onChangeText={(newText) => setPassword2(newText)}
-            defaultValue={password2}
-          />
-        </View>
-      </ScrollView>
-      <Separator2 />
-      <View style={styles.RegisterButton}>
+      <View style={styles.buttonView}>
         <Button
-          title={t("Account_Register.Register_Button")}
-          color="#27CF10"
-          style={styles.buttonRegister}
+          height={40}
+          buttonColor={"#27CF10"}
+          mode="contained"
           onPress={() => {
             if (
               validation.checkTextInputNotEmpty(
@@ -144,7 +171,11 @@ export default function Login({ navigation }) {
               }
             }
           }}
-        />
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>
+            {t("Account_Register.Register_Button")}
+          </Text>
+        </Button>
       </View>
       <Separator2 />
       <View>
@@ -158,56 +189,43 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
       </View>
       <Separator />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container1: {
-    justifyContent: "center",
-    paddingTop: 50,
-    paddingLeft: 10,
+    paddingBottom: Constants.statusBarHeight,
+  },
+  topContainer: {
+    width: Constants.paddingBottom,
+    height: Constants.statusBarHeight * 3,
+    display: "flex",
+    flexDirection: "row",
   },
   logo: {
-    justifyContent: "center",
-    left: 60,
+    marginTop: Constants.statusBarHeight * 1.2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
   lema: {
-    justifyContent: "center",
-    left: 70,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
-  tinput: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+  textInput: {
+    marginTop: Constants.statusBarHeight * 1,
+    marginLeft: Constants.statusBarHeight * 0.2,
+    marginRight: Constants.statusBarHeight * 0.2,
   },
-  tinputPassword: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-  },
-  RegisterButton: {
-    paddingTop: Constants.statusBarHeight * 0.5,
+  buttonView: {
+    paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },
-  buttonRegister: {
-    orderRadius: 30,
-  },
-  button: {
-    alignItems: "center",
-    right: 5,
-    margintop: 2000,
-  },
   buttonBack: {
-    right: -10,
-    margintop: 200,
+    paddingTop: Constants.statusBarHeight * 0.6,
+    paddingLeft: Constants.statusBarHeight * 0.3,
   },
   separator: {
     marginVertical: 11,

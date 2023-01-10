@@ -143,14 +143,19 @@ function Profile({ navigation }) {
             {t("Profile.Technical_Assistance")}{" "}
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.separationViews}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Achievements");
+          }}
+          style={styles.separationViews}
+        >
           <Icon
             name="trophy"
             color={"#E8C711"}
             size={28}
             style={styles.icons}
           ></Icon>
-          <Text style={styles.smallText}> {t("Profile.Trophys")} </Text>
+          <Text style={styles.smallText}> {t("Profile.Achievements")} </Text>
         </TouchableOpacity>
         <View style={styles.separationViews}>
           <Icon
@@ -205,6 +210,7 @@ function Profile({ navigation }) {
         </View>
         <View style={styles.buttonView}>
           <Button
+            height={40}
             buttonColor={"#27CF10"}
             mode="contained"
             onPress={() => {
@@ -213,7 +219,11 @@ function Profile({ navigation }) {
               })();
             }}
           >
-            {t("Profile.Logout")}
+            <Text
+              style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}
+            >
+              {t("Profile.Logout")}
+            </Text>
           </Button>
         </View>
       </ScrollView>

@@ -9,18 +9,20 @@ import {
   ScrollView,
   TextInput,
   Image,
-  Button,
   Alert,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import {
-  clearText,
-  checkTextInputNotEmpty,
-  errorControl,
-} from "../helpers/Login.helper";
+
+import { Button } from "react-native-paper";
+import { Hideo } from "react-native-textinput-effects";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { useTranslation } from "react-i18next";
 
+import {
+  checkTextInputConfirmCurrentPassNotEmpty,
+  checkPassword,
+} from "../helpers/AccountRegister.helper";
 import { createPutPasswordChange } from "../helpers/Axios.helper";
 
 const Separator = () => <View style={styles.separator} />;
@@ -28,23 +30,25 @@ const Separator2 = () => <View style={styles.separator2} />;
 const Separator3 = () => <View style={styles.separator3} />;
 
 const useValidation = () => {
-  return { checkTextInputNotEmpty };
+  return { checkTextInputConfirmCurrentPassNotEmpty, checkPassword };
 };
 
 export default function Login({ navigation }) {
   const [userOldPassword, setUserOldPassword] = useState("");
   const [userNewPassword, setUserNewPassword] = useState("");
+  const [userNewPassword2, setUserNewPassword2] = useState("");
   const { t } = useTranslation();
   const validation = useValidation();
 
   return (
-    <SafeAreaView style={styles.container1}>
-      <View>
+    <View style={styles.container1}>
+      <View style={styles.topContainer}>
         <Image
           style={styles.logo}
           source={require("../../assets/images/EcoMobilityIcon2.png")}
         />
       </View>
+      <Separator />
       <Separator />
       <View>
         <Image
@@ -52,58 +56,89 @@ export default function Login({ navigation }) {
           source={require("../../assets/images/LetrasLema3.png")}
         />
       </View>
-      <Separator2 />
-      <Separator2 />
-      <Separator2 />
-      <View>
+      <View style={styles.textInput}>
         <Text>{t("Confirm_Current_Pass.Write_Current_Pass")}</Text>
-        <TextInput
-          style={styles.tinput}
+        <Separator2 />
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
           placeholder={t("Confirm_Current_Pass.Current_Pass")}
+          secureTextEntry
           onChangeText={(newtext) => setUserOldPassword(newtext)}
           defaultValue={userOldPassword}
-          //secureTextEntry
         />
       </View>
-      <Separator2 />
-      <Separator2 />
-      <View>
+      <Separator />
+      <View style={styles.textInput}>
         <Text>{t("Confirm_Current_Pass.Write_New_Pass")}</Text>
-        <TextInput
-          style={styles.tinput}
+        <Separator2 />
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
           placeholder={t("Confirm_Current_Pass.New_Pass")}
+          secureTextEntry
           onChangeText={(newtext) => setUserNewPassword(newtext)}
           defaultValue={userNewPassword}
-          secureTextEntry
         />
       </View>
       <Separator2 />
-      <View style={styles.LoginButton}>
-        <Button
-          title={t("Confirm_Current_Pass.Continue_Button")}
-          color="#27CF10"
-          style={styles.buttonLogin}
-          onPress={() => {
-            if (
-              validation.checkTextInputNotEmpty(
-                userOldPassword,
-                userNewPassword
-              )
-            ) {
-              (async () => {
-                if (
-                  await createPutPasswordChange(
-                    userOldPassword,
-                    userNewPassword
-                  )
-                )
-                  navigation.navigate("Profile");
-              })();
-            }
-          }}
+      <View style={styles.textInput}>
+        <Text>{t("Confirm_Current_Pass.Write_New_Pass_Again")}</Text>
+        <Separator2 />
+        <Hideo
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"white"}
+          // this is used as backgroundColor of icon container view.
+          iconBackgroundColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          placeholder={t("Confirm_Current_Pass.Repeat_New_Pass")}
+          secureTextEntry
+          onChangeText={(newtext) => setUserNewPassword2(newtext)}
+          defaultValue={userNewPassword2}
         />
       </View>
-      <Separator3 />
+      <Separator2 />
+      <View style={styles.buttonView}>
+        <Button
+          height={40}
+          buttonColor={"#27CF10"}
+          mode="contained"
+          onPress={() => {
+            if (
+              validation.checkTextInputConfirmCurrentPassNotEmpty(
+                userOldPassword,
+                userNewPassword,
+                userNewPassword2
+              )
+            ) {
+              if (checkPassword(password, password2)) {
+                (async () => {
+                  if (
+                    await createPutPasswordChange(
+                      userOldPassword,
+                      userNewPassword
+                    )
+                  )
+                    navigation.navigate("Profile");
+                })();
+              }
+            }
+          }}
+        >
+          <Text style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>
+            {t("Confirm_Current_Pass.Continue_Button")}
+          </Text>
+        </Button>
+      </View>
       <View>
         <TouchableOpacity
           style={styles.buttonBack}
@@ -115,61 +150,49 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
       </View>
       <Separator />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container1: {
-    justifyContent: "center",
-    paddingTop: 50,
-    paddingLeft: 10,
+    paddingBottom: Constants.statusBarHeight,
+  },
+  topContainer: {
+    width: Constants.paddingBottom,
+    height: Constants.statusBarHeight * 4,
+    display: "flex",
+    flexDirection: "row",
   },
   logo: {
-    justifyContent: "center",
-    left: 60,
-    //padding: 90,
-    //width: 260,
-    //height: 170,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
   lema: {
-    justifyContent: "center",
-    left: 70,
-    //width: 260,
-    //height: 170,
+    marginTop: Constants.statusBarHeight * 2,
+    marginLeft: Constants.statusBarHeight * 1.75,
+    marginRight: Constants.statusBarHeight * 1,
   },
-  tinput: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
+  textInput: {
+    marginTop: Constants.statusBarHeight * 1,
+    marginLeft: Constants.statusBarHeight * 0.2,
+    marginRight: Constants.statusBarHeight * 0.2,
   },
-  but: {
-    flex: 1,
-    margin: 20,
-    margintop: 22,
-  },
-  LoginButton: {
-    paddingTop: Constants.statusBarHeight * 0.5,
+  buttonView: {
+    paddingTop: Constants.statusBarHeight * 1.5,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },
   buttonBack: {
-    //alignItems: "left",
-    right: -10,
-    margintop: 200,
+    paddingTop: Constants.statusBarHeight * 1,
+    paddingLeft: Constants.statusBarHeight * 0.3,
   },
   separator: {
     marginVertical: 11,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
   separator2: {
     marginVertical: 5,
-    //borderBottomColor: "#737373",
-    //borderBottomWidth: StyleSheet.hairlineWidth,
   },
   separator3: {
     marginVertical: 60,

@@ -4,16 +4,21 @@ import { errorControlLogin } from "../helpers/Login.helper";
 
 import { errorControlRegister } from "../helpers/AccountRegister.helper";
 
-const loginURL = "http://13.39.20.131:3000/api/v1/users/login";
-const registerURL = "http://13.39.20.131:3000/api/v1/users/register";
-const editProfileURL = "http://13.39.20.131:3000/api/v1/users/me/updateInfo";
-const logoutURL = "http://13.39.20.131:3000/api/v1/users/logout";
-const userDeleteURL = "http://13.39.20.131:3000/api/v1/users/me/deleteUser";
-const userDataURL = "http://13.39.20.131:3000/api/v1/users/me/getInfo";
-const ConfirmPasswordURL =
-  "http://13.39.20.131:3000/api/v1/users/me/updatePassword";
+const url = "http://15.188.52.76:3000/api/v2/";
+
+const loginURL = url + "users/login";
+const registerURL = url + "users/register";
+const editProfileURL = url + "users/me/updateInfo";
+const logoutURL = url + "users/logout";
+const userDeleteURL = url + "users/me/deleteUser";
+const userDataURL = url + "users/me/getInfo";
+const ConfirmPasswordURL = url + "users/me/updatePassword";
+const recoverEmailURL = url + "users/resetForgottenPassword/sendMail";
+const recoverPasswordURL = url + "users/resetForgottenPassword/resetPassword";
 
 export async function createPostLogin(userEmail, userPassword) {
+  console.log("El email es: " + userEmail + " El pass es : " + userPassword);
+  console.log(loginURL);
   return await axios
     .post(loginURL, {
       email: userEmail,
@@ -23,6 +28,7 @@ export async function createPostLogin(userEmail, userPassword) {
       return true;
     })
     .catch(function (error) {
+      console.log("Da error");
       console.log("Da error y el error es : " + error.response.data.message);
       //errorControlLogin(2);
       return false;
@@ -36,6 +42,16 @@ export async function createPostRegister(
   password1
 ) {
   console.log("Entro a createPostRegister");
+  console.log(
+    "Email: " +
+      userEmail +
+      ", Name: " +
+      userName +
+      ", Surname: " +
+      userSurname +
+      ", Pass: " +
+      password1
+  );
   return await axios
     .post(registerURL, {
       email: userEmail,
@@ -44,11 +60,13 @@ export async function createPostRegister(
       password: password1,
     })
     .then(function (response) {
+      console.log("Funciona el register");
       //console.log(response);
       //errorControlRegister(7);
       return true;
     })
     .catch(function (error) {
+      console.log("Da error el register");
       console.log(error);
       //errorControlRegister(2);
       return false;
@@ -129,7 +147,7 @@ export async function createPostLogout() {
 export async function createGetUserData() {
   let userDTO = [];
   return await axios
-    .get(userDataURL, {}, { withCredentials: true })
+    .get(userDataURL, {})
     .then(function (response) {
       userDTO = [
         response.data.name,
@@ -142,5 +160,43 @@ export async function createGetUserData() {
       // console.log("El error es " + error.response.data.message);
       //errorControl(2);
       return userDTO;
+    });
+}
+
+export async function createPostRecoverMail(userEmail) {
+  return await axios
+    .post(recoverEmailURL, {
+      email: userEmail,
+    })
+    .then(function (response) {
+      return true;
+    })
+    .catch(function (error) {
+      console.log("Da error");
+      console.log("Da error y el error es : " + error.response.data.message);
+      //errorControlLogin(2);
+      return false;
+    });
+}
+
+export async function createPostRecoverPassword(
+  confirmationCode,
+  userPassword
+) {
+  console.log("Entro a createPostRecoverPassword");
+  console.log(confirmationCode);
+  return await axios
+    .post(recoverPasswordURL, {
+      token: confirmationCode,
+      newPassword: userPassword,
+    })
+    .then(function (response) {
+      console.log("Funciona el createPostRecoverPassword");
+      return true;
+    })
+    .catch(function (error) {
+      console.log("Da error el createPostRecoverPassword");
+      console.log(error.response.data.message);
+      return false;
     });
 }

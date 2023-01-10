@@ -20,6 +20,7 @@ import SearchBar from "./src/screens/SearchBar";
 import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
 import MyCalendar from "./src/screens/MyCalendar";
 import ChargePoint from "./src/screens/ChargePoint";
+import Achievements from "./src/screens/Achievements";
 
 const Stack = createStackNavigator();
 
@@ -86,6 +87,10 @@ export default function App({ t }) {
           <Stack.Screen
             name="ChargePoint"
             component={ChargePoint}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="Achievements"
+            component={Achievements}
           ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
