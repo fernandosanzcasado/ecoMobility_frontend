@@ -58,13 +58,13 @@ export default function Mapa({
               setOrigin(current);
               setParentCoords(current);
             })
-            .catch(console.error("Error getCurrentPositionAsync"));
+            .catch(console.log("ERROR: Error getCurrentPositionAsync"));
         } else {
           alert("Permission denied");
           return;
         }
       })
-      .catch(console.error("Error requestForegroundPermissionsAsync"));
+      .catch(console.log("ERROR: Error requestForegroundPermissionsAsync"));
   }
 
   const hideTapView = () => {
