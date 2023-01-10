@@ -11,7 +11,12 @@ import Button from "react-native-paper";
 import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
 
-export default function Mapa({ style, navigation, estacionesParam }) {
+export default function Mapa({
+  style,
+  navigation,
+  estacionesParam,
+  catCulturaEventsParam,
+}) {
   // Origin coordinates
   const [origin, setOrigin] = useState({
     latitude: 41.386976,
@@ -27,6 +32,8 @@ export default function Mapa({ style, navigation, estacionesParam }) {
   const [ruta, setRuta] = useState(false);
   const mapRef = useRef();
   const estaciones = estacionesParam;
+  const eventos = catCulturaEventsParam;
+  console.log(catCulturaEventsParam);
   // console.log("ESTACOINEEEEEES");
   // console.log(estaciones);
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
@@ -142,6 +149,25 @@ export default function Mapa({ style, navigation, estacionesParam }) {
               }}
             >
               <Icon name="charging-station" size={20}></Icon>
+            </View>
+          </Marker>
+        ))}
+
+        {eventos?.map((evento) => (
+          <Marker
+            key={Math.random()}
+            coordinate={{
+              longitude: parseFloat(evento.longitud ?? 0.0),
+              latitude: parseFloat(evento.latitud ?? 0.0),
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Icon name="ticket-alt" size={20}></Icon>
             </View>
           </Marker>
         ))}
