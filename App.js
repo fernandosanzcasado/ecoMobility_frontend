@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { EventProvider } from "react-native-outside-press";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Profile from "./src/screens/Profile";
 import EditProfile from "./src/screens/EditProfile";
@@ -24,11 +25,21 @@ import Achievements from "./src/screens/Achievements";
 const Stack = createStackNavigator();
 
 export default function App({ t }) {
+  // Por defecto, la funcionalidad de ver eventos está desactivada
+  const defaultValues = async () => {
+    try {
+      await AsyncStorage.setItem("@showCulturalEvents", "false");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  defaultValues();
+
   return (
     <EventProvider style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName="MapScreen"
           screenOptions={{
             headerShown: false,
           }}

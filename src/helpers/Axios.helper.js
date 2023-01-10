@@ -125,7 +125,7 @@ export async function createPutPasswordChange(
       return true;
     })
     .catch(function (error) {
-      console.log(error.response.data.message);
+      // console.log(error.response.data.message);
       //errorControl(2);
       return false;
     });
@@ -138,7 +138,7 @@ export async function createPostLogout() {
       return true;
     })
     .catch(function (error) {
-      console.log("El error es " + error.response.data.message);
+      // console.log("El error es " + error.response.data.message);
       //errorControl(2);
       return false;
     });
@@ -157,7 +157,7 @@ export async function createGetUserData() {
       return userDTO;
     })
     .catch(function (error) {
-      console.log("El error es " + error.response.data.message);
+      // console.log("El error es " + error.response.data.message);
       //errorControl(2);
       return userDTO;
     });

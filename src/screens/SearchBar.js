@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-
-import Icon from "react-native-vector-icons/FontAwesome5";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -15,52 +13,46 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import * as Animatable from "react-native-animatable";
 import { useTranslation } from "react-i18next";
+import { Card, Button } from "react-native-paper";
 
+import axios from "axios";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import LogoText from "../components/ecomobility/LogoText";
-
-const listStations = [
-  "França",
-  "Muntaner",
-  "Av.Sarria",
-  "Urgell",
-  "Borrell",
-  "Diagonal",
-  "Londres",
-  "Paris",
-  "Jaume I",
-  "Bisbe",
-  "Portal de l'Àngel",
-  "Pau Claris",
-  "Passeig de Gracia",
-  "Esculleders",
-  "Rambla",
-  "ueeeee",
-  "sadasdad",
-  "dadasdsa",
-  "fsegfsad",
-  "HolaBuenasTardes",
-  "HolaBuenosDias",
-];
+import { BASE_URL } from "@env";
 
 export default function SearchBar({ navigation }) {
   //Pantalla negra al escriure
   const [searchBarFocused, setSearchBarFocused] = useState(false);
+  const [estaciones, setEstaciones] = useState([]);
 
   //Filtre de la pantalla
   const [filterData, setfilterData] = useState([]);
   const [masterData, setmasterData] = useState([]);
   const [search, setSearch] = useState("");
 
+  //ID de la estació a la que volem accedir
+  const [stationID, setStationID] = useState([]);
+
   const { t } = useTranslation();
 
   useEffect(() => {
-    stations();
+    async function getEstaciones() {
+      try {
+        const res = await axios.get(
+          `http://${BASE_URL}/api/v2/estaciones/direccion`
+        );
+        setEstaciones(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getEstaciones();
   }, []);
 
-  const stations = () => {
-    setfilterData(listStations);
-    setmasterData(listStations);
-  };
+  useEffect(() => {
+    setfilterData(estaciones.map((estacion) => estacion.direccion));
+    setmasterData(estaciones.map((estacion) => estacion.direccion));
+  }, [estaciones]);
 
   const searchFilter = (
     text,
@@ -107,6 +99,18 @@ export default function SearchBar({ navigation }) {
     };
   }, []);
 
+  const primeraExec = useRef(false);
+  useEffect(() => {
+    if (primeraExec.current) {
+      navigation.navigate("ChargePoint", { idStation: stationID });
+    } else primeraExec.current = true;
+  }, [stationID]);
+
+  const goToChargePoint = (item) => {
+    const id = estaciones.find((x) => x.direccion === item).id;
+    setStationID(id);
+  };
+
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
       <View style={styles.mainView}>
@@ -135,12 +139,19 @@ export default function SearchBar({ navigation }) {
           <Animatable.View
             animation={searchBarFocused ? "fadeInLeft" : "fadeInRight"}
           ></Animatable.View>
-          <Icon
-            name={searchBarFocused ? "arrow-left" : "search"}
-            size={25}
-            color="#000000"
-            style={styles.lupe}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              setSearchBarFocused(false);
+              Keyboard.dismiss();
+            }}
+          >
+            <Icon
+              name={searchBarFocused ? "arrow-left" : "search"}
+              size={25}
+              color="#000000"
+              style={styles.lupe}
+            />
+          </TouchableOpacity>
           <TextInput
             placeholder={t("Search_Bar.Search")}
             onSubmitEditing={Keyboard.dismiss}
@@ -149,6 +160,7 @@ export default function SearchBar({ navigation }) {
             onChangeText={(text) =>
               searchFilter(text, setfilterData, setSearch, masterData)
             }
+            style={{ width: 250 }}
           />
         </Animatable.View>
       </View>
@@ -157,15 +169,21 @@ export default function SearchBar({ navigation }) {
         data={filterData}
         renderItem={({ item }) => (
           <View style={styles.separador}>
-            <Text style={{ padding: 20, fontSize: 20 }}>{item}</Text>
-            <View
-              style={{
-                alignSelf: "center",
-                paddingHorizontal: Constants.statusBarHeight,
-              }}
-            >
-              <Icon name="arrow-right" size={25}></Icon>
-            </View>
+            <Card elevation={1} style={{ flexGrow: 1 }}>
+              <Card.Content style={{ display: "flex", flexDirection: "row" }}>
+                <Text numberOfLines={1} style={{ alignSelf: "center" }}>
+                  {item.length < 50 ? `${item}` : `${item.substring(0, 49)}...`}
+                </Text>
+                <Button
+                  onPress={() => {
+                    goToChargePoint(item);
+                  }}
+                  icon="car-info"
+                  compact={true}
+                  labelStyle={{ fontSize: Constants.statusBarHeight / 1.5 }}
+                />
+              </Card.Content>
+            </Card>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
@@ -207,6 +225,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 2,
     opacity: 0.2,
-    borderColor: "#2D803F",
+    borderColor: "#FFFFFF",
   },
 });

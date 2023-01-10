@@ -1,4 +1,10 @@
-import React, { Component, useTransition, useState } from "react";
+import React, {
+  Component,
+  useTransition,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import {
   Text,
   View,
@@ -8,22 +14,52 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { Button } from "react-native-paper";
+import { Button, Switch } from "react-native-paper";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { createPostLogout, createGetUserData } from "../helpers/Axios.helper";
 import "../../i18n.js";
 
+var buttonState = false;
+
 function Profile({ navigation }) {
+  const [culturalEvents, setCulturalEvents] = useState(false);
   const [userName, setUserName] = useState("");
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
 
-  React.useEffect(() => {
+  const changeCulturalEvents = async (value) => {
+    setCulturalEvents(value);
+    try {
+      await AsyncStorage.setItem("@showCulturalEvents", value.toString());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      const getData = async () => {
+        try {
+          const value = await AsyncStorage.getItem("@showCulturalEvents");
+          if (value !== null) {
+            setCulturalEvents(value === "true");
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      getData();
+    }, [])
+  );
+
+  useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
       let userDTO = [];
       (async () => {
@@ -121,6 +157,25 @@ function Profile({ navigation }) {
           ></Icon>
           <Text style={styles.smallText}> {t("Profile.Achievements")} </Text>
         </TouchableOpacity>
+        <View style={styles.separationViews}>
+          <Icon
+            name="calendar-day"
+            color={"#8d26d1"}
+            size={28}
+            style={styles.icons}
+          ></Icon>
+          <Text style={styles.smallText}> {t("Profile.Cultural_Events")} </Text>
+          <Switch
+            color="#8d26d1"
+            value={culturalEvents}
+            onValueChange={changeCulturalEvents}
+            style={{
+              alignSelf: "center",
+              justifyContent: "center",
+              marginTop: Constants.statusBarHeight * 1.25,
+            }}
+          />
+        </View>
         <View style={styles.flagsView}>
           <TouchableOpacity
             onPress={() => {
@@ -201,6 +256,7 @@ const styles = StyleSheet.create({
   separationViews: {
     display: "flex",
     flexDirection: "row",
+    alignContent: "center",
   },
   icons: {
     paddingTop: Constants.statusBarHeight * 1.25,

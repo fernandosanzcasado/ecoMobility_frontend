@@ -2,257 +2,428 @@ import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
-  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
-import Slider from "@react-native-community/slider";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+import { List, Card, Switch, TextInput } from "react-native-paper";
+import Slider from "@react-native-community/slider";
 import Constants from "expo-constants";
-import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
+import Icon from "react-native-vector-icons/FontAwesome";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import LogoText from "../components/ecomobility/LogoText";
+
+import paramsList from "../helpers/ParamsMapCall";
+import { use } from "i18next";
+
+var buttonsState = {
+  ac: true,
+  dc: true,
+  rapid: true,
+  semirapid: true,
+  normal: true,
+  superrapid: true,
+  cotxe: true,
+  moto: true,
+  taxi: true,
+  mercaderies: true,
+  ccscombo2: true,
+  chademo: true,
+  tesla: true,
+  mennekes: true,
+  j1772f: true,
+  schuko: true,
+  power: 50,
+  distancia: 10,
+};
+
+const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem("@buttonsData");
+    if (value !== null) buttonsState = value;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const storeData = async () => {
+  try {
+    const jsonValue = JSON.stringify(buttonsState);
+    await AsyncStorage.setItem("@buttonsData", jsonValue);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export default function FilterScreen({ navigation }) {
-  [bicicletes, setBicicletes] = useState(false);
-  [vehicles, setVehicles] = useState(false);
-  [supercharge, setSupercharge] = useState(false);
-  [preu, setPreu] = useState(false);
-  [range, setRange] = useState(5);
-  [apply, setApply] = useState(false);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  //Tipo de Corriente
+  const [ac, setAc] = useState(buttonsState.ac);
+  const [dc, setDc] = useState(buttonsState.dc);
+  //Tipo de Velocidad
+  const [rapid, setRapid] = useState(buttonsState.rapid);
+  const [semirapid, setSemiRapid] = useState(buttonsState.semirapid);
+  const [normal, setNormal] = useState(buttonsState.normal);
+  const [superrapid, setSuperRapid] = useState(buttonsState.superrapid);
+  //Tipo de Vehículo
+  const [cotxe, setCotxe] = useState(buttonsState.cotxe);
+  const [moto, setMoto] = useState(buttonsState.moto);
+  const [taxi, setTaxi] = useState(buttonsState.taxi);
+  const [mercaderies, setMercaderies] = useState(buttonsState.mercaderies);
+  //Tipo de Conexión
+  const [ccscombo2, setCcsCombo2] = useState(buttonsState.ccscombo2);
+  const [chademo, setChadeMo] = useState(buttonsState.chademo);
+  const [tesla, setTesla] = useState(buttonsState.tesla);
+  const [mennekes, setMennekes] = useState(buttonsState.mennekes);
+  const [j1772f, setJ1772F] = useState(buttonsState.j1772f);
+  const [schuko, setSchuko] = useState(buttonsState.schuko);
+  //Potencia
+  const [power, setPower] = useState(buttonsState.power);
+  //Distància
+  const [distancia, setDistancia] = useState(buttonsState.distancia);
 
   const { t } = useTranslation();
 
-return (
-    <SafeAreaView>
-      <SafeAreaView style={styles.safeAreaContainer}>
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("MapScreen");
-            }}
-          >
-            <Icon
-              name="arrow-left"
-              size={Constants.statusBarHeight}
-              color="#FFFFFF"
-              style={{ paddingLeft: Constants.statusBarHeight }}
-            ></Icon>
-          </TouchableOpacity>
-          <View style={styles.text}>
-            <Text style={styles.eco}> eco</Text>
-            <Text style={styles.mobility}>Mobility </Text>
-          </View>
+  //FUTBOL LA RIOJA
+  const generateStrings = (boolsAndStrings, separator) => {
+    var first = true;
+    var resultString = "";
+    boolsAndStrings.forEach((item) => {
+      if (item.bool) {
+        if (first) {
+          first = false;
+        } else {
+          resultString += separator;
+        }
+        resultString += item.string;
+      }
+    });
+    console.log("RESULT : " + resultString);
+    return resultString;
+  };
+
+  const computeParams = () => {
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoCorriente = ac ? (dc ? "AC-DC" : "AC") : dc ? "DC" : null;
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoVelocidad = generateStrings(
+      [
+        { bool: rapid, string: "RAPID" },
+        { bool: semirapid, string: "semiRAPID" },
+        { bool: normal, string: "NORMAL" },
+        { bool: superrapid, string: "superRAPID" },
+      ],
+      " i "
+    );
+    console.log("TIPOVELOCIDAD");
+    console.log(paramTipoVelocidad);
+    //RAPID/SUPERAPID/
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoVehiculo = generateStrings(
+      [
+        { bool: mercaderies, string: "mercaderies" },
+        { bool: moto, string: "moto" },
+        { bool: cotxe, string: "cotxe" },
+        { bool: taxi, string: "taxi" },
+      ],
+      " i "
+    );
+    console.log("TIPOVEHICULO");
+    console.log(paramTipoVehiculo);
+
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramTipoConexion = generateStrings(
+      [
+        { bool: ccscombo2, string: "CCS Combo2" },
+        { bool: chademo, string: "ChadeMO" },
+        { bool: tesla, string: "TESLA" },
+        { bool: mennekes, string: "MENNEKES.M" },
+        { bool: j1772f, string: "J1772.F" },
+        { bool: schuko, string: "Schuko" },
+      ],
+      "+"
+    );
+    console.log("TIPOCONEXION");
+    console.log(paramTipoConexion);
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramPotencia = power;
+    console.log("POTENCIA");
+    console.log(paramPotencia);
+    // Parametro en string del tipo de corriente (por defecto null)
+    let paramDistancia = distancia;
+    console.log("DISTANCIA");
+    console.log(paramDistancia);
+    // Pasamos las strings a nuestra instancia de la clase ParamsMapCall
+    paramsList.setParams({
+      tipoCorriente: null,
+      tipoVelocidad: null,
+      tipoVehiculo: "moto",
+      tipoConexion: null,
+      potencia: null,
+      distancia: null,
+    });
+
+    buttonsState = {
+      ac: ac,
+      dc: dc,
+      rapid: rapid,
+      semirapid: semirapid,
+      normal: normal,
+      superrapid: superrapid,
+      cotxe: cotxe,
+      moto: moto,
+      taxi: taxi,
+      mercaderies: mercaderies,
+      ccscombo2: ccscombo2,
+      chademo: chademo,
+      tesla: tesla,
+      mennekes: mennekes,
+      j1772f: j1772f,
+      schuko: schuko,
+      power: power,
+      distancia: distancia,
+    };
+    storeData();
+  };
+
+  return (
+    <ScrollView>
+      <SafeAreaView style={styles.capcalera}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon
+            name="arrow-left"
+            size={Constants.statusBarHeight / 1.5}
+            color="#FFFFFF"
+            style={{ marginLeft: Constants.statusBarHeight }}
+          ></Icon>
+        </TouchableOpacity>
+        <View style={styles.logo}>
+          <LogoText />
         </View>
       </SafeAreaView>
-      <View>
-        <Text style={styles.filtertitle}>{t("Filters.Filter_By")}</Text>
-        <View style={styles.filterbox}>
-          <TouchableOpacity
-            style={styles.rowfilter}
-            onPress={() => {
-              setBicicletes(!bicicletes);
-            }}
+      <View style={styles.content}>
+        <List.Section title="Filtrar por: ">
+          <List.Accordion
+            title="Tipo de Corriente"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
           >
-            <Text style={styles.filtertext}>{t("Filters.Bike_Stations")}</Text>
-            <Icon
-              name={bicicletes ? "toggle-on" : "toggle-off"}
-              size={40}
-              style={{ paddingRight: Constants.statusBarHeight }}
-            />
-          </TouchableOpacity>
-          <View style={styles.line} />
-          <TouchableOpacity
-            style={styles.rowfilter}
-            onPress={() => {
-              setVehicles(!vehicles);
-            }}
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>AC</Text>
+                  <Switch value={ac} onValueChange={() => setAc(!ac)} />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>DC</Text>
+                  <Switch value={dc} onValueChange={() => setDc(!dc)} />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Tipo de Velocidad"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
           >
-            <Text style={styles.filtertext}>
-              {t("Filters.Electric_Stations")}
-            </Text>
-            <Icon
-              name={vehicles ? "toggle-on" : "toggle-off"}
-              size={40}
-              style={{ paddingRight: Constants.statusBarHeight }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              paddingRight: Constants.statusBarHeight,
-            }}
-            onPress={() => {
-              setSupercharge(!supercharge);
-            }}
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Rapid</Text>
+                  <Switch
+                    value={rapid}
+                    onValueChange={() => setRapid(!rapid)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>SemiRapid</Text>
+                  <Switch
+                    value={semirapid}
+                    onValueChange={() => setSemiRapid(!semirapid)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Normal</Text>
+                  <Switch
+                    value={normal}
+                    onValueChange={() => setNormal(!normal)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>SuperRapid</Text>
+                  <Switch
+                    value={superrapid}
+                    onValueChange={() => setSuperRapid(!superrapid)}
+                  />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Tipo de Vehículo"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
           >
-            <Text
-              style={[
-                styles.filtertext2,
-                {
-                  backgroundColor: supercharge ? "#D1EABE" : "#FFFFFF",
-                },
-              ]}
-            >
-              {t("Filters.Supercharge")}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              paddingRight: Constants.statusBarHeight,
-            }}
-            onPress={() => {
-              setPreu(!preu);
-            }}
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Cotxe</Text>
+                  <Switch
+                    value={cotxe}
+                    onValueChange={() => setCotxe(!cotxe)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Moto</Text>
+                  <Switch value={moto} onValueChange={() => setMoto(!moto)} />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Taxi</Text>
+                  <Switch value={taxi} onValueChange={() => setTaxi(!taxi)} />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Mercaderies</Text>
+                  <Switch
+                    value={mercaderies}
+                    onValueChange={() => setMercaderies(!mercaderies)}
+                  />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Tipo de Conexion"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
           >
-            <Text
-              style={[
-                styles.filtertext2,
-                { backgroundColor: preu ? "#D1EABE" : "#FFFFFF" },
-              ]}
-            >
-              {t("Filters.Price")}
-            </Text>
-          </TouchableOpacity>
-          {preu && (
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
-              <Text style={{ fontWeight: "bold" }}> Preu{"\n"} entre:</Text>
-              <TouchableOpacity style={styles.selectprice}>
-                <Text> 0.20-0.30 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.selectprice}>
-                <Text> 0.31-0.50 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.selectprice}>
-                <Text> 0.51-0.79 </Text>
-              </TouchableOpacity>
-              <Text>euros/kWh</Text>
-            </View>
-          )}
-          <View style={styles.line} />
-          <Text style={styles.valoration}> {t("Filters.Rating")} </Text>
-          <View style={styles.slideBar}>
-            <Slider
-              style={{ width: 200, height: 10 }}
-              minimumValue={0}
-              maximumValue={5}
-              minimumTrackTintColor="#2D803F"
-              maximumTrackTintColor="#BAF35B"
-              alignSelf="center"
-              value={2.5}
-              onValueChange={(value) => setRange(parseInt(value))}
-            />
-            <Text style={styles.valoration}>{range}</Text>
-            <Icon
-              style={{
-                alignSelf: "center",
-                marginLeft: Constants.statusBarHeight / 3,
-              }}
-              name="star"
-              size={range <= 2.5 ? 20 : 30}
-              color="#CFCF44"
-            />
-          </View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setApply(!apply);
-            }}
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Tesla</Text>
+                  <Switch
+                    value={tesla}
+                    onValueChange={() => setTesla(!tesla)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Schuko</Text>
+                  <Switch
+                    value={schuko}
+                    onValueChange={() => setSchuko(!schuko)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Mennekes</Text>
+                  <Switch
+                    value={mennekes}
+                    onValueChange={() => setMennekes(!mennekes)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>ccsCombo</Text>
+                  <Switch
+                    value={ccscombo2}
+                    onValueChange={() => setCcsCombo2(!ccscombo2)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>chadeMo</Text>
+                  <Switch
+                    value={chademo}
+                    onValueChange={() => setChadeMo(!chademo)}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>J1772F</Text>
+                  <Switch
+                    value={j1772f}
+                    onValueChange={() => setJ1772F(!j1772f)}
+                  />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <List.Accordion
+            title="Potencia"
+            left={(props) => (
+              <List.Icon {...props} icon="book-information-variant" />
+            )}
           >
-            <Text style={styles.buttonTxt}>{t("Filters.Apply_Filters")}</Text>
-          </TouchableOpacity>
-        </View>
+            <Card>
+              <Card.Content>
+                <View style={styles.button}>
+                  <Text style={styles.textButton}>Potencia mínima: </Text>
+                  <TextInput
+                    keyboardType="numeric"
+                    placeholder="MinPow"
+                    maxLength={2}
+                    onChangeText={(text) => setPower(parseInt(text))}
+                  />
+                </View>
+              </Card.Content>
+            </Card>
+          </List.Accordion>
+          <Card>
+            <Card.Title title="Distancia en Km: " />
+            <Card.Content style={{ flexDirection: "row" }}>
+              <Slider
+                style={{ width: 300 }}
+                minimumValue={10}
+                maximumValue={20}
+                minimumTrackTintColor="#60F4B9"
+                maximumTrackTintColor="#000000"
+                value={distancia}
+                onValueChange={(value) => setDistancia(parseInt(value))}
+              />
+              <Text>{distancia} Km</Text>
+            </Card.Content>
+          </Card>
+        </List.Section>
       </View>
-    </SafeAreaView>
+      <TouchableOpacity
+        style={styles.buttonapply}
+        onPress={() => {
+          computeParams();
+          navigation.navigate("MapScreen", { update: Math.random() });
+        }}
+      >
+        <Text style={styles.buttonTxt}>{t("Filters.Apply_Filters")}</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeAreaContainer: {
-    aligItems: "flex-start",
-    backgroundColor: "#2D803F",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    height: 150,
-  },
-  text: {
+  button: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-start",
   },
-  eco: {
-    color: "#BAF35B",
-    fontSize: 30,
-  },
-  mobility: {
-    color: "#FFFFFF",
-    fontSize: 30,
-  },
-  filtertitle: {
-    fontWeight: "700",
-    fontSize: 20,
-    fontFamily: "sans-serif",
-    color: "#696767",
-    marginVertical: Constants.statusBarHeight / 2,
-    marginLeft: Constants.statusBarHeight / 2,
-    height: Constants.statusBarHeight * 2,
-  },
-  filterbox: {},
-  cercle: {
-    borderRadius: 20,
-    borderWidth: 2,
-    marginVertical: Constants.statusBarHeight / 2,
-    marginLeft: Constants.statusBarHeight / 2,
-    alignSelf: "flex-start",
-  },
-  filtertext: {
-    fontWeight: "700",
-    marginLeft: Constants.statusBarHeight,
-    fontSize: 16,
-    alignSelf: "center",
-  },
-  filtertext2: {
-    fontWeight: "500",
-    marginLeft: Constants.statusBarHeight,
-    marginVertical: Constants.statusBarHeight / 2,
-    fontSize: 14,
-    alignSelf: "center",
-    borderRadius: 15,
-    borderWidth: 2,
-    borderColor: "#2D803F",
-    paddingRight: 2,
-    paddingLeft: 3,
-  },
-  line: {
-    borderBottomWidth: 1.5,
-    height: 1,
-    marginVertical: 10,
-    borderColor: "#2D803F",
-    opacity: 0.2,
-  },
-  rowfilter: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  valoration: {
-    marginVertical: Constants.statusBarHeight,
-    fontWeight: "700",
-    fontSize: 16,
-    alignSelf: "center",
-  },
-  button: {
+  buttonapply: {
     marginTop: 30,
     backgroundColor: "#2D803F",
     borderRadius: 10,
     padding: 20,
     alignItems: "center",
-    justifyContent: "center",
     marginLeft: Constants.statusBarHeight,
     marginRight: Constants.statusBarHeight,
   },
@@ -261,18 +432,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
   },
-  slideBar: {
+  capcalera: {
+    backgroundColor: "#2D803F",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
   },
-  selectprice: {
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "#226C04",
-    marginLeft: Constants.statusBarHeight / 5,
-    marginRight: Constants.statusBarHeight / 5,
-    fontSize: 14,
-    height: 25,
+  content: {
+    marginVertical: Constants.statusBarHeight,
+  },
+  logo: {
+    display: "flex",
+    marginLeft: Constants.statusBarHeight * 2,
+    marginVertical: Constants.statusBarHeight / 2.5,
+  },
+  textButton: {
+    alignSelf: "center",
+    marginRight: Constants.statusBarHeight,
   },
 });
