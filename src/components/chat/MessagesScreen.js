@@ -9,52 +9,34 @@ import {
   Keyboard,
 } from "react-native";
 import Message from "./Message";
-import io from "socket.io-client";
-import Constants from "expo-constants";
+
 import LottieView from "lottie-react-native";
+import socketService from "../../helpers/SocketService";
 
 var chats = [];
 
 export default function MessagesScreen({ hidefunc }) {
-  const [primer, Setprimer] = useState(true);
-  const [socket, setSocket] = useState();
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
-  const [connected, setConnected] = useState(false);
   const [chatList, setChatList] = useState([]);
   const [animation, setAnimation] = useState(true);
 
-  useEffect(() => {
-    if (!connected) {
-      setSocket(io("http://192.168.43.233:3000"));
-      setConnected(true);
-    }
-  }, []);
-
   const submitChatMessage = () => {
     if (animation) setAnimation(false);
-    chats = [...chats, { msg: message, sentMsg: true }];
-    setChatList([...chats].reverse());
-    socket.emit("chat message", message);
+    if (!message) return;
+    chats = [{ msg: message, sentMsg: true }, ...chats];
+    setChatList([...chats]);
+    socketService.emit("front_back", message);
     setMessage("");
   };
 
   useEffect(() => {
-    if (connected) {
-      socket.on("Server response", (data) => {
-        setMessageReceived(data);
-      });
-    }
-  }, [socket]);
-
-  useEffect(() => {
-    if (primer) Setprimer(false);
-    else {
-      console.log("RECIBIDO MI COMPA!!!" + messageReceived);
-      chats = [...chats, { msg: messageReceived, respuesta: true }];
-      setChatList([...chats].reverse());
-      console.log(messageReceived);
-    }
+    console.log("RECIBIDO MI COMPA!!!" + messageReceived);
+    if (!messageReceived) return;
+    chats = [{ msg: messageReceived, respuesta: true }, ...chats];
+    console.log(chats);
+    setChatList([...chats]);
+    // console.log(messageReceived);
   }, [messageReceived]);
 
   useEffect(() => {
@@ -66,13 +48,16 @@ export default function MessagesScreen({ hidefunc }) {
       hidefunc(true);
     });
 
+    socketService.on("front_back", (data) => {
+      console.log(data);
+      setMessageReceived(data);
+    });
+
     return () => {
       show.remove();
       hide.remove();
     };
   }, []);
-
-  //console.log(chatList);
 
   return (
     <View>

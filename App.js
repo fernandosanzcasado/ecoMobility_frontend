@@ -19,10 +19,12 @@ import SearchBar from "./src/screens/SearchBar";
 import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
 import MyCalendar from "./src/screens/MyCalendar";
 import ChargePoint from "./src/screens/ChargePoint";
+import socketService from "./src/helpers/SocketService";
 
 const Stack = createStackNavigator();
 
 export default function App({ t }) {
+  socketService.initializeSocket();
   return (
     <EventProvider style={{ flex: 1 }}>
       <NavigationContainer>

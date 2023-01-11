@@ -39,7 +39,10 @@ export default function UserChat() {
                 <FAB
                   icon="plus"
                   style={styles.fab}
-                  onPress={() => console.log(setNewChat(true))}
+                  onPress={() => {
+                    console.log("Click new chat");
+                    setNewChat(true);
+                  }}
                   label="Start new conversation"
                   color="#E6ECE6"
                 />
