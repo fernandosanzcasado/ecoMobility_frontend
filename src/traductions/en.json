@@ -87,5 +87,9 @@
     "Different_Pass": "You have not entered the same password",
     "Registred_Ok": "You have successfully registered",
     "Login_Ok": "You have successfully logged in"
+  },
+  "Maps": {
+    "Cancel_Route": "Cancel route",
+    "Finish_Trip": "Finish trip"
   }
 }
