@@ -1,15 +1,25 @@
 import { useState, useEffect, useRef } from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  Dimensions,
+} from "react-native";
 
 import * as Location from "expo-location";
 import { Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import MapViewDirections from "react-native-maps-directions";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import Button from "react-native-paper";
+import { Button } from "react-native-paper";
+import { useTranslation } from "react-i18next";
 
 import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export default function Mapa({
   style,
@@ -23,21 +33,33 @@ export default function Mapa({
     latitude: 41.386976,
     longitude: 2.169998,
   });
+  const { t, i18n } = useTranslation();
 
   const [destination, setDestination] = useState(null);
 
   const [tapView, setTapView] = useState(false);
   const [id, setId] = useState("");
   const [ruta, setRuta] = useState(false);
+  const [tripPanel, setTripPanel] = useState(false);
   const mapRef = useRef();
   const estaciones = estacionesParam;
   const eventos = catCulturaEventsParam;
+  // var intervalSetted = false;
 
   /*Amb aquesta funció pregunto a l'usuari si vol donar-me la ubicació per tal de poder
   realitzar rutes en temps real, per anar actualitzant-se es pot fer un refresh cada 10-15segons
   de la posició de l'usuari*/
   useEffect(() => {
     getLocationPermission();
+
+    // if (!intervalSetted) {
+    //   intervalSetted = true;
+    //   setInterval(() => {
+    //     console.log("TEORIA");
+    //     // const location = await getCurrentLocation();
+    //     // doSomethingWithLocation(location);
+    //   }, 10000);
+    // }
   }, []);
 
   async function getLocationPermission() {
@@ -74,12 +96,19 @@ export default function Mapa({
 
   async function startTravel(latitud, longitud) {
     setTapView(false);
+    setTripPanel(true);
     setDestination({
       latitude: parseFloat(latitud),
       longitude: parseFloat(longitud),
     });
   }
 
+  function handleCancelRoute() {
+    setTripPanel(false);
+    setDestination(null);
+  }
+
+  function handleFinishRoute() {}
   useEffect(() => {
     setRuta(destination !== null);
   }, [destination]);
@@ -98,6 +127,28 @@ export default function Mapa({
           startRoute={startTravel}
         />
       )}
+      {tripPanel && (
+        <View style={styles.buttonstyle}>
+          <Button
+            icon="crosshairs-off"
+            mode="contained"
+            onPress={handleCancelRoute}
+            buttonColor="#ca4768"
+            style={styles.tripButton}
+          >
+            {t("Maps.Cancel_Route")}
+          </Button>
+          <Button
+            icon="routes"
+            mode="contained"
+            onPress={handleFinishRoute}
+            buttonColor="#4567cb"
+            style={styles.tripButton}
+          >
+            {t("Maps.Finish_Trip")}
+          </Button>
+        </View>
+      )}
       <MapView
         // style={{
         //   height: props.heightMap,
@@ -109,13 +160,13 @@ export default function Mapa({
           latitude: origin.latitude,
           longitude: origin.longitude,
           //La quantitat de distància d'est a oest mesurada en graus a mostrar per a la regió del mapa
-          latitudeDelta: 0.1, // coordenadas para iOS (hay que cambiarlas)
-          longitudeDelta: 0.1, // coordenadas para iOS (hay que cambiarlas)
+          latitudeDelta: 1, // coordenadas para iOS (hay que cambiarlas)
+          longitudeDelta: 1, // coordenadas para iOS (hay que cambiarlas)
         }}
         camera={{
           center: { latitude: origin.latitude, longitude: origin.longitude },
           pitch: 0,
-          zoom: destination ? 20 : 30,
+          zoom: destination ? 17 : 15,
           heading: 0,
           altitude: 0,
         }}
@@ -191,6 +242,7 @@ export default function Mapa({
             strokeColor="green"
             strokeWidth={4}
             optimizeWaypoints={true}
+            //mode = "DRIVING/BICYCLING"
             // onStart={(params) => {
             //   console.log(
             //     `Started routing between "${params.origin}" and "${params.destination}"`
@@ -209,6 +261,18 @@ export default function Mapa({
 }
 
 const styles = StyleSheet.create({
+  buttonstyle: {
+    backgroundColor: "#b3eebf",
+    opacity: 1,
+    position: "absolute",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    bottom: 0,
+    height: "12.5%",
+    width: "100%",
+    zIndex: 101,
+  },
   map: {
     width: "100%",
   },
@@ -220,5 +284,12 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     zIndex: 100,
+  },
+  tripButton: {
+    //top: "50%",
+    //left: "50%",
+    alignSelf: "center",
+    display: "flex",
+    flexDirection: "column",
   },
 });
