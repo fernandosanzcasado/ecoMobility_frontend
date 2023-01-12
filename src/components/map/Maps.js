@@ -191,16 +191,6 @@ export default function Mapa({
             strokeColor="green"
             strokeWidth={4}
             optimizeWaypoints={true}
-            // onStart={(params) => {
-            //   console.log(
-            //     `Started routing between "${params.origin}" and "${params.destination}"`
-            //   );
-            // }}
-            // onReady={(result) => {
-            //   mapRef.current.fitToCoordinates(result.coordinates);
-            //   console.log(`Distance: ${result.distance} km.`);
-            //   console.log(`Duration: ${result.duration} min.`);
-            // }}
           />
         )}
       </MapView>

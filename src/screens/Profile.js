@@ -122,7 +122,12 @@ function Profile({ navigation }) {
           ></Icon>
           <Text style={styles.smallText}> {t("Profile.My_Calendar")} </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.separationViews}>
+        <TouchableOpacity
+          style={styles.separationViews}
+          onPress={() => {
+            navigation.navigate("VirtualTree");
+          }}
+        >
           <Icon
             name="tree"
             color={"#206D17"}

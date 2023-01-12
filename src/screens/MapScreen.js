@@ -12,6 +12,7 @@ import NavigationTab from "../components/navigation/NavigationTab";
 import { BASE_URL } from "@env";
 import paramsList from "../helpers/ParamsMapCall";
 import UserChat from "./UserChat";
+import VirtualTree from "./VirtualTree";
 
 const DIM = {
   heightMap: "100%",
@@ -117,7 +118,7 @@ export default function MapScreen({ style, navigation, route }) {
 const styles = StyleSheet.create({
   safeAreaContainer: {
     display: "flex",
-    alignItems: "flex-start",
+    //alignItems: "flex-start",
   },
   navBar: {
     position: "absolute",

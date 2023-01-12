@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -24,6 +24,9 @@ import Achievements from "./src/screens/Achievements";
 import UserChat from "./src/screens/UserChat";
 
 import socketService from "./src/helpers/SocketService";
+import VirtualTree from "./src/screens/VirtualTree";
+
+import { useFonts } from "expo-font";
 
 const Stack = createStackNavigator();
 
@@ -40,6 +43,13 @@ export default function App({ t }) {
 
   // Inicializa el socket de comunicacion por chat con el admin
   socketService.initializeSocket();
+  const [fontsloaded, setFontsloaded] = useFonts({
+    comfortaa: require("./assets/fonts/Comfortaa-Regular.ttf"),
+    comfortaaBold: require("./assets/fonts/Comfortaa-Bold.ttf"),
+  });
+
+  if (!fontsloaded) return null;
+
   return (
     <EventProvider style={{ flex: 1 }}>
       <NavigationContainer>
@@ -98,6 +108,10 @@ export default function App({ t }) {
             component={Achievements}
           ></Stack.Screen>
           <Stack.Screen name="UserChat" component={UserChat}></Stack.Screen>
+          <Stack.Screen
+            name="VirtualTree"
+            component={VirtualTree}
+          ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </EventProvider>
