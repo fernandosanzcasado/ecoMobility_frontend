@@ -11,6 +11,7 @@ import Toolbar from "../components/ecomobility/Toolbar";
 import NavigationTab from "../components/navigation/NavigationTab";
 import { BASE_URL } from "@env";
 import paramsList from "../helpers/ParamsMapCall";
+import UserChat from "./UserChat";
 
 const DIM = {
   heightMap: "100%",
@@ -100,16 +101,16 @@ export default function MapScreen({ style, navigation, route }) {
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
-      <Toolbar navigation={navigation} />
-      {/* <Mapa {...DIM} /> */}
+      <Toolbar navigation={navigation} /> 
       <Mapa
         style={styles.map}
         navigation={navigation}
         estacionesParam={estaciones}
         catCulturaEventsParam={catCulturaEvents}
         setParentCoords={setUserCoords}
-      />
-      <NavigationTab style={styles.navBar} navigation={navigation} />
+      /> 
+      <UserChat />
+      <NavigationTab style={styles.navBar} navigation={navigation} /> 
     </SafeAreaView>
   );
 }

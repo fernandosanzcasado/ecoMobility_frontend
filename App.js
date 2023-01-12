@@ -21,6 +21,7 @@ import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
 import MyCalendar from "./src/screens/MyCalendar";
 import ChargePoint from "./src/screens/ChargePoint";
 import Achievements from "./src/screens/Achievements";
+import socketService from "./src/helpers/SocketService";
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,8 @@ export default function App({ t }) {
   };
   defaultValues();
 
+  // Inicializa el socket de comunicacion por chat con el admin
+  socketService.initializeSocket();
   return (
     <EventProvider style={{ flex: 1 }}>
       <NavigationContainer>
