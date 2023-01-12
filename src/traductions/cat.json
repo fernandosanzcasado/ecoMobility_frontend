@@ -87,5 +87,9 @@
     "Different_Pass": "No has introduït la mateixa contrasenya",
     "Registred_Ok": "T'has enregistrat satisfactoriament",
     "Login_Ok": "Has iniciat sessió satisfactoriament"
+  },
+  "Maps": {
+    "Cancel_Route": "Cancel·lar ruta",
+    "Finish_Trip": "Terminar viatje"
   }
 }
