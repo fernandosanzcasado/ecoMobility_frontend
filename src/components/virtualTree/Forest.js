@@ -16,31 +16,53 @@ const windowHeight = Dimensions.get("window").height;
 */
 
 const positions = [
-  { positionx: windowHeight / 5, positiony: windowWidth / 4 },
-  { positionx: windowHeight / 4.5, positiony: windowWidth / 3 },
-  { positionx: windowHeight / 5, positiony: windowWidth / 2 },
-  { positionx: windowHeight / 5, positiony: windowWidth / 2.5 },
-  { positionx: windowHeight / 6, positiony: windowWidth / 9 },
-  { positionx: windowHeight / 7, positiony: windowWidth / 5 },
-  { positionx: windowHeight / 6, positiony: windowWidth / 4 },
-  { positionx: windowHeight / 5.5, positiony: windowWidth / 3 },
-  { positionx: windowHeight / 4, positiony: windowWidth / 2 },
-  { positionx: windowHeight / 5, positiony: windowWidth / 1.5 },
-  { positionx: windowHeight / 6, positiony: windowWidth / 1.5 },
-  { positionx: windowHeight / 7, positiony: windowWidth / 1.65 },
-  { positionx: windowHeight / 7, positiony: windowWidth / 2.25 },
-  { positionx: windowHeight / 7, positiony: windowWidth / 3 },
-  { positionx: windowHeight / 9, positiony: windowWidth / 4 },
-  { positionx: windowHeight / 9, positiony: windowWidth / 4 },
-  { positionx: windowHeight / 11, positiony: windowWidth / 3 },
-  { positionx: windowHeight / 9, positiony: windowWidth / 2 },
-  { positionx: windowHeight / 9, positiony: windowWidth / 1.5 },
-  { positionx: windowHeight / 10, positiony: windowWidth / 1.75 },
-  { positionx: windowHeight / 6, positiony: windowWidth / 1.9 },
-  { positionx: windowHeight / 5, positiony: windowWidth / 1.5 },
-  { positionx: windowHeight / 6, positiony: windowWidth / 1.25 },
-  { positionx: windowHeight / 4.5, positiony: windowWidth / 1.75 },
-  { positionx: windowHeight / 12, positiony: windowWidth / 2.25 },
+  { positionx: windowWidth * 0.6, positiony: windowHeight * 0.25 },
+  { positionx: windowWidth * 0.68, positiony: windowHeight * 0.25 },
+  {
+    positionx: windowWidth * (1 - 0.08 - 0.6),
+    positiony: windowHeight * 0.25,
+  },
+  { positionx: windowWidth * 0.5, positiony: windowHeight * 0.2 },
+  { positionx: windowWidth * 0.55, positiony: windowHeight * 0.1 },
+  { positionx: windowWidth * 0.5, positiony: windowHeight * 0.25 },
+  { positionx: windowWidth * 0.6, positiony: windowHeight * 0.2 },
+  { positionx: windowWidth * 0.7, positiony: windowHeight * 0.2 },
+  {
+    positionx: windowWidth * (1 - 0.08 - 0.65),
+    positiony: windowHeight * 0.15,
+  },
+  { positionx: windowWidth * 0.8, positiony: windowHeight * 0.2 },
+  { positionx: windowWidth * 0.5, positiony: windowHeight * 0.3 },
+  { positionx: windowWidth * 0.65, positiony: windowHeight * 0.15 },
+  { positionx: windowWidth * 0.5, positiony: windowHeight * 0.15 },
+  {
+    positionx: windowWidth * (1 - 0.08 - 0.5),
+    positiony: windowHeight * 0.15,
+  },
+  { positionx: windowWidth * 0.57, positiony: windowHeight * 0.15 },
+  { positionx: windowWidth * 0.46, positiony: windowHeight * 0.08 },
+
+  {
+    positionx: windowWidth * (1 - 0.08 - 0.68),
+    positiony: windowHeight * 0.25,
+  },
+  { positionx: windowWidth * (1 - 0.08 - 0.5), positiony: windowHeight * 0.2 },
+  { positionx: windowWidth * (1 - 0.08 - 0.6), positiony: windowHeight * 0.2 },
+  {
+    positionx: windowWidth * (1 - 0.08 - 0.5),
+    positiony: windowHeight * 0.25,
+  },
+  { positionx: windowWidth * (1 - 0.08 - 0.7), positiony: windowHeight * 0.2 },
+  { positionx: windowWidth * (1 - 0.08 - 0.8), positiony: windowHeight * 0.2 },
+  {
+    positionx: windowWidth * (1 - 0.08 - 0.55),
+    positiony: windowHeight * 0.1,
+  },
+  { positionx: windowWidth * (1 - 0.08 - 0.5), positiony: windowHeight * 0.3 },
+  {
+    positionx: windowWidth * (1 - 0.08 - 0.57),
+    positiony: windowHeight * 0.15,
+  },
 ];
 
 const treetypes = [
@@ -51,10 +73,51 @@ const treetypes = [
   { arbol: require("../../../assets/images/Forest/arbol_redondo.png") },
 ];
 
-export default function Forest({ nArbres }) {
+const messages = [
+  "Lo estás haciendo muy bien. ¡Sigue así!",
+  "¡Estas haciendo del mundo un lugar mejor!",
+  "¡Felicidades! ¡Sigue así!",
+  "¡Gracias a tu labor, estamos salvando el planeta!",
+];
+
+function randomIntBetween(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export default function Forest({ nArbres, ecoPoints = 0 }) {
+  const currentPercent = nArbres.narbres - Math.trunc(nArbres.narbres);
+
+  let arboles = [];
+  for (let i = 0; i < nArbres.narbres; ++i) {
+    if (nArbres.narbres !== 25 && i === Math.trunc(nArbres.narbres)) {
+      arboles.push(
+        <Tree
+          key={i}
+          tree={treetypes[randomIntBetween(0, 1)].arbol}
+          position={positions[i]}
+          message={
+            "Te faltan " +
+            (20 - (ecoPoints % 20)).toString() +
+            " ecopoints para hacer crecer este arbusto"
+          }
+          size={0.8}
+        />
+      );
+    } else {
+      arboles.push(
+        <Tree
+          key={i}
+          tree={treetypes[randomIntBetween(2, 4)].arbol}
+          position={positions[i]}
+          message={messages[randomIntBetween(0, 3)]}
+          size={1.25}
+        />
+      );
+    }
+  }
   return (
-    <View>
-      <Tree tree={treetypes[0].arbol} position={positions[0]} />
+    <View style={styles.viewForest}>
+      {arboles}
       <Image
         source={require("../../../assets/images/Forest/ground.png")}
         style={styles.ground}
@@ -66,7 +129,11 @@ export default function Forest({ nArbres }) {
 const styles = StyleSheet.create({
   ground: {
     marginVertical: Constants.statusBarHeight,
-    height: windowHeight / 2.7,
+    height: windowHeight * 0.45,
     width: windowWidth,
+    zIndex: 100,
+  },
+  viewForest: {
+    height: windowHeight / 1.75,
   },
 });

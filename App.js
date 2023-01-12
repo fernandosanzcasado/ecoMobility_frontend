@@ -20,6 +20,7 @@ import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
 import MyCalendar from "./src/screens/MyCalendar";
 import ChargePoint from "./src/screens/ChargePoint";
 import Achievements from "./src/screens/Achievements";
+import VirtualTree from "./src/screens/VirtualTree";
 
 import { useFonts } from "expo-font";
 
@@ -89,6 +90,10 @@ export default function App({ t }) {
           <Stack.Screen
             name="Achievements"
             component={Achievements}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="VirtualTree"
+            component={VirtualTree}
           ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

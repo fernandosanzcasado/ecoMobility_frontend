@@ -15,11 +15,10 @@ const DIM = {
 export default function MapScreen({ style, navigation }) {
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
-      {/* <Toolbar navigation={navigation} /> */}
+      <Toolbar navigation={navigation} />
       {/* <Mapa {...DIM} /> */}
-      {/* <Mapa style={styles.map} navigation={navigation} />
-      <NavigationTab style={styles.navBar} navigation={navigation} /> */}
-      <VirtualTree />
+      <Mapa style={styles.map} navigation={navigation} />
+      <NavigationTab style={styles.navBar} navigation={navigation} />
     </SafeAreaView>
   );
 }

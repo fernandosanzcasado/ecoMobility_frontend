@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 
-export default function HeaderTitle({ name }) {
+export default function HeaderTitle({ name, navigation }) {
   return (
     <SafeAreaView style={styles.capcalera}>
       <View style={styles.headerContent}>

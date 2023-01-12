@@ -1,4 +1,4 @@
-import {  useState, useEffect , useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 
 import * as Location from "expo-location";
@@ -113,11 +113,7 @@ export default function Mapa({ style, navigation }) {
         // }}
         radius={50}
       >
-        <TouchableOpacity
-          onPress={() => {
-            console.log("AAAAAAAAAAAAAAAAAAAA");
-          }}
-        >
+        <TouchableOpacity onPress={() => {}}>
           <Marker
             coordinate={origin}
             onDragEnd={(direction) =>
@@ -168,16 +164,6 @@ export default function Mapa({ style, navigation }) {
             strokeColor="green"
             strokeWidth={4}
             optimizeWaypoints={true}
-            // onStart={(params) => {
-            //   console.log(
-            //     `Started routing between "${params.origin}" and "${params.destination}"`
-            //   );
-            // }}
-            // onReady={(result) => {
-            //   mapRef.current.fitToCoordinates(result.coordinates);
-            //   console.log(`Distance: ${result.distance} km.`);
-            //   console.log(`Duration: ${result.duration} min.`);
-            // }}
           />
         )}
       </MapView>

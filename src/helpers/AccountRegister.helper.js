@@ -119,7 +119,6 @@ export const checkUser = (user) => {
 };
 
 export const checkPassword = (password1, password2) => {
-  console.log(password1 + " " + password2);
   if (
     checkPasswordRequeriments(password1) &&
     checkPasswordRequeriments(password2)

@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView, Text, View } from "react-native";
 
 import Forest from "./Forest";
 
-export default function ArrayOfForests({ ntrees }) {
+export default function ArrayOfForests({ ntrees, ecopoints }) {
   const [first, setfirst] = useState(false);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function ArrayOfForests({ ntrees }) {
       >
         {ntrees.map((arbres, index) => (
           <View key={index}>
-            <Forest nArbres={arbres} />
+            <Forest nArbres={arbres} ecoPoints={ecopoints} />
           </View>
         ))}
       </ScrollView>
