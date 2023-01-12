@@ -21,6 +21,8 @@ import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
 import MyCalendar from "./src/screens/MyCalendar";
 import ChargePoint from "./src/screens/ChargePoint";
 import Achievements from "./src/screens/Achievements";
+import UserChat from "./src/screens/UserChat";
+
 import socketService from "./src/helpers/SocketService";
 
 const Stack = createStackNavigator();
@@ -95,6 +97,7 @@ export default function App({ t }) {
             name="Achievements"
             component={Achievements}
           ></Stack.Screen>
+          <Stack.Screen name="UserChat" component={UserChat}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </EventProvider>

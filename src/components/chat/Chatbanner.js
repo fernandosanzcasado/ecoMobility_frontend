@@ -8,7 +8,7 @@ import * as Animatable from "react-native-animatable";
 
 import LogoText from "../ecomobility/LogoText";
 
-export default function Chatbanner() {
+export default function Chatbanner({ navigation }) {
   return (
     <Animatable.View animation="bounceInDown" duration={1000}>
       <SafeAreaView style={styles.capcalera}>

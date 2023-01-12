@@ -131,7 +131,12 @@ function Profile({ navigation }) {
           ></Icon>
           <Text style={styles.smallText}> {t("Profile.My_Forest")} </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.separationViews}>
+        <TouchableOpacity
+          style={styles.separationViews}
+          onPress={() => {
+            navigation.navigate("UserChat");
+          }}
+        >
           <Icon
             name="headphones-alt"
             color={"#000000"}

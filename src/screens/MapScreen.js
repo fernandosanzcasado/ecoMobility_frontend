@@ -101,16 +101,15 @@ export default function MapScreen({ style, navigation, route }) {
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
-      <Toolbar navigation={navigation} /> 
+      <Toolbar navigation={navigation} />
       <Mapa
         style={styles.map}
         navigation={navigation}
         estacionesParam={estaciones}
         catCulturaEventsParam={catCulturaEvents}
         setParentCoords={setUserCoords}
-      /> 
-      <UserChat />
-      <NavigationTab style={styles.navBar} navigation={navigation} /> 
+      />
+      <NavigationTab style={styles.navBar} navigation={navigation} />
     </SafeAreaView>
   );
 }

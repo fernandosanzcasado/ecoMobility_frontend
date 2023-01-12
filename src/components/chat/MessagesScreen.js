@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Keyboard,
+  Dimensions,
 } from "react-native";
 import Message from "./Message";
 
@@ -14,6 +15,9 @@ import LottieView from "lottie-react-native";
 import socketService from "../../helpers/SocketService";
 
 var chats = [];
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export default function MessagesScreen() {
   const [message, setMessage] = useState("");
@@ -64,7 +68,7 @@ export default function MessagesScreen() {
       )}
       <FlatList
         style={{
-          height: "90%",
+          height: "86.5%",
         }}
         inverted={true}
         keyExtractor={(_, index) => index.toString()}
@@ -133,8 +137,7 @@ const styles = StyleSheet.create({
   },
   messagecontainer: {
     flexDirection: "row",
-    marginHorizontal: 5,
-    marginTop: 5,
+    margin: 5,
   },
   sendbutton: {
     width: "20%",

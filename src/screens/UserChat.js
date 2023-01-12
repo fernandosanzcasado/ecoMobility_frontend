@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
-import Swiper from "react-native-swiper";
 import { FAB } from "react-native-paper";
 
 import LottieView from "lottie-react-native";
@@ -12,21 +11,12 @@ import ArchivedChats from "../components/chat/ArchivedChats";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function UserChat() {
+export default function UserChat({ navigation }) {
   const [newchat, setNewChat] = useState(false);
-  const [showbuttons, setShowButtons] = useState(true);
-
-  const hideButtons = (value) => {
-    setShowButtons(value);
-  };
-
-  React.useEffect(() => {
-    console.log("USER CHAT EFFECT []");
-  }, []);
 
   return (
     <View>
-      <Chatbanner />
+      <Chatbanner navigation={navigation} />
       <ScrollView
         horizontal
         pagingEnabled
