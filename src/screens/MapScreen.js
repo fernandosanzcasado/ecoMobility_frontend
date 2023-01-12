@@ -22,8 +22,8 @@ const DIM = {
 export default function MapScreen({ style, navigation, route }) {
   const { update } = route?.params || 0;
   const [userCoords, setUserCoords] = useState({
-    latitude: 0,
-    longitude: 0,
+    latitude: null,
+    longitude: null,
   });
 
   async function getEstaciones() {
@@ -43,19 +43,23 @@ export default function MapScreen({ style, navigation, route }) {
 
   async function getCatCulturaEvents() {
     try {
-      console.log(userCoords.latitude ?? "no latitude");
-      console.log(userCoords.longitude ?? "no long");
-      let res = await axios.get(`http://4.231.36.42:8080/events`, {
-        params: {
-          lat: userCoords.latitude.toString(),
-          long: userCoords.longitude.toString(),
-          radius: "2.5",
-        },
-      });
-      if (res.status === 200) {
-        setCatCulturaEvents(res.data);
+      console.log("EVENTOS LAT:", userCoords.latitude ?? "No latitude");
+      console.log("EVENTOS LONG:", userCoords.longitude ?? "No long");
+      if (!!userCoords.latitude && !!userCoords.longitude) {
+        let res = await axios.get(`http://4.231.36.42:8080/events`, {
+          params: {
+            lat: userCoords.latitude.toString(),
+            long: userCoords.longitude.toString(),
+            radius: "2.00",
+          },
+        });
+        if (res.status === 200) {
+          setCatCulturaEvents(res.data);
+        } else {
+          setCatCulturaEvents([]);
+        }
       } else {
-        setCatCulturaEvents([]);
+        console.log("ERROR: No hace llamada eventos cultura");
       }
     } catch (error) {
       console.log(error);
@@ -79,7 +83,7 @@ export default function MapScreen({ style, navigation, route }) {
         try {
           const value = await AsyncStorage.getItem(key);
           if (value !== null) {
-            console.log(value);
+            console.log(key, value);
             return value;
           } else return null;
         } catch (error) {
@@ -88,12 +92,12 @@ export default function MapScreen({ style, navigation, route }) {
       };
 
       retrieveData("@showCulturalEvents").then((switchEvents) => {
-        console.log("THEN : " + switchEvents);
+        console.log("ON RETREIVE DATA SWITCH ASYNCSTORAGE", switchEvents);
         if (switchEvents === "true") {
-          console.log("entra getevents");
+          console.log("ENTRA EN GET EVENTS");
           getCatCulturaEvents();
         } else {
-          console.log("entra events vacio");
+          console.log("ENTRA EVENTS VACIO");
           setCatCulturaEvents([]);
         }
       });
