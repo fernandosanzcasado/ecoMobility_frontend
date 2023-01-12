@@ -4,7 +4,7 @@ import { errorControlLogin } from "../helpers/Login.helper";
 
 import { errorControlRegister } from "../helpers/AccountRegister.helper";
 
-const url = "http://15.188.52.76:3000/api/v2/";
+const url = "http://13.38.96.212:3000/api/v2/";
 
 const loginURL = url + "users/login";
 const registerURL = url + "users/register";

@@ -10,14 +10,20 @@ import ArrayOfForests from "../components/virtualTree/ArrayOfForests";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const ECOPOINTS = 1020;
+const ECOPOINTS = 1050;
 
 export default function VirtualTree() {
-  const [trees, setTrees] = useState();
+  const [trees, setTrees] = useState(0);
+  const [totalTrees, setTotalTrees] = useState(0);
+  const [value, setValue] = useState(0);
 
   useEffect(() => {
     //obtenerEcopoints;
     let ntrees = ECOPOINTS / 20;
+    setTotalTrees(ntrees);
+    let progressValue = Math.round(ntrees * 100) / 100;
+    progressValue = progressValue.toString().split(".")[1] / 100;
+    console.log(progressValue);
     let mytrees = [];
     while (ntrees > 25) {
       mytrees = [...mytrees, { narbres: 25 }];
@@ -25,6 +31,7 @@ export default function VirtualTree() {
     }
     mytrees = [...mytrees, { narbres: ntrees }];
     setTrees(mytrees);
+    setValue(progressValue);
   }, []);
 
   return (
@@ -32,7 +39,7 @@ export default function VirtualTree() {
       <HeaderTitle name={"My Forest"} />
       <Divider bold={true} style={{ backgroundColor: "#FFFFFF" }} />
       <View style={styles.subheader}>
-        <Text style={styles.subtitle}>Number of trees saved:</Text>
+        <Text style={styles.subtitle}>Number of trees saved: {totalTrees}</Text>
         <IconButton
           icon={"forest"}
           size={25}
@@ -52,13 +59,17 @@ export default function VirtualTree() {
             <Forest nArbres={arbres} />
           ))}
         </ScrollView> */}
-        {/* <View style={styles.ecobar}>
+        <View style={styles.ecobar}>
           <Text style={styles.ecopoints}>
             Ecopoints necesarios para hacer crecer{"\n"}
           </Text>
           <Text style={styles.ecopoints}>un nuevo árbol:</Text>
-          <ProgressBar progress={0.2} color="#67B221" style={styles.bar} />
-        </View> */}
+          <ProgressBar
+            animatedValue={value}
+            color="#67B221"
+            style={styles.bar}
+          />
+        </View>
       </View>
     </View>
   );

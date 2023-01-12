@@ -6,7 +6,7 @@ import Constants from "expo-constants";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-export default function Tree({ tree, position }) {
+export default function Tree({ tree, position, message }) {
   return (
     <View>
       <IconButton
