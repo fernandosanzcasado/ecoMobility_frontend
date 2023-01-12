@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
 import Swiper from "react-native-swiper";
 import { FAB } from "react-native-paper";
 
@@ -20,15 +20,21 @@ export default function UserChat() {
     setShowButtons(value);
   };
 
+  React.useEffect(() => {
+    console.log("USER CHAT EFFECT []");
+  }, []);
+
   return (
     <View>
       <Chatbanner />
-      <Swiper
-        showsPagination={showbuttons}
-        keyboardShouldPersistTaps={"handled"}
+      <ScrollView
+        horizontal
+        pagingEnabled
+        nestedScrollEnabled
+        showsHorizontalScrollIndicator={true}
       >
         <View>
-          <View>
+          <View style={{ width: windowWidth }}>
             {!newchat && (
               <View style={styles.animation}>
                 <LottieView
@@ -48,13 +54,13 @@ export default function UserChat() {
                 />
               </View>
             )}
-            {newchat && <MessagesScreen hidefunc={hideButtons} />}
+            {newchat && <MessagesScreen />}
           </View>
         </View>
-        <View>
+        <View style={{ width: windowWidth }}>
           <ArchivedChats />
         </View>
-      </Swiper>
+      </ScrollView>
     </View>
   );
 }

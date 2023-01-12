@@ -7,7 +7,7 @@ class WSService {
   initializeSocket = async () => {
     try {
       this.socket = socketIOClient("http://192.168.0.25:3030");
-      console.log("initializing socket", this.socket);
+      // console.log("initializing socket", this.socket);
 
       this.socket.on("connect", (data) => {
         console.log("=== socket connected ====");
@@ -26,8 +26,6 @@ class WSService {
   };
 
   emit(event, message = "default message") {
-    console.log("EMIT");
-    console.log(this.socket);
     this.socket.emit(event, message);
   }
 

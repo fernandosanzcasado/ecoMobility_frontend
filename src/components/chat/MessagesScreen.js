@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,7 +15,7 @@ import socketService from "../../helpers/SocketService";
 
 var chats = [];
 
-export default function MessagesScreen({ hidefunc }) {
+export default function MessagesScreen() {
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
   const [chatList, setChatList] = useState([]);
@@ -31,7 +31,7 @@ export default function MessagesScreen({ hidefunc }) {
   };
 
   useEffect(() => {
-    console.log("RECIBIDO MI COMPA!!!" + messageReceived);
+    console.log("Entra en messageReceived effect con : " + messageReceived);
     if (!messageReceived) return;
     chats = [{ msg: messageReceived, respuesta: true }, ...chats];
     console.log(chats);
@@ -40,23 +40,12 @@ export default function MessagesScreen({ hidefunc }) {
   }, [messageReceived]);
 
   useEffect(() => {
-    const show = Keyboard.addListener("keyboardDidShow", () => {
-      hidefunc(false);
-    });
-
-    const hide = Keyboard.addListener("keyboardDidHide", () => {
-      hidefunc(true);
-    });
-
     socketService.on("front_back", (data) => {
       console.log(data);
       setMessageReceived(data);
     });
 
-    return () => {
-      show.remove();
-      hide.remove();
-    };
+    console.log("Effect []");
   }, []);
 
   return (
