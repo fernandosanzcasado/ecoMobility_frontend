@@ -14,13 +14,23 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ecoMobility.ecoMobility"
     },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "../../assets/images/EcoMobilityIcon2.png",
+          "color": "#ffffff",
+          "mode": "production"
+        }
+      ]
+    ],
     "android": {
+      "package": "com.ecoMobility.ecoMobility",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -28,6 +38,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "78fd630b-b2cd-42b3-933f-4a949d0e490f"
+      }
     }
   }
 }

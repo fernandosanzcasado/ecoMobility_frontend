@@ -27,7 +27,10 @@
     "Eliminate_Account": "Eliminar cuenta",
     "Eliminate_AccountAdvice": "Estás a punto de eliminar tu cuenta",
     "Eliminate_AccountAsk": "¿Estás seguro de que deseas eliminarla?",
-    "Cancel_Button": "Cancelar"
+    "Cancel_Button": "Cancelar",
+    "Chane_Profile_Picture": "Cambia la foto de perfil",
+    "Upload_Picture": "Subir foto",
+    "Take_Picture": "Hacer foto"
   },
   "Filters": {
     "Filter_By": "Filtrar por",

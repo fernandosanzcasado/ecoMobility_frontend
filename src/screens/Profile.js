@@ -13,11 +13,16 @@ import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useTranslation } from "react-i18next";
 
-import { createPostLogout, createGetUserData } from "../helpers/Axios.helper";
+import {
+  createPostLogout,
+  createGetUserData,
+  createGetUserProfileImage,
+} from "../helpers/Axios.helper";
 import "../../i18n.js";
 
 function Profile({ navigation }) {
   const [userName, setUserName] = useState("");
+  const [userProfileImage, setUserProfileImage] = useState("");
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -31,6 +36,11 @@ function Profile({ navigation }) {
         if (userDTO.length == 3) {
           setUserName(userDTO[0]);
         }
+      })();
+      let image;
+      (async () => {
+        image = await createGetUserProfileImage();
+        setUserProfileImage(image);
       })();
     });
     return chargeView;
@@ -53,7 +63,7 @@ function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <Image
-            source={require("../../assets/images/Profile.png")}
+            source={{ uri: userProfileImage }}
             style={styles.picture}
           ></Image>
           <Text style={styles.headerText}> {userName} </Text>
@@ -193,9 +203,10 @@ const styles = StyleSheet.create({
     fontColor: "#0000",
   },
   headerText: {
-    fontSize: 25,
+    fontWeight: "bold",
+    fontSize: 30,
     // fontFamily: "Comfortaa",
-    paddingTop: Constants.statusBarHeight * 2,
+    paddingTop: Constants.statusBarHeight * 2.2,
     fontColor: "#FFFFFF",
   },
   separationViews: {
@@ -226,10 +237,10 @@ const styles = StyleSheet.create({
   },
   picture: {
     marginTop: Constants.statusBarHeight * 1.75,
-    marginLeft: Constants.statusBarHeight,
-    marginRight: Constants.statusBarHeight * 0.5,
-    height: Constants.statusBarHeight * 1.5,
-    width: Constants.statusBarHeight * 1.5,
+    marginLeft: Constants.statusBarHeight * 0.5,
+    marginRight: Constants.statusBarHeight * 0.35,
+    height: Constants.statusBarHeight * 1.85,
+    width: Constants.statusBarHeight * 1.85,
     borderRadius: 45,
   },
   goBack: {

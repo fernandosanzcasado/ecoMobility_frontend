@@ -27,7 +27,10 @@
     "Eliminate_Account": "Eliminar compte",
     "Eliminate_AccountAdvice": "Et trobes a punt d'eliminar el teu compte",
     "Eliminate_AccountAsk": "Estàs segur de que desitjes eliminar-la?",
-    "Cancel_Button": "Cancel·lar"
+    "Cancel_Button": "Cancel·lar",
+    "Chane_Profile_Picture": "Canvia la foto de perfil",
+    "Upload_Picture": "Pujar foto",
+    "Take_Picture": "Fer-se foto"
   },
   "Filters": {
     "Filter_By": "Filtrar per",
