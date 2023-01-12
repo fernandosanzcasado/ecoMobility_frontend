@@ -14,7 +14,6 @@ import Login from "./src/screens/Login";
 import PassRecoverMail from "./src/screens/PassRecoverMail";
 import PassRecoverCodeConfirm from "./src/screens/PassRecoverCodeConfirm";
 import PasswordChange from "./src/screens/PasswordChange";
-import ApiTestScreen from "./src/screens/ApiTestScreen";
 import Filters from "./src/screens/Filters";
 import SearchBar from "./src/screens/SearchBar";
 import ConfirmCurrentPass from "./src/screens/ConfirmCurrentPass";
@@ -54,7 +53,7 @@ export default function App({ t }) {
     <EventProvider style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="MapScreen"
+          initialRouteName="Login"
           screenOptions={{
             headerShown: false,
           }}
@@ -65,15 +64,6 @@ export default function App({ t }) {
             name="EditProfile"
             component={EditProfile}
           ></Stack.Screen>
-
-          {/* TEST API #################################################### */}
-
-          <Stack.Screen
-            name="ApiTestScreen"
-            component={ApiTestScreen}
-          ></Stack.Screen>
-
-          {/* TEST API */}
 
           <Stack.Screen
             name="AccountRegister"

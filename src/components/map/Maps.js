@@ -148,8 +148,8 @@ export default function Mapa({
               latitude: parseFloat(estacion.latitud ?? 0.0),
             }}
             onPress={() => {
-              setTapView(true);
               setId(estacion.id);
+              setTapView(true);
             }}
             tracksViewChanges={false}
           >
