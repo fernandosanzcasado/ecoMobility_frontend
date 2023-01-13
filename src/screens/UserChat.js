@@ -11,9 +11,12 @@ import ArchivedChats from "../components/chat/ArchivedChats";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+import { useTranslation } from "react-i18next";
+import "../../i18n.js";
+
 export default function UserChat({ navigation }) {
   const [newchat, setNewChat] = useState(false);
-
+  const { t, i18n } = useTranslation();
   return (
     <View>
       <Chatbanner navigation={navigation} />
@@ -39,7 +42,7 @@ export default function UserChat({ navigation }) {
                     console.log("Click new chat");
                     setNewChat(true);
                   }}
-                  label="Start new conversation"
+                  label={t("Chat.New")}
                   color="#E6ECE6"
                 />
               </View>

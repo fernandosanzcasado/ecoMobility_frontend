@@ -11,6 +11,9 @@ import * as Animatable from "react-native-animatable";
 import { BASE_URL } from "@env";
 import axios from "axios";
 
+import { useTranslation } from "react-i18next";
+import "../../i18n.js";
+
 const timeToString = (time) => {
   const date = new Date(time);
   return date.toISOString().split("T")[0];
@@ -24,6 +27,7 @@ export default function MyCalendar({ navigation }) {
     "2022-11-02": [{ name: "Test1", kmC: "30", kmB: "2" }],
     "2022-11-03": [{ name: "Test2", kmC: "50", kmB: "3" }],
   });
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     async function getCalendar() {
@@ -86,7 +90,7 @@ export default function MyCalendar({ navigation }) {
                 paddingTop: Constants.statusBarHeight * 2,
               }}
             >
-              No hi ha esdeveniments disponibles...
+              {t("Calendar.No_esd")}
             </Text>
           );
         }}

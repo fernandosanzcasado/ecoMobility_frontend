@@ -14,6 +14,9 @@ import Message from "./Message";
 import LottieView from "lottie-react-native";
 import socketService from "../../helpers/SocketService";
 
+import { useTranslation } from "react-i18next";
+import "../../../i18n.js";
+
 var chats = [];
 
 const windowWidth = Dimensions.get("window").width;
@@ -24,6 +27,8 @@ export default function MessagesScreen() {
   const [messageReceived, setMessageReceived] = useState("");
   const [chatList, setChatList] = useState([]);
   const [animation, setAnimation] = useState(true);
+
+  const { t, i18n } = useTranslation();
 
   const submitChatMessage = () => {
     if (animation) setAnimation(false);
@@ -61,9 +66,7 @@ export default function MessagesScreen() {
             autoPlay
             style={styles.animation}
           />
-          <Text style={styles.text}>
-            Escriu un missatge per establir una conversació...
-          </Text>
+          <Text style={styles.text}>{t("Chat.Write_msg")}</Text>
         </View>
       )}
       <FlatList
@@ -86,7 +89,7 @@ export default function MessagesScreen() {
           style={styles.message}
           blurOnSubmit={false}
           value={message}
-          placeholder=" Escriu aquí..."
+          placeholder={t("Chat.Write_here")}
           onSubmitEditing={Keyboard.dismiss}
           onChangeText={(chatMessage) => {
             setMessage(chatMessage);
@@ -102,7 +105,7 @@ export default function MessagesScreen() {
             submitChatMessage();
           }}
         >
-          <Text style={styles.buttontext}>Send</Text>
+          <Text style={styles.buttontext}>{t("Chat.Send")}</Text>
         </TouchableOpacity>
       </View>
     </View>

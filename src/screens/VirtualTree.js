@@ -26,6 +26,9 @@ function useForceUpdate() {
   return () => setValue((value) => value + 1);
 }
 
+import { useTranslation } from "react-i18next";
+import "../../i18n.js";
+
 export default function VirtualTree({ navigation }) {
   const [trees, setTrees] = useState(0);
   const [totalTrees, setTotalTrees] = useState(0);
@@ -33,7 +36,7 @@ export default function VirtualTree({ navigation }) {
   const [totalEcopoints, setTotalEcoPoints] = useState(0);
   const [currentEcopoints, setCurrentEcoPoints] = useState(0);
 
-  const forceUpdate = useForceUpdate();
+  const { t, i18n } = useTranslation();
 
   useFocusEffect(
     // ENDPOINT DE MARC
@@ -80,10 +83,12 @@ export default function VirtualTree({ navigation }) {
 
   return (
     <View>
-      <HeaderTitle name={"My Forest"} navigation={navigation} />
+      <HeaderTitle name={t("Tree.Title")} navigation={navigation} />
       <Divider bold={true} style={{ backgroundColor: "#FFFFFF" }} />
       <View style={styles.subheader}>
-        <Text style={styles.subtitle}>Number of trees saved: {totalTrees}</Text>
+        <Text style={styles.subtitle}>
+          {t("Tree.Number")} {totalTrees}
+        </Text>
         <IconButton
           icon={"forest"}
           size={25}
@@ -94,7 +99,7 @@ export default function VirtualTree({ navigation }) {
       <View>
         <ArrayOfForests ntrees={trees} ecopoints={totalEcopoints} />
         <View style={styles.ecobar}>
-          <Text style={styles.ecopoints}>Ecopoints actuales:</Text>
+          <Text style={styles.ecopoints}>{t("Tree.Eco")}</Text>
           <View style={styles.barView}>
             <ProgressBar
               animatedValue={value}

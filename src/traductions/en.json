@@ -39,7 +39,16 @@
     "Supercharge": "Supercharge",
     "Price": "Price",
     "Rating": "Rating",
-    "Apply_Filters": "Apply filters"
+    "Apply_Filters": "Apply filters",
+    "Type_Electricity": "Electricity type",
+    "Type_Velocity": "Velocity type",
+    "Type_Conection": "Connection type",
+    "Car": "Car",
+    "Moto": "Motorbike",
+    "Truck": "Truck",
+    "Kw": "Mínimum power",
+    "Distance": "Distance in Km",
+    "Type_Vehicle": "Vehicle type"
   },
   "Login": {
     "Email": "Email",
@@ -119,6 +128,19 @@
     "Message3": "Congratulations! Keep going!",
     "Message4": "Thanks to you, we are saving the planet!",
     "Ecopoints_Left1": "You need ",
-    "Ecopoints_Left2": " ecopoints more to grow this tree"
+    "Ecopoints_Left2": " ecopoints more to grow this tree",
+  "Chat": {
+    "Write_msg": "Write a message to start a conversation...",
+    "Write_here": "Write here",
+    "Send": "Send",
+    "New": "Start a new conversation"
+  },
+  "Calendar": {
+    "No_esd": "There are not available events"
+  },
+  "Tree": {
+    "Number": "Number of saved trees:",
+    "Eco": "Ecopoints owned",
+    "Title": "My forest"
   }
 }
