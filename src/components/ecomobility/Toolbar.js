@@ -11,6 +11,17 @@ export default function Toolbar({ style, navigation }) {
       <View style={styles.iconPack}>
         <TouchableOpacity
           onPress={() => {
+            navigation.navigate("Favourites");
+          }}
+        >
+          <Icon
+            name="list-alt"
+            size={Constants.statusBarHeight}
+            style={styles.icono}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
             navigation.navigate("SearchBar");
           }}
         >

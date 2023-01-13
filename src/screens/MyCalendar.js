@@ -8,6 +8,8 @@ import Constants from "expo-constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, FAB } from "react-native-paper";
 import * as Animatable from "react-native-animatable";
+import { BASE_URL } from "@env";
+import axios from "axios";
 
 const timeToString = (time) => {
   const date = new Date(time);
@@ -23,40 +25,20 @@ export default function MyCalendar({ navigation }) {
     "2022-11-03": [{ name: "Test2", kmC: "50", kmB: "3" }],
   });
 
-  const [newitem, setNew] = useState(false);
-  const [delitem, setDel] = useState(false);
-  const [funcs, setFuncs] = useState(false);
-
-  const loadItems = (day) => {
-    setTimeout(() => {
-      for (let i = 0; i < 5; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!items[strTime]) {
-          items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-              name: "Km amb Cotxe " + strTime,
-              day: strTime,
-            });
-          }
-        }
+  useEffect(() => {
+    async function getCalendar() {
+      try {
+        const res = await axios.get(
+          `http://${BASE_URL}/api/v2/users/me/getInfo`,
+          { withCredentials: true }
+        );
+        setEstaciones(res.data);
+      } catch (error) {
+        console.log(error);
       }
-
-      const newItems = {};
-      Object.keys(items).forEach((key) => {
-        newItems[key] = items[key];
-      });
-      setItems(newItems);
-    }, 1000);
-  };
-
-  const newItem = (day, kmsC, kmsB) => {
-    const time = day.timestamp + 24 * 60 * 60 * 1000;
-    const strTime = timeToString(time);
-    items.slice();
-  };
+    }
+    getCalendar();
+  }, []);
 
   const renderItem = (item) => {
     return (

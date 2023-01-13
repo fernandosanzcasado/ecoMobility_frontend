@@ -141,13 +141,10 @@ export async function createGetUserData() {
   return await axios
     .get(userDataURL, {}, { withCredentials: true })
     .then(function (response) {
-      console.log("RES");
-      console.log(response);
       userDTO = [
         response.data.name,
         response.data.surnames,
         response.data.email,
-        response.data.ecoPoints,
       ];
       return userDTO;
     })
