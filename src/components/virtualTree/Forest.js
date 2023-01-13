@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Image, Dimensions } from "react-native";
 import Constants from "expo-constants";
+import { useTranslation } from "react-i18next";
+import "../../../i18n.js";
 
 import Tree from "./Tree";
 
@@ -73,18 +75,12 @@ const treetypes = [
   { arbol: require("../../../assets/images/Forest/arbol_redondo.png") },
 ];
 
-const messages = [
-  "Lo estás haciendo muy bien. ¡Sigue así!",
-  "¡Estas haciendo del mundo un lugar mejor!",
-  "¡Felicidades! ¡Sigue así!",
-  "¡Gracias a tu labor, estamos salvando el planeta!",
-];
-
 function randomIntBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 export default function Forest({ nArbres, ecoPoints = 0 }) {
+  const { t, i18n } = useTranslation();
   const currentPercent = nArbres.narbres - Math.trunc(nArbres.narbres);
 
   let arboles = [];
@@ -96,9 +92,9 @@ export default function Forest({ nArbres, ecoPoints = 0 }) {
           tree={treetypes[randomIntBetween(0, 1)].arbol}
           position={positions[i]}
           message={
-            "Te faltan " +
+            t("Forest.Ecopoints_Left1") +
             (20 - (ecoPoints % 20)).toString() +
-            " ecopoints para hacer crecer este arbusto"
+            t("Forest.Ecopoints_Left2")
           }
           size={0.8}
         />
@@ -109,7 +105,7 @@ export default function Forest({ nArbres, ecoPoints = 0 }) {
           key={i}
           tree={treetypes[randomIntBetween(2, 4)].arbol}
           position={positions[i]}
-          message={messages[randomIntBetween(0, 3)]}
+          message={t(`Forest.Message${randomIntBetween(1, 4)}`)}
           size={1.25}
         />
       );

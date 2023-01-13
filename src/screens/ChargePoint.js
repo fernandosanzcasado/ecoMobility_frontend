@@ -15,7 +15,8 @@ export default function ChargePoint({ route, navigation }) {
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          `http://${BASE_URL}/api/v2/estaciones/info/${idStation}`
+          `http://${BASE_URL}/api/v2/estaciones/info/${idStation}`,
+          { withCredentials: true }
         );
         setEst(res.data);
       } catch (error) {

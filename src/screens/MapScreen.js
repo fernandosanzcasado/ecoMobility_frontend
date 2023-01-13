@@ -28,9 +28,13 @@ export default function MapScreen({ style, navigation, route }) {
 
   async function getEstaciones() {
     try {
-      let res = await axios.get(`http://${BASE_URL}/api/v2/estaciones`, {
-        params: paramsList.getParams(),
-      });
+      let res = await axios.get(
+        `http://${BASE_URL}/api/v2/estaciones`,
+        {
+          params: paramsList.getParams(),
+        },
+        { withCredentials: true }
+      );
       if (res.status === 200) {
         setEstaciones(res.data);
       } else {
@@ -46,13 +50,17 @@ export default function MapScreen({ style, navigation, route }) {
       console.log("EVENTOS LAT:", userCoords.latitude ?? "No latitude");
       console.log("EVENTOS LONG:", userCoords.longitude ?? "No long");
       if (!!userCoords.latitude && !!userCoords.longitude) {
-        let res = await axios.get(`http://4.231.36.42:8080/events`, {
-          params: {
-            lat: userCoords.latitude.toString(),
-            long: userCoords.longitude.toString(),
-            radius: "2.00",
+        let res = await axios.get(
+          `http://4.231.36.42:8080/events`,
+          {
+            params: {
+              lat: userCoords.latitude.toString(),
+              long: userCoords.longitude.toString(),
+              radius: "2.00",
+            },
           },
-        });
+          { withCredentials: true }
+        );
         if (res.status === 200) {
           setCatCulturaEvents(res.data);
         } else {

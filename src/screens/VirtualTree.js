@@ -1,27 +1,70 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { Divider, IconButton, ProgressBar } from "react-native-paper";
+import axios from "axios";
+import { BASE_URL } from "@env";
+import { useFocusEffect } from "@react-navigation/native";
 
 import HeaderTitle from "../components/ecomobility/HeaderTitle";
 import Constants from "expo-constants";
 import Forest from "../components/virtualTree/Forest";
 import ArrayOfForests from "../components/virtualTree/ArrayOfForests";
+import { render } from "react-dom";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const ECOPOINTS = 1053;
+function useForceUpdate() {
+  const [value, setValue] = useState(0);
+  return () => setValue((value) => value + 1);
+}
 
 export default function VirtualTree({ navigation }) {
   const [trees, setTrees] = useState(0);
   const [totalTrees, setTotalTrees] = useState(0);
   const [value, setValue] = useState(0);
-  const [ecopoints, setEcoPoints] = useState(0);
+  const [totalEcopoints, setTotalEcoPoints] = useState(0);
+  const [currentEcopoints, setCurrentEcoPoints] = useState(0);
 
-  useEffect(() => {
+  const forceUpdate = useForceUpdate();
+
+  useFocusEffect(
     // ENDPOINT DE MARC
     //obtenerEcopoints;
-    let ntrees = ECOPOINTS / 20;
+    useCallback(() => {
+      async function getEcopoints() {
+        try {
+          console.log("antes llamada");
+          let res = await axios.get(
+            `http://${BASE_URL}/api/v2/users/me/getInfo`,
+            { withCredentials: true }
+          );
+          if (res.status === 200) {
+            console.log(res.data);
+            setTotalEcoPoints(res.data.ecoPoints);
+          } else {
+            setTotalEcoPoints(0);
+            Alert.alert("Ha habido un error al cargar tus ecopoints");
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      getEcopoints();
+    }, [])
+  );
+
+  useEffect(() => {
+    console.log("AQUI FER");
+    let ntrees = totalEcopoints / 20;
     setTotalTrees(ntrees);
     let progressValue = ntrees - Math.trunc(ntrees);
     let mytrees = [];
@@ -32,8 +75,8 @@ export default function VirtualTree({ navigation }) {
     mytrees = [{ narbres: ntrees }, ...mytrees];
     setTrees(mytrees);
     setValue(progressValue);
-    setEcoPoints(ECOPOINTS % 20);
-  }, []);
+    setCurrentEcoPoints(totalEcopoints % 20);
+  }, [totalEcopoints]);
 
   return (
     <View>
@@ -49,7 +92,7 @@ export default function VirtualTree({ navigation }) {
         />
       </View>
       <View>
-        <ArrayOfForests ntrees={trees} ecopoints={ECOPOINTS} />
+        <ArrayOfForests ntrees={trees} ecopoints={totalEcopoints} />
         <View style={styles.ecobar}>
           <Text style={styles.ecopoints}>Ecopoints actuales:</Text>
           <View style={styles.barView}>
@@ -58,7 +101,7 @@ export default function VirtualTree({ navigation }) {
               color="#67B221"
               style={styles.bar}
             />
-            <Text style={styles.ecopoints}>{ecopoints}/20</Text>
+            <Text style={styles.ecopoints}>{currentEcopoints}/20</Text>
           </View>
         </View>
       </View>

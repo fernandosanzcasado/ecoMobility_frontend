@@ -112,5 +112,13 @@
     "Achievement5Alert": "Car km traveled",
     "Achievement6Alert": "Bike km traveled",
     "Achievement7Alert": "favourite stations"
+  },
+  "Forest": {
+    "Message1": "You are doing great. Keep going!",
+    "Message2": "You are making our world a better place!",
+    "Message3": "Congratulations! Keep going!",
+    "Message4": "Thanks to you, we are saving the planet!",
+    "Ecopoints_Left1": "You need ",
+    "Ecopoints_Left2": " ecopoints more to grow this tree"
   }
 }

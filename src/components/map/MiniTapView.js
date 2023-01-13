@@ -30,7 +30,8 @@ export default function MiniTapView({
     async function getEstaciones() {
       try {
         const res = await axios.get(
-          `http://${BASE_URL}/api/v2/estaciones/info/${ID}`
+          `http://${BASE_URL}/api/v2/estaciones/info/${ID}`,
+          { withCredentials: true }
         );
         setEst(res.data);
       } catch (error) {

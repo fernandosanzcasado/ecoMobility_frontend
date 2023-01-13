@@ -112,5 +112,13 @@
     "Achievement5Alert": "km recorridos en coche",
     "Achievement6Alert": "km recorridos en bici",
     "Achievement7Alert": "estaciones favoritas"
+  },
+  "Forest": {
+    "Message1": "Lo estás haciendo muy bien. ¡Sigue así!",
+    "Message2": "¡Estas haciendo del mundo un lugar mejor!",
+    "Message3": "¡Felicidades! ¡Sigue así!",
+    "Message4": "¡Gracias a tu labor, estamos salvando el planeta!",
+    "Ecopoints_Left1": "Te faltan ",
+    "Ecopoints_Left2": " ecopoints para hacer crecer este arbusto"
   }
 }
