@@ -218,7 +218,7 @@ export default function FilterScreen({ navigation }) {
         </View>
       </SafeAreaView>
       <View style={styles.content}>
-        <List.Section title={t("Filters.Filter_by")}>
+        <List.Section title={t("Filters.Filter_By")}>
           <List.Accordion
             title={t("Filters.Type_Electricity")}
             left={(props) => (
