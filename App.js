@@ -21,6 +21,7 @@ import MyCalendar from "./src/screens/MyCalendar";
 import ChargePoint from "./src/screens/ChargePoint";
 import Achievements from "./src/screens/Achievements";
 import UserChat from "./src/screens/UserChat";
+import Ranking from "./src/screens/Ranking";
 
 import socketService from "./src/helpers/SocketService";
 import VirtualTree from "./src/screens/VirtualTree";
@@ -60,6 +61,7 @@ export default function App({ t }) {
         >
           <Stack.Screen name="MapScreen" component={MapScreen}></Stack.Screen>
           <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
+          <Stack.Screen name="Ranking" component={Ranking}></Stack.Screen>
           <Stack.Screen
             name="EditProfile"
             component={EditProfile}

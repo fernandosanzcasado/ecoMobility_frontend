@@ -18,7 +18,7 @@ export default function NavigationTab({ style, navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          // navigation.navigate("");
+          navigation.navigate("Ranking");
         }}
       >
         <Icon name="trophy" color={iconColor} size={iconSize} />
