@@ -129,7 +129,8 @@
     "Message3": "Felicitats segueix així!",
     "Message4": "Gràcies al teu treball, estem salvant el planeta!",
     "Ecopoints_Left1": "Et falten",
-    "Ecopoints_Left2": " ecopoints per fer crèixer aquest arbust",
+    "Ecopoints_Left2": " ecopoints per fer crèixer aquest arbust"
+  },
   "Chat": {
     "Write_msg": "Escriu un missatge per establir una conversació...",
     "Write_here": "Escriu aquí",
