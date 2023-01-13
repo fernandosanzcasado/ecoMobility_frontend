@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
+import { Hideo, Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
@@ -74,9 +74,24 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           source={require("../../assets/images/LetrasLema3.png")}
         />
       </View>
+      <Separator2 />
       <View style={styles.textInput}>
         <Text>{t("Pass_Recover_Code_Confirm.Write_Code")}</Text>
         <Separator2 />
+        <Fumi
+          label={t("Pass_Recover_Code_Confirm.Code")}
+          iconClass={FontAwesomeIcon}
+          iconName={"key"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newText) => setCode(newText)}
+          defaultValue={code}
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"key"}
@@ -88,11 +103,27 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           onChangeText={(newText) => setCode(newText)}
           defaultValue={code}
         />
+  */}
       </View>
-      <Separator />
+      <Separator2 />
       <View style={styles.textInput}>
         <Text>{t("Password_Change.Write_New_Pass")}</Text>
         <Separator2 />
+        <Fumi
+          label={t("Password_Change.New_Password")}
+          iconClass={FontAwesomeIcon}
+          iconName={"lock"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newText) => setPassword1(newText)}
+          defaultValue={password1}
+          secureTextEntry
+        />
+        {/*}
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"lock"}
@@ -105,11 +136,28 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           defaultValue={password1}
           secureTextEntry
         />
+*/}
       </View>
-      <Separator />
+      <Separator2 />
       <View style={styles.textInput}>
         <Text>{t("Password_Change.Write_New_PassAgain")}</Text>
         <Separator2 />
+        <Fumi
+          label={t("Password_Change.Confirm_New_Password")}
+          iconClass={FontAwesomeIcon}
+          iconName={"envelope"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newText) => setPassword2(newText)}
+          defaultValue={password2}
+          secureTextEntry
+        />
+
+        {/*}
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"lock"}
@@ -122,6 +170,7 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           defaultValue={password2}
           secureTextEntry
         />
+*/}
       </View>
       <Separator2 />
       <Separator2 />
@@ -188,12 +237,12 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 1,
   },
   textInput: {
-    marginTop: Constants.statusBarHeight * 1,
+    marginTop: Constants.statusBarHeight * 0.0,
     marginLeft: Constants.statusBarHeight * 0.2,
     marginRight: Constants.statusBarHeight * 0.2,
   },
   buttonView: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },

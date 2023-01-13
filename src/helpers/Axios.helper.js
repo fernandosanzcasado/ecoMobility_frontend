@@ -15,14 +15,17 @@ const userDataURL = url + "users/me/getInfo";
 const ConfirmPasswordURL = url + "users/me/updatePassword";
 const recoverEmailURL = url + "users/resetForgottenPassword/sendMail";
 const recoverPasswordURL = url + "users/resetForgottenPassword/resetPassword";
+const userAchievements = url + "users/me/getAchievements/";
+const uploadImage = url + "users/me/uploadProfileImage";
+const userProfileImage = url + "users/me/getProfileImage";
+const googleLogin = "https://www.googleapis.com/userinfo/v2/me";
 
-export async function createPostLogin(userEmail, userPassword) {
-  console.log("El email es: " + userEmail + " El pass es : " + userPassword);
-  console.log(loginURL);
+export async function createPostLogin(userEmail, userPassword, token) {
   return await axios
     .post(loginURL, {
       email: userEmail,
       password: userPassword,
+      exponentPushToken: token,
     })
     .then(function (response) {
       return true;
@@ -41,17 +44,6 @@ export async function createPostRegister(
   userSurname,
   password1
 ) {
-  console.log("Entro a createPostRegister");
-  console.log(
-    "Email: " +
-      userEmail +
-      ", Name: " +
-      userName +
-      ", Surname: " +
-      userSurname +
-      ", Pass: " +
-      password1
-  );
   return await axios
     .post(registerURL, {
       email: userEmail,
@@ -147,7 +139,7 @@ export async function createPostLogout() {
 export async function createGetUserData() {
   let userDTO = [];
   return await axios
-    .get(userDataURL, {})
+    .get(userDataURL, {}, { withCredentials: true })
     .then(function (response) {
       userDTO = [
         response.data.name,
@@ -158,6 +150,21 @@ export async function createGetUserData() {
     })
     .catch(function (error) {
       // console.log("El error es " + error.response.data.message);
+      //errorControl(2);
+      return userDTO;
+    });
+}
+
+export async function createGetUserProfileImage() {
+  let image;
+  return await axios
+    .get(userProfileImage, {}, { withCredentials: true })
+    .then(function (response) {
+      image = response.data;
+      return image;
+    })
+    .catch(function (error) {
+      console.log("El error es " + error.response.data.message);
       //errorControl(2);
       return userDTO;
     });
@@ -190,6 +197,75 @@ export async function createPostRecoverPassword(
       token: confirmationCode,
       newPassword: userPassword,
     })
+    .then(function (response) {
+      console.log("Funciona el createPostRecoverPassword");
+      return true;
+    })
+    .catch(function (error) {
+      console.log("Da error el createPostRecoverPassword");
+      console.log(error.response.data.message);
+      return false;
+    });
+}
+
+export async function createGetUserAchievements() {
+  let achievemtsDTO = [];
+  return await axios
+    .get(userAchievements, {}, { withCredentials: true })
+    .then(function (response) {
+      achievemtsDTO = [response.data.achievements];
+      return achievemtsDTO;
+    })
+    .catch(function (error) {
+      console.log("El error es " + error.response.data.message);
+      //errorControl(2);
+      return achievemtsDTO;
+    });
+}
+
+export async function createPostUploadPicture(image) {
+  console.log("ENTRO A LA FUNCION DE UPLOAD Y TRATO DE SUBIR" + image);
+  return await axios
+    .put(
+      uploadImage,
+      { withCredentials: true },
+      {
+        profileImage: image,
+      }
+    )
+    .then(function (response) {
+      return true;
+    })
+    .catch(function (error) {
+      console.log("Da error");
+      console.log("Da error y el error es : " + error.response.data.message);
+      //errorControlLogin(2);
+      return false;
+    });
+}
+
+export async function createPostEnviaNotificacion(token) {
+  console.log("ETRO A LA FUNCION DE LA NOTI");
+  let axiosheaders = {
+    headers: {
+      host: "exp.host",
+      accept: "application/json",
+      "accept-encoding": "gzip, deflate",
+      "content-type": "application/json",
+    },
+  };
+  console.log("Entro a createPostEnviaNotificacion");
+  console.log(token);
+  return await axios
+    .post(
+      "https://exp.host/--/api/v2/push/send",
+      {
+        to: token,
+        title: "titulo de la noti",
+        body: "body de la noti",
+      },
+      axiosheaders
+    )
     .then(function (response) {
       console.log("Funciona el createPostRecoverPassword");
       return true;

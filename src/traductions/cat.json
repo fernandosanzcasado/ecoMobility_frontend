@@ -27,7 +27,10 @@
     "Eliminate_Account": "Eliminar compte",
     "Eliminate_AccountAdvice": "Et trobes a punt d'eliminar el teu compte",
     "Eliminate_AccountAsk": "Estàs segur de que desitjes eliminar-la?",
-    "Cancel_Button": "Cancel·lar"
+    "Cancel_Button": "Cancel·lar",
+    "Chane_Profile_Picture": "Canvia la foto de perfil",
+    "Upload_Picture": "Pujar foto",
+    "Take_Picture": "Fer-se foto"
   },
   "Filters": {
     "Filter_By": "Filtrar per",
@@ -91,5 +94,23 @@
   "Maps": {
     "Cancel_Route": "Cancel·lar ruta",
     "Finish_Trip": "Terminar viatje"
+  },
+  "Achievements": {
+    "Achievement1": "Router",
+    "Achievement2": "Llibertad Arbolada",
+    "Achievement3": "Estalviador de CO2",
+    "Achievement4": "Crític",
+    "Achievement5": "Nómada en cotxe",
+    "Achievement6": "Nómada en bici",
+    "Achievement7": "Favoritisme",
+    "Progress": "Progrés",
+    "CurrentProgress": "progrés actual: ",
+    "Achievement1Alert": "rutes realitzades",
+    "Achievement2Alert": "arbres plantats",
+    "Achievement3Alert": "CO2 estalviat",
+    "Achievement4Alert": "estacions valorades",
+    "Achievement5Alert": "km recorreguts en cotxe",
+    "Achievement6Alert": "km recorreguts en bici",
+    "Achievement7Alert": "estacions preferides"
   }
 }

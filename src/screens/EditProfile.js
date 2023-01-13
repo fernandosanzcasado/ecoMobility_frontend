@@ -10,17 +10,22 @@ import {
   Alert,
 } from "react-native";
 
+import * as ImagePicker from "expo-image-picker";
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
+import { Hideo, Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import FormData from "form-data";
+import axios from "axios";
 import { useTranslation } from "react-i18next";
 
 import {
   createPutUser,
   createDeleteUser,
   createGetUserData,
+  createGetUserProfileImage,
+  createPostUploadPicture,
 } from "../helpers/Axios.helper";
 import "../../i18n.js";
 import { errorControlRegister } from "../helpers/AccountRegister.helper";
@@ -58,7 +63,9 @@ export default function EditProfile({ navigation }) {
   const [userSurname, setUserSurname] = useState("");
   const [userNewName, setUserNewName] = useState("");
   const [userNewSurname, setUserNewSurname] = useState("");
+  const [userProfileImage, setUserProfileImage] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [pickedImagePath, setPickedImagePath] = useState("");
 
   React.useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
@@ -71,9 +78,75 @@ export default function EditProfile({ navigation }) {
           setUserEmail(userDTO[2]);
         }
       })();
+      let image;
+      (async () => {
+        image = await createGetUserProfileImage();
+        setUserProfileImage(image);
+      })();
     });
     return chargeView;
   }, [navigation]);
+
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync();
+    // Explore the result
+    //console.log(result);
+    if (!result.cancelled) {
+      setUserProfileImage(result.uri);
+      //console.log(result.uri);
+    }
+  };
+
+  const showImagePicker = async () => {
+    // Ask the user for the permission to access the media library
+    console.log("***************************************************");
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your photos!");
+      return;
+      º;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+    });
+    // Explore the result
+    console.log("El archivo  es : " + result.assetId);
+    console.log("El archivo  es : " + result.base64);
+    console.log("El archivo  es : " + result.fileName);
+    console.log("El archivo  es : " + result.width);
+    console.log("El archivo  es : " + result.height);
+    console.log("El archivo  es : " + result.exif);
+    console.log("El archivo  es : " + result.type);
+    let nameImage = result.uri.slice(result.uri.length - 41, result.uri.length);
+    console.log("El nombre del archivo es : " + nameImage);
+    if (!result.cancelled) {
+      setUserProfileImage(result.uri);
+      const fd = new FormData();
+      fd.append("profileImage", userProfileImage);
+      URL = "http://15.188.52.76:3000/api/v2/users/me/uploadProfileImag";
+      await axios
+        .put(URL, fd)
+        .then((response) => {
+          // console.log(response.data);
+        })
+        .catch((error) => {
+          // console.log(error);
+        });
+      /*
+      (async () => {
+        await createPostUploadPicture(fd);
+      })();*/
+    }
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert(
@@ -113,18 +186,31 @@ export default function EditProfile({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity>
           <Image
-            source={require("../../assets/images/Profile.png")}
+            source={{ uri: userProfileImage }}
             style={styles.picture}
           ></Image>
         </TouchableOpacity>
         <Text style={styles.headerText}> {userName} </Text>
       </View>
-
       <View style={styles.textInput}>
         <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
           {t("Edit_Profile.User_Name")}
         </Text>
         <Separator2 />
+        <Fumi
+          label={userName}
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserNewName(newtext)}
+          defaultValue={userName}
+        />
+        {/*}
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"user"}
@@ -136,14 +222,27 @@ export default function EditProfile({ navigation }) {
           onChangeText={(newtext) => setUserName(newtext)}
           defaultValue={userName}
         />
+        */}
       </View>
-      <Separator />
-      <Separator />
       <View style={styles.textInput}>
         <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
           {t("Edit_Profile.Surnames")}
         </Text>
         <Separator2 />
+        <Fumi
+          label={userSurname}
+          iconClass={FontAwesomeIcon}
+          iconName={"user"}
+          iconColor={"#27CF10"}
+          inputStyle={{ color: "#464949" }}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
+          onChangeText={(newtext) => setUserNewSurname(newtext)}
+          defaultValue={userNewSurname}
+        />
+        {/*
         <Hideo
           iconClass={FontAwesomeIcon}
           iconName={"user"}
@@ -155,8 +254,8 @@ export default function EditProfile({ navigation }) {
           onChangeText={(newtext) => setUserNewSurname(newtext)}
           defaultValue={userNewSurname}
         />
+      */}
       </View>
-      <Separator />
       <Separator />
       <View style={styles.buttonView}>
         <Button
@@ -177,6 +276,44 @@ export default function EditProfile({ navigation }) {
           </Text>
         </Button>
       </View>
+      <View style={styles.textInput}>
+        <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
+          {t("Edit_Profile.Chane_Profile_Picture")}
+        </Text>
+        <View style={styles.buttonViewImage}>
+          <Button
+            height={40}
+            buttonColor={"#27CF10"}
+            mode="contained"
+            onPress={() => {
+              showImagePicker();
+            }}
+          >
+            <Text
+              style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}
+            >
+              {t("Edit_Profile.Upload_Picture")}
+            </Text>
+          </Button>
+          <Separator2 />
+          <Button
+            height={40}
+            buttonColor={"#27CF10"}
+            mode="contained"
+            onPress={() => {
+              openCamera();
+            }}
+          >
+            <Text
+              style={{ color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}
+            >
+              {t("Edit_Profile.Take_Picture")}
+            </Text>
+          </Button>
+        </View>
+      </View>
+      <Separator />
+      <Separator />
       <View style={styles.buttonViewPass}>
         <Button
           height={40}
@@ -221,7 +358,8 @@ const styles = StyleSheet.create({
     paddingBottom: Constants.statusBarHeight,
   },
   headerText: {
-    fontSize: 25,
+    fontWeight: "bold",
+    fontSize: 30,
     // fontFamily: "Comfortaa",
     paddingTop: Constants.statusBarHeight * 2,
     fontColor: "#FFFFFF",
@@ -242,7 +380,7 @@ const styles = StyleSheet.create({
     fontColor: "#0000",
   },
   textInput: {
-    marginTop: Constants.statusBarHeight * 1,
+    marginTop: Constants.statusBarHeight * 0.5,
     marginLeft: Constants.statusBarHeight * 0.2,
     marginRight: Constants.statusBarHeight * 0.2,
   },
@@ -262,10 +400,10 @@ const styles = StyleSheet.create({
   },
   picture: {
     marginTop: Constants.statusBarHeight * 1.75,
-    marginLeft: Constants.statusBarHeight,
-    marginRight: Constants.statusBarHeight * 0.5,
-    height: Constants.statusBarHeight * 1.5,
-    width: Constants.statusBarHeight * 1.5,
+    marginLeft: Constants.statusBarHeight * 0.5,
+    marginRight: Constants.statusBarHeight * 0.35,
+    height: Constants.statusBarHeight * 1.85,
+    width: Constants.statusBarHeight * 1.85,
     borderRadius: 45,
   },
   goBack: {
@@ -277,12 +415,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   buttonView: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },
   buttonViewPass: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0.5,
+    paddingLeft: Constants.statusBarHeight * 1.7,
+    paddingRight: Constants.statusBarHeight * 1.7,
+  },
+  buttonViewImage: {
+    paddingTop: Constants.statusBarHeight * 0.5,
     paddingLeft: Constants.statusBarHeight * 1.7,
     paddingRight: Constants.statusBarHeight * 1.7,
   },
@@ -291,5 +434,43 @@ const styles = StyleSheet.create({
   },
   separator2: {
     marginVertical: 5,
+  },
+  mainBody: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+  buttonStyle: {
+    backgroundColor: "#307ecc",
+    borderWidth: 0,
+    color: "#FFFFFF",
+    borderColor: "#307ecc",
+    height: 40,
+    alignItems: "center",
+    borderRadius: 30,
+    marginLeft: 35,
+    marginRight: 35,
+    marginTop: 15,
+  },
+  buttonTextStyle: {
+    color: "#FFFFFF",
+    paddingVertical: 10,
+    fontSize: 16,
+  },
+  textStyle: {
+    backgroundColor: "#fff",
+    fontSize: 15,
+    marginTop: 16,
+    marginLeft: 35,
+    marginRight: 35,
+    textAlign: "center",
+  },
+  imageContainer: {
+    padding: 30,
+  },
+  image: {
+    width: 400,
+    height: 300,
+    resizeMode: "cover",
   },
 });

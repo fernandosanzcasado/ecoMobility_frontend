@@ -27,7 +27,10 @@
     "Eliminate_Account": "Eliminar cuenta",
     "Eliminate_AccountAdvice": "Estás a punto de eliminar tu cuenta",
     "Eliminate_AccountAsk": "¿Estás seguro de que deseas eliminarla?",
-    "Cancel_Button": "Cancelar"
+    "Cancel_Button": "Cancelar",
+    "Chane_Profile_Picture": "Cambia la foto de perfil",
+    "Upload_Picture": "Subir foto",
+    "Take_Picture": "Hacer foto"
   },
   "Filters": {
     "Filter_By": "Filtrar por",
@@ -91,5 +94,23 @@
   "Maps": {
     "Cancel_Route": "Cancelar ruta",
     "Finish_Trip": "Acabar viaje"
+  },
+  "Achievements": {
+    "Achievement1": "Router",
+    "Achievement2": "Libertad Arbolada",
+    "Achievement3": "Ahorrador de CO2",
+    "Achievement4": "Crítico",
+    "Achievement5": "Nómada en coche",
+    "Achievement6": "Nómada en bici",
+    "Achievement7": "Favoritismo",
+    "Progress": "Progreso",
+    "CurrentProgress": "Progreso actual: ",
+    "Achievement1Alert": "rutas realizadas",
+    "Achievement2Alert": "árboles plantados",
+    "Achievement3Alert": "CO2 ahorrado",
+    "Achievement4Alert": "estaciones valoradas",
+    "Achievement5Alert": "km recorridos en coche",
+    "Achievement6Alert": "km recorridos en bici",
+    "Achievement7Alert": "estaciones favoritas"
   }
 }

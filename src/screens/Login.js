@@ -1,7 +1,11 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
 import Constants from "expo-constants";
-import * as Font from "expo-font";
-
+// import * as Notifications from "expo-notifications";
+// import * as webBrowser from "expo-web-browser";
+// import * as Google from "expo-auth-session/providers/google";
+// WEB      92135891802-3u3klkbm5l3fb8ptg2cq5grchnb6u5g3.apps.googleusercontent.com
+// IOS      92135891802-acbk6thg24620lcf4e3tivgme16jgn34.apps.googleusercontent.com
+// Android  92135891802-ljdjcqp876sidpqj9kchrajjumrlk2tj.apps.googleusercontent.com
 import {
   StyleSheet,
   Text,
@@ -14,7 +18,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
+import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { useTranslation } from "react-i18next";
 
@@ -23,7 +27,10 @@ import {
   checkTextInputNotEmpty,
   errorControl,
 } from "../helpers/Login.helper";
-import { createPostLogin } from "../helpers/Axios.helper";
+import {
+  createPostLogin,
+  createPostEnviaNotificacion,
+} from "../helpers/Axios.helper";
 
 const Separator = () => <View style={styles.separator} />;
 const Separator2 = () => <View style={styles.separator2} />;
@@ -32,11 +39,57 @@ const useValidation = () => {
   return { checkTextInputNotEmpty };
 };
 
+// webBrowser.maybeCompleteAuthSession();
+
 export default function Login({ navigation }) {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [userToken, setUserToken] = useState("");
   const validation = useValidation();
   const { t } = useTranslation();
+
+  // const registerForPushNotificationsAsync = async () => {
+  //   let token;
+
+  //   if (Constants.isDevice) {
+  //     // we check if we have access to the notification permission
+  //     const { status: existingStatus } =
+  //       await Notifications.getPermissionsAsync();
+  //     let finalStatus = existingStatus;
+
+  //     if (existingStatus !== "granted") {
+  //       // if we don't have access to it, we ask for it
+  //       const { status } = await Notifications.requestPermissionsAsync();
+  //       finalStatus = status;
+  //     }
+  //     if (finalStatus !== "granted") {
+  //       // user does not allow us to access to the notifications
+  //       alert("Failed to get push token for push notification!");
+  //       return;
+  //     }
+
+  //     // obtain the expo token
+  //     token = (await Notifications.getExpoPushTokenAsync()).data;
+
+  //     // log the expo token in order to play with it
+  //     console.log(token);
+  //   } else {
+  //     // notifications only work on physcal devices
+  //     alert("Must use physical device for Push Notifications");
+  //   }
+
+  //   // some android configuration
+  //   if (Platform.OS === "android") {
+  //     Notifications.setNotificationChannelAsync("default", {
+  //       name: "default",
+  //       importance: Notifications.AndroidImportance.MAX,
+  //       vibrationPattern: [0, 250, 250, 250],
+  //       lightColor: "#FF231F7C",
+  //     });
+  //   }
+  //   setUserToken(token);
+  //   return token;
+  // };
 
   React.useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
@@ -48,6 +101,43 @@ export default function Login({ navigation }) {
   const clearText = () => {
     setUserEmail("");
     setUserPassword("");
+  };
+
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  // useEffect(() => {
+  //   // Register for push notification
+  //   const token = registerForPushNotificationsAsync();
+  //   // This listener is fired whenever a notification is received while the app is foregrounded
+  //   notificationListener.current =
+  //     Notifications.addNotificationReceivedListener((notification) => {
+  //       notificationCommonHandler(notification);
+  //     });
+
+  //   // This listener is fired whenever a user taps on or interacts with a notification
+  //   // (works when app is foregrounded, backgrounded, or killed)
+  //   responseListener.current =
+  //     Notifications.addNotificationResponseReceivedListener((response) => {
+  //       notificationCommonHandler(response.notification);
+  //       notificationNavigationHandler(response.notification.request.content);
+  //     });
+
+  //   // The listeners must be clear on app unmount
+  //   return () => {
+  //     Notifications.removeNotificationSubscription(notificationListener);
+  //     Notifications.removeNotificationSubscription(responseListener);
+  //   };
+  // }, []);
+
+  const notificationCommonHandler = (notification) => {
+    // save the notification to reac-redux store
+    console.log("A notification has been received", notification);
+  };
+
+  const notificationNavigationHandler = ({ data }) => {
+    // navigate to app screen
+    console.log("A notification has been touched", data);
   };
 
   return (
@@ -67,45 +157,48 @@ export default function Login({ navigation }) {
         />
       </View>
       <View style={styles.textInput}>
-        <Hideo
+        <Fumi
+          label={t("Login.Email")}
           iconClass={FontAwesomeIcon}
           iconName={"envelope"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
+          iconColor={"#27CF10"}
           inputStyle={{ color: "#464949" }}
-          placeholder={t("Login.Email")}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
           onChangeText={(newtext) => setUserEmail(newtext)}
           defaultValue={userEmail}
         />
+        {}
       </View>
-      <Separator />
-      <Separator />
       <View style={styles.textInput}>
-        <Hideo
+        <Fumi
+          label={t("Login.Password")}
           iconClass={FontAwesomeIcon}
           iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
+          iconColor={"#27CF10"}
           inputStyle={{ color: "#464949" }}
-          placeholder={t("Login.Password")}
+          activeColor={"#27CF10"}
+          iconSize={20}
+          iconWidth={40}
+          inputPadding={16}
           onChangeText={(newtext) => setUserPassword(newtext)}
           defaultValue={userPassword}
           secureTextEntry
         />
+        {}
       </View>
-      <Separator />
       <View style={styles.buttonView}>
         <Button
           height={40}
           buttonColor={"#27CF10"}
           mode="contained"
           onPress={() => {
+            console.log("El token es: " + userToken);
             if (validation.checkTextInputNotEmpty(userEmail, userPassword)) {
-              console.log("Entro y cumplo el priemr check");
               (async () => {
-                if (await createPostLogin(userEmail, userPassword))
+                if (await createPostLogin(userEmail, userPassword, userToken))
                   navigation.navigate("MapScreen");
               })();
             }
@@ -178,7 +271,7 @@ const styles = StyleSheet.create({
     marginRight: Constants.statusBarHeight * 0.2,
   },
   buttonView: {
-    paddingTop: Constants.statusBarHeight * 1.5,
+    paddingTop: Constants.statusBarHeight * 0.75,
     paddingLeft: Constants.statusBarHeight * 2.5,
     paddingRight: Constants.statusBarHeight * 2.5,
   },

@@ -24,6 +24,7 @@
     "expo": "~46.0.13",
     "expo-constants": "~13.2.4",
     "expo-font": "~10.2.0",
+    "expo-image-picker": "^14.0.2",
     "expo-location": "^14.3.0",
     "expo-status-bar": "~1.4.0",
     "i18next": "^22.0.2",
