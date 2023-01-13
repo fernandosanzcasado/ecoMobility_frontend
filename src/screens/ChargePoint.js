@@ -3,9 +3,9 @@ import { View, StyleSheet } from "react-native";
 
 import axios from "axios";
 import { BASE_URL } from "@env";
-import ListOfAttributes from "../components/estaciones/ListOfAttributes";
 import Buttons from "../components/estaciones/Buttons";
 import CapcaleraEstacio from "../components/estaciones/CapcaleraEstacio";
+import ListOfAttributes from "../components/estaciones/ListOfAttributes";
 
 export default function ChargePoint({ route, navigation }) {
   const { idStation } = route.params;
@@ -28,9 +28,13 @@ export default function ChargePoint({ route, navigation }) {
 
   return (
     <View>
-      <CapcaleraEstacio estacion={est.direccion} navigation={navigation} />
+      <CapcaleraEstacio
+        estacion={est.direccion}
+        estacionId={est.id}
+        navigation={navigation}
+      />
       <ListOfAttributes estacion={est} />
-      <Buttons />
+      {/* <Buttons /> */}
     </View>
   );
 }

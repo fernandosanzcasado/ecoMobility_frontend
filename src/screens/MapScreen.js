@@ -45,6 +45,21 @@ export default function MapScreen({ style, navigation, route }) {
     }
   }
 
+  async function getBicing() {
+    axios
+      .get(`http://${BASE_URL}/api/v2/bicing/coordenadas`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setBicing(res.data);
+        } else {
+          setBicing([]);
+        }
+      })
+      .catch((error) => console.log(error));
+  }
+
   async function getCatCulturaEvents() {
     try {
       console.log("EVENTOS LAT:", userCoords.latitude ?? "No latitude");
@@ -75,6 +90,7 @@ export default function MapScreen({ style, navigation, route }) {
   }
 
   const [estaciones, setEstaciones] = useState();
+  const [bicing, setBicing] = useState();
   const [catCulturaEvents, setCatCulturaEvents] = useState();
 
   useEffect(() => {
@@ -109,6 +125,8 @@ export default function MapScreen({ style, navigation, route }) {
           setCatCulturaEvents([]);
         }
       });
+
+      getBicing();
     }, [])
   );
 
@@ -121,6 +139,7 @@ export default function MapScreen({ style, navigation, route }) {
         estacionesParam={estaciones}
         catCulturaEventsParam={catCulturaEvents}
         setParentCoords={setUserCoords}
+        bicingParam={bicing}
       />
       <NavigationTab style={styles.navBar} navigation={navigation} />
     </SafeAreaView>

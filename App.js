@@ -22,6 +22,8 @@ import ChargePoint from "./src/screens/ChargePoint";
 import Achievements from "./src/screens/Achievements";
 import UserChat from "./src/screens/UserChat";
 import Ranking from "./src/screens/Ranking";
+import Favourites from "./src/screens/Favourites";
+import BikePoint from "./src/screens/BikePoint";
 
 import socketService from "./src/helpers/SocketService";
 import VirtualTree from "./src/screens/VirtualTree";
@@ -104,6 +106,8 @@ export default function App({ t }) {
             name="VirtualTree"
             component={VirtualTree}
           ></Stack.Screen>
+          <Stack.Screen name="Favourites" component={Favourites}></Stack.Screen>
+          <Stack.Screen name="BikePoint" component={BikePoint}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </EventProvider>

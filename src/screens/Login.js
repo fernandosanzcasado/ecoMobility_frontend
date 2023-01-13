@@ -257,12 +257,12 @@ const styles = StyleSheet.create({
   },
   logo: {
     marginTop: Constants.statusBarHeight * 2,
-    marginLeft: Constants.statusBarHeight * 1.75,
+    marginLeft: Constants.statusBarHeight * 2.5,
     marginRight: Constants.statusBarHeight * 1,
   },
   lema: {
-    marginTop: Constants.statusBarHeight * 2,
-    marginLeft: Constants.statusBarHeight * 1.75,
+    marginTop: Constants.statusBarHeight * 4,
+    marginLeft: Constants.statusBarHeight * 3,
     marginRight: Constants.statusBarHeight * 1,
   },
   textInput: {

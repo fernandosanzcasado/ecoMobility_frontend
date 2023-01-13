@@ -8,17 +8,6 @@ export default function Buttons() {
     <View style={styles.structure}>
       <View style={styles.botons}>
         <IconButton
-          icon="account-plus"
-          iconColor="#29CD5D"
-          onPress={() => {
-            console.log("Pressed");
-          }}
-          size={35}
-        />
-        <Text style={styles.buttonText}>Check-In</Text>
-      </View>
-      <View style={styles.botons}>
-        <IconButton
           icon="clock-start"
           iconColor="#86B9DF"
           onPress={() => {
@@ -27,17 +16,6 @@ export default function Buttons() {
           size={35}
         />
         <Text style={styles.buttonText}>Anar-hi</Text>
-      </View>
-      <View style={styles.botons}>
-        <IconButton
-          icon="account-remove"
-          iconColor="#DA6460"
-          onPress={() => {
-            console.log("Pressed");
-          }}
-          size={35}
-        />
-        <Text style={styles.buttonText}>Check-Out</Text>
       </View>
     </View>
   );

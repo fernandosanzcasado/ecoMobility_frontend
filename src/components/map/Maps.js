@@ -7,16 +7,18 @@ import {
   Dimensions,
 } from "react-native";
 
+import axios from "axios";
 import * as Location from "expo-location";
 import { Marker } from "react-native-maps";
 import MapView from "react-native-map-clustering";
 import MapViewDirections from "react-native-maps-directions";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { Button } from "react-native-paper";
+import { Button, IconButton } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 
 import { GOOGLE_KEY, BASE_URL } from "@env";
 import MiniTapView from "./MiniTapView";
+import MiniTapView2 from "./MiniTapView2";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,6 +27,7 @@ export default function Mapa({
   style,
   navigation,
   estacionesParam,
+  bicingParam,
   catCulturaEventsParam,
   setParentCoords,
 }) {
@@ -37,12 +40,18 @@ export default function Mapa({
 
   const [destination, setDestination] = useState(null);
 
+  const [tapView2, setTapView2] = useState(false);
   const [tapView, setTapView] = useState(false);
   const [id, setId] = useState("");
   const [ruta, setRuta] = useState(false);
   const [tripPanel, setTripPanel] = useState(false);
+  const [vehicle, setVehicle] = useState(false);
+  const [vehicleSelected, setVehicleSelected] = useState("");
+  const [kmRuta, setKmRuta] = useState(0);
+
   const mapRef = useRef();
   const estaciones = estacionesParam;
+  const bicing = bicingParam;
   const eventos = catCulturaEventsParam;
   // var intervalSetted = false;
 
@@ -65,8 +74,6 @@ export default function Mapa({
   async function getLocationPermission() {
     await Location.requestForegroundPermissionsAsync()
       .then(async (res) => {
-        console.log("RES");
-        console.log(res);
         if (res.status === "granted") {
           console.log("GRANTED");
           await Location.getCurrentPositionAsync({})
@@ -97,6 +104,7 @@ export default function Mapa({
   async function startTravel(latitud, longitud) {
     setTapView(false);
     setTripPanel(true);
+    setVehicle(true);
     setDestination({
       latitude: parseFloat(latitud),
       longitude: parseFloat(longitud),
@@ -105,20 +113,115 @@ export default function Mapa({
 
   function handleCancelRoute() {
     setTripPanel(false);
+    setKmRuta(0);
+    setVehicle(false);
+    setVehicleSelected("");
+    setRuta(false);
     setDestination(null);
+    cancelRouteBackend();
   }
 
-  function handleFinishRoute() {}
-  useEffect(() => {
-    setRuta(destination !== null);
-  }, [destination]);
+  async function startRouteBackend() {
+    console.log(vehicleSelected);
+    axios
+      .post(
+        `http://${BASE_URL}/api/v2/routes`,
+        {
+          startingCoords: `${origin.latitude.toString()},${origin.longitude.toString()}`,
+          endingCoords: `${destination.latitude.toString()},${destination.longitude.toString()}`,
+          vehicle: vehicleSelected,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  async function cancelRouteBackend() {
+    axios
+      .put(
+        `http://${BASE_URL}/api/v2/routes`,
+        {
+          cancelled: true,
+          km: 0,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  async function finishRouteToBackend() {
+    axios
+      .put(
+        `http://${BASE_URL}/api/v2/routes`,
+        {
+          cancelled: false,
+          km: kmRuta,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  async function handleFinishRoute() {
+    setKmRuta(0);
+    setTripPanel(false);
+    setKmRuta(0);
+    setVehicle(false);
+    setVehicleSelected("");
+    setRuta(false);
+    setDestination(null);
+    await finishRouteToBackend();
+  }
+
+  function handleRoute() {
+    setVehicle(false);
+    setRuta(true);
+    startRouteBackend();
+  }
+  // useEffect(() => {
+
+  //   //    setRuta(destination !== null);
+  // }, [destination]);
 
   // useEffect(() => {
   //   setRuta(true);
   // }, [destination]);
 
+  useEffect(() => {
+    if (!!vehicleSelected) {
+      handleRoute();
+    }
+  }, [vehicleSelected]);
+
   return (
     <>
+      {/* {tapView2 && (
+        <MiniTapView2
+          ID={id}
+          navigation={navigation}
+          hideFunction={hideTapView}
+          startRoute={startTravel}
+        />
+      )} */}
       {tapView && (
         <MiniTapView
           ID={id}
@@ -126,6 +229,24 @@ export default function Mapa({
           hideFunction={hideTapView}
           startRoute={startTravel}
         />
+      )}
+      {vehicle && (
+        <View style={styles.vehicle}>
+          <IconButton
+            icon="bicycle"
+            size={50}
+            onPress={async () => {
+              setVehicleSelected("BICYCLING");
+            }}
+          />
+          <IconButton
+            icon="car"
+            size={50}
+            onPress={async () => {
+              setVehicleSelected("DRIVING");
+            }}
+          />
+        </View>
       )}
       {tripPanel && (
         <View style={styles.buttonstyle}>
@@ -144,6 +265,7 @@ export default function Mapa({
             onPress={handleFinishRoute}
             buttonColor="#4567cb"
             style={styles.tripButton}
+            disabled={!ruta}
           >
             {t("Maps.Finish_Trip")}
           </Button>
@@ -215,6 +337,29 @@ export default function Mapa({
           </Marker>
         ))}
 
+        {bicing?.map((bicingStation) => (
+          <Marker
+            key={bicingStation.id}
+            coordinate={{
+              longitude: parseFloat(bicingStation.lon ?? 0.0),
+              latitude: parseFloat(bicingStation.lat ?? 0.0),
+            }}
+            onPress={() => {
+              navigation.navigate("BikePoint", { idStation: bicingStation.id });
+            }}
+            tracksViewChanges={false}
+          >
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Icon name="bicycle" size={20}></Icon>
+            </View>
+          </Marker>
+        ))}
+
         {eventos?.map((evento) => (
           <Marker
             key={Math.random()}
@@ -242,17 +387,18 @@ export default function Mapa({
             strokeColor="green"
             strokeWidth={4}
             optimizeWaypoints={true}
-            //mode = "DRIVING/BICYCLING"
+            mode={vehicleSelected}
             // onStart={(params) => {
             //   console.log(
             //     `Started routing between "${params.origin}" and "${params.destination}"`
             //   );
             // }}
-            // onReady={(result) => {
-            //   mapRef.current.fitToCoordinates(result.coordinates);
-            //   console.log(`Distance: ${result.distance} km.`);
-            //   console.log(`Duration: ${result.duration} min.`);
-            // }}
+            onReady={(result) => {
+              mapRef.current.fitToCoordinates(result.coordinates);
+              // console.log(`Distance: ${result.distance} km.`);
+              // console.log(`Duration: ${result.duration} min.`);
+              setKmRuta(result.distance);
+            }}
           />
         )}
       </MapView>
@@ -291,5 +437,16 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     display: "flex",
     flexDirection: "column",
+  },
+  vehicle: {
+    opacity: 0.8,
+    backgroundColor: "grey",
+    borderRadius: 15,
+    position: "absolute",
+    marginTop: windowHeight / 3,
+    marginLeft: windowWidth / 3,
+    display: "flex",
+    flexDirection: "row",
+    zIndex: 100,
   },
 });
