@@ -1,15 +1,5 @@
 import React, { Component, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-  Alert,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 import { Button } from "react-native-paper";
 import { Fumi } from "react-native-textinput-effects";
@@ -24,7 +14,6 @@ import {
   checkUser,
   checkPassword,
   checkPasswordRequeriments,
-  errorControl,
 } from "../helpers/AccountRegister.helper";
 import { createPostRegister } from "../helpers/Axios.helper";
 
@@ -80,19 +69,6 @@ export default function Login({ navigation }) {
           onChangeText={(newtext) => setUserEmail(newtext)}
           defaultValue={userEmail}
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"envelope"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Login.Email")}
-          onChangeText={(newtext) => setUserEmail(newtext)}
-          defaultValue={userEmail}
-        />
-      */}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -109,19 +85,6 @@ export default function Login({ navigation }) {
           onChangeText={(newText) => setUserName(newText)}
           defaultValue={userName}
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"user"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Account_Register.Name")}
-          onChangeText={(newText) => setUserName(newText)}
-          defaultValue={userName}
-        />
-    */}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -138,19 +101,6 @@ export default function Login({ navigation }) {
           onChangeText={(newText) => setUserSurname(newText)}
           defaultValue={userSurname}
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"user"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Account_Register.Surnames")}
-          onChangeText={(newText) => setUserSurname(newText)}
-          defaultValue={userSurname}
-        />
-  */}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -168,20 +118,6 @@ export default function Login({ navigation }) {
           defaultValue={password1}
           secureTextEntry
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Account_Register.Password")}
-          secureTextEntry
-          onChangeText={(newText) => setPassword1(newText)}
-          defaultValue={password1}
-        />
-*/}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -199,20 +135,6 @@ export default function Login({ navigation }) {
           defaultValue={password2}
           secureTextEntry
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Account_Register.Confirm_Password")}
-          secureTextEntry
-          onChangeText={(newText) => setPassword2(newText)}
-          defaultValue={password2}
-        />
-*/}
       </View>
       <Separator2 />
       <View style={styles.buttonView}>

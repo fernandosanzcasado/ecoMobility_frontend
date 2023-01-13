@@ -33,10 +33,12 @@ import {
 import {
   createGetUserData,
   createGetUserAchievements,
+  createGetUserProfileImage,
 } from "../helpers/Axios.helper";
 
 function Profile({ navigation }) {
   const [userName, setUserName] = useState("");
+  const [userProfileImage, setUserProfileImage] = useState("");
   const [achievementData1Alarm, setachievementData1Alarm] = useState("");
   const [achievementData2Alarm, setachievementData2Alarm] = useState("");
   const [achievementData3Alarm, setachievementData3Alarm] = useState("");
@@ -65,15 +67,6 @@ function Profile({ navigation }) {
   let achievementData5;
   let achievementData6;
   let achievementData7;
-  /*
-  let achievementLogo1;
-  let achievementLogo2;
-  let achievementLogo3;
-  let achievementLogo4;
-  let achievementLogo5;
-  let achievementLogo6;
-  let achievementLogo7;
-  */
   const { t, i18n } = useTranslation();
   1;
   const changeLanguage = (lng) => {
@@ -96,6 +89,12 @@ function Profile({ navigation }) {
         setAchievementsData(achievementsDTO);
         setAchievementsLogo();
         setAchievementsNextGoal();
+      })();
+
+      let image;
+      (async () => {
+        image = await createGetUserProfileImage();
+        setUserProfileImage(image);
       })();
     });
     return chargeView;
@@ -141,19 +140,39 @@ function Profile({ navigation }) {
   const setAchievementsNextGoal = () => {
     let achievementNextGoalaux;
     achievementNextGoalaux = getNextGoalRouter(achievementData1);
-    setAchievementNextGoal1(achievementNextGoalaux);
+    if (achievementNextGoalaux != 0)
+      setAchievementNextGoal1(achievementNextGoalaux);
+    else setAchievementNextGoal1("Max goal");
+
     achievementNextGoalaux = getNextGoalTreedom(achievementData2);
-    setAchievementNextGoal2(achievementNextGoalaux);
+    if (achievementNextGoalaux != 0)
+      setAchievementNextGoal2(achievementNextGoalaux);
+    else setAchievementNextGoal2("Max goal");
+
     achievementNextGoalaux = getNextGoalCO2(achievementData3);
-    setAchievementNextGoal3(achievementNextGoalaux);
+    if (achievementNextGoalaux != 0)
+      setAchievementNextGoal3(achievementNextGoalaux);
+    else setAchievementNextGoal3("Max goal");
+
     achievementNextGoalaux = getNextGoalCritic(achievementData4);
-    setAchievementNextGoal4(achievementNextGoalaux);
+    if (achievementNextGoalaux != 0)
+      setAchievementNextGoal4(achievementNextGoalaux);
+    else setAchievementNextGoal4("Max goal");
+
     achievementNextGoalaux = getNextGoalCarNomad(achievementData5);
-    setAchievementNextGoal5(achievementNextGoalaux);
+    if (achievementNextGoalaux != 0)
+      setAchievementNextGoal5(achievementNextGoalaux);
+    else setAchievementNextGoal5("Max goal");
+
     achievementNextGoalaux = getNextGoalBikeNomand(achievementData6);
-    setAchievementNextGoal6(achievementNextGoalaux);
+    if (achievementNextGoalaux != 0)
+      setAchievementNextGoal6(achievementNextGoalaux);
+    else setAchievementNextGoal6("Max goal");
+
     achievementNextGoalaux = getNextGoalFavoritism(achievementData7);
-    setAchievementNextGoal7(achievementNextGoalaux);
+    if (achievementNextGoalaux != 0)
+      setAchievementNextGoal7(achievementNextGoalaux);
+    else setAchievementNextGoal7("Max goal");
   };
 
   const createAchievemen1tAlert = () =>
@@ -292,7 +311,7 @@ function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <Image
-            source={require("../../assets/images/Profile.png")}
+            source={userProfileImage ? { uri: userProfileImage } : null}
             style={styles.picture}
           ></Image>
           <Text style={styles.headerText}> {userName} </Text>
@@ -713,9 +732,10 @@ const styles = StyleSheet.create({
     fontColor: "#0000",
   },
   headerText: {
-    fontSize: 25,
+    fontWeight: "bold",
+    fontSize: 30,
     // fontFamily: "Comfortaa",
-    paddingTop: Constants.statusBarHeight * 2,
+    paddingTop: Constants.statusBarHeight * 2.2,
     fontColor: "#FFFFFF",
   },
   separationViews: {
@@ -746,10 +766,10 @@ const styles = StyleSheet.create({
   },
   picture: {
     marginTop: Constants.statusBarHeight * 1.75,
-    marginLeft: Constants.statusBarHeight,
-    marginRight: Constants.statusBarHeight * 0.5,
-    height: Constants.statusBarHeight * 1.5,
-    width: Constants.statusBarHeight * 1.5,
+    marginLeft: Constants.statusBarHeight * 0.5,
+    marginRight: Constants.statusBarHeight * 0.35,
+    height: Constants.statusBarHeight * 1.85,
+    width: Constants.statusBarHeight * 1.85,
     borderRadius: 45,
   },
   picture2: {

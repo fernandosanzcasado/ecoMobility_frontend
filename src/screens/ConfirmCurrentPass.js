@@ -2,17 +2,7 @@ import React, { Component, useState } from "react";
 import Constants from "expo-constants";
 import * as Font from "expo-font";
 
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-  Alert,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 import { Button } from "react-native-paper";
 import { Hideo, Fumi } from "react-native-textinput-effects";
@@ -74,21 +64,6 @@ export default function Login({ navigation }) {
           defaultValue={userOldPassword}
           secureTextEntry
         />
-
-        {/*}
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Confirm_Current_Pass.Current_Pass")}
-          secureTextEntry
-          onChangeText={(newtext) => setUserOldPassword(newtext)}
-          defaultValue={userOldPassword}
-        />
-  */}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -108,20 +83,6 @@ export default function Login({ navigation }) {
           defaultValue={userNewPassword}
           secureTextEntry
         />
-        {/*}
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Confirm_Current_Pass.New_Pass")}
-          secureTextEntry
-          onChangeText={(newtext) => setUserNewPassword(newtext)}
-          defaultValue={userNewPassword}
-        />
-*/}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -141,20 +102,6 @@ export default function Login({ navigation }) {
           defaultValue={userNewPassword2}
           secureTextEntry
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Confirm_Current_Pass.Repeat_New_Pass")}
-          secureTextEntry
-          onChangeText={(newtext) => setUserNewPassword2(newtext)}
-          defaultValue={userNewPassword2}
-        />
-*/}
       </View>
       <Separator2 />
       <View style={styles.buttonView}>

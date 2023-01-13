@@ -1,45 +1,38 @@
 import { Alert } from "react-native";
 import { useTranslation } from "react-i18next";
-//import "../../i18n.js";
 
 export const errorControlRegister = (errorId) => {
-  /*
-  const { t, i18n } = useTranslation();
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-  */
   switch (errorId) {
     case 1:
-      Alert.alert("Error_Control.Invalid_Email");
+      Alert.alert("The inserted email is not valid");
       //Alert.alert(t("Error_Control.Invalid_Email"));
       break;
     case 2:
-      Alert.alert("Error_Control.Registred_Email");
+      Alert.alert("The inserted email is allready registred");
       //Alert.alert(t("Error_Control.Registred_Email"));
       break;
     case 3:
-      Alert.alert("Error_Control.Invalid_Size_Name");
+      Alert.alert("The username should must contain between 3 and 15");
       //Alert.alert(t("Error_Control.Invalid_Size_Name"));
       break;
     case 4:
-      Alert.alert("Error_Control.Registred_Name");
+      Alert.alert("The username is allready in use");
       //Alert.alert(t("Error_Control.Registred_Name"));
       break;
     case 5:
-      Alert.alert("Error_Control.Invalid_Size_Pass");
+      Alert.alert("The username should must contain between 3 and 15");
       //Alert.alert(t("Error_Control.Invalid_Size_Pass"));
       break;
     case 6:
-      Alert.alert("Error_Control.Different_Pass");
+      Alert.alert("You have not entered the same password");
       //Alert.alert(t("Error_Control.Different_Pass"));
       break;
     case 7:
-      Alert.alert("Error_Control.Registred_Ok");
+      Alert.alert("You have successfully registered!");
       //Alert.alert(t("Error_Control.Registred_Ok"));
       break;
     case 8:
-      Alert.alert("Error_Control.Void_Fields");
+      //Alert.alert("You have successfully logged in");
       //Alert.alert(t("Error_Control.Void_Fields"));
       break;
     default:
