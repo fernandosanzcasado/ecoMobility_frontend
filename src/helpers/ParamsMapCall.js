@@ -2,7 +2,7 @@ class ParamsListClass {
   constructor() {
     this.tipoCorriente = null;
     this.tipoVelocidad = null;
-    this.tipoVehiculo = "mercaderies";
+    this.tipoVehiculo = null;
     this.tipoConexion = null;
     this.potencia = null;
     this.distancia = null;
