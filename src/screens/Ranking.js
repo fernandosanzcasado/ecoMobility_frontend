@@ -11,74 +11,102 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
-import { useTranslation } from "react-i18next";
-import { Card, Button } from "react-native-paper";
-import axios from "axios";
-import { BASE_URL } from "@env";
-import Toolbar from "../components/ecomobility/Toolbar";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { createGetRanking } from "../helpers/Axios.helper";
 
+const Separator = () => <View style={styles.separator} />;
+
 export default function Ranking({ navigation }) {
   const [ranking, setRanking] = useState("");
+  const [ranking2, setRanking2] = useState("");
+  const [ranking3, setRanking3] = useState("");
+  const [ranking4, setRanking4] = useState("");
+  const [ranking5, setRanking5] = useState("");
 
-  useEffect(() => {
+  React.useEffect(() => {
     const chargeView = navigation.addListener("focus", () => {
       let userRanking = [];
       (async () => {
         userRanking = await createGetRanking();
-        setRanking(userRanking);
+        setRanking(
+          userRanking[0].name +
+            " " +
+            userRanking[0].surnames +
+            "      " +
+            userRanking[0].ecoPoints
+        );
+        setRanking2(
+          userRanking[1].name +
+            " " +
+            userRanking[1].surnames +
+            "                   " +
+            userRanking[1].ecoPoints
+        );
+        setRanking3(
+          userRanking[2].name +
+            " " +
+            userRanking[2].surnames +
+            "                     " +
+            userRanking[2].ecoPoints
+        );
+        setRanking4(
+          userRanking[3].name +
+            " " +
+            userRanking[3].surnames +
+            "              " +
+            userRanking[3].ecoPoints
+        );
+        setRanking5(
+          userRanking[4].name +
+            " " +
+            userRanking[4].surnames +
+            "                    " +
+            userRanking[4].ecoPoints
+        );
       })();
     });
     return chargeView;
   }, [navigation]);
-  console.log("h" + ranking);
+  //console.log("h" + ranking);
 
   return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-      <Toolbar navigation={navigation} />
-
-      <View style={styles.topContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <Icon
-            name="arrow-left"
-            color={"#00000"}
-            size={25}
-            style={styles.goBack}
-          ></Icon>
-        </TouchableOpacity>
-        <Text style={styles.headerText}> Ranking </Text>
-      </View>
+    <View style={styles.initialView}>
       <ScrollView>
-        <List
-          style={{ backgroundColor: "#A19A9A" }}
-          data={ranking}
-          renderItem={({ item }) => (
-            <View style={styles.separador}>
-              <Card elevation={1} style={{ flexGrow: 1 }}>
-                <Card.Content style={{ display: "flex", flexDirection: "row" }}>
-                  <Text numberOfLines={1} style={{ alignSelf: "center" }}>
-                    {item.ecoPoints}
-                  </Text>
-                  <Text numberOfLines={1} style={{ alignSelf: "center" }}>
-                    {item.surnames}
-                  </Text>
-                  <Text numberOfLines={1} style={{ alignSelf: "center" }}>
-                    {item.name}
-                  </Text>
-                </Card.Content>
-              </Card>
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        <View style={styles.topContainer}>
+          <Separator></Separator>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <Icon
+              name="arrow-left"
+              color={"#00000"}
+              size={25}
+              style={styles.goBack}
+            ></Icon>
+          </TouchableOpacity>
+
+          <Text style={styles.headerText}> Ranking </Text>
+        </View>
+        <View>
+          <Text style={styles.rankText}> {ranking}</Text>
+        </View>
+        <View>
+          <Text style={styles.rankText}> {ranking2}</Text>
+        </View>
+        <View>
+          <Text style={styles.rankText}> {ranking3}</Text>
+        </View>
+        <View>
+          <Text style={styles.rankText}> {ranking4}</Text>
+        </View>
+        <View>
+          <Text style={styles.rankText}> {ranking5}</Text>
+        </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -94,7 +122,7 @@ const styles = StyleSheet.create({
   topContainer: {
     backgroundColor: "#2D803F",
     width: Constants.paddingBottom,
-    height: Constants.statusBarHeight * 2,
+    height: Constants.statusBarHeight * 3,
     display: "flex",
     flexDirection: "row",
   },
@@ -104,11 +132,24 @@ const styles = StyleSheet.create({
     marginLeft: Constants.statusBarHeight * 2.2,
     marginTop: Constants.statusBarHeight,
   },
+  rankText: {
+    fontWeight: "bold",
+    fontSize: 20,
+    marginLeft: Constants.statusBarHeight * 0.2,
+    marginTop: Constants.statusBarHeight,
+  },
   separador: {
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 2,
     opacity: 0.2,
     borderColor: "#FFFFFF",
+  },
+  separator: {
+    marginVertical: 10,
+  },
+  goBack: {
+    paddingLeft: Constants.statusBarHeight * 0.8,
+    paddingTop: Constants.statusBarHeight * 1.5,
   },
 });

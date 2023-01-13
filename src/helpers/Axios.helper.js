@@ -18,7 +18,6 @@ const recoverPasswordURL = url + "users/resetForgottenPassword/resetPassword";
 const userAchievements = url + "users/me/getAchievements/";
 const uploadImage = url + "users/me/uploadProfileImage";
 const userProfileImage = url + "users/me/getProfileImage";
-const googleLogin = "https://www.googleapis.com/userinfo/v2/me";
 const rankingURL = url + "users/userRanking";
 
 export async function createPostLogin(userEmail, userPassword, token) {
@@ -209,24 +208,6 @@ export async function createPostRecoverPassword(
     });
 }
 
-export async function createGetRanking() {
-  console.log("ENTRO A GETRANKING");
-  console.log("llamo al endpoint " + rankingURL);
-  let rankingDTO = [];
-  return await axios
-    .get(rankingURL, {}, { withCredentials: true })
-    .then(function (response) {
-      console.log("ENTRO A THEN RESPONS");
-      rankingDTO = [response.data.Items];
-      console.log(response.data.Items);
-      return rankingDTO;
-    })
-    .catch(function (error) {
-      console.log("El error es " + error.response.data.message);
-      return rankingDTO;
-    });
-}
-
 export async function createGetUserAchievements() {
   let achievemtsDTO = [];
   return await axios
@@ -237,8 +218,23 @@ export async function createGetUserAchievements() {
     })
     .catch(function (error) {
       console.log("El error es " + error.response.data.message);
-      //errorControl(2);
+      errorControl(2);
       return achievemtsDTO;
+    });
+}
+
+export async function createGetRanking() {
+  let rankingDTO = [];
+  return await axios
+    .get(rankingURL, {}, { withCredentials: true })
+    .then(function (response) {
+      rankingDTO = [response.data.Items];
+      return rankingDTO[0];
+    })
+    .catch(function (error) {
+      console.log("El error es " + error.response.data.message);
+      errorControl(2);
+      return rankingDTO;
     });
 }
 
