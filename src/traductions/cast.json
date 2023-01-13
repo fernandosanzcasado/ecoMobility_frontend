@@ -39,7 +39,15 @@
     "Supercharge": "Supercarga",
     "Price": "Precio",
     "Rating": "Valoración",
-    "Apply_Filters": "Aplicar filtros"
+    "Apply_Filters": "Aplicar filtros",
+    "Type_Electricity": "Tipo Corriente",
+    "Type_Velocity": "Tipo Velocidad",
+    "Type_Conection": "Tipo Conexión",
+    "Car": "Coche",
+    "Moto": "Moto",
+    "Truck": "Mercancías",
+    "Kw": "Mínima potencia",
+    "Distance": "Distancia en Km"
   },
   "Login": {
     "Email": "Email",
@@ -112,5 +120,18 @@
     "Achievement5Alert": "km recorridos en coche",
     "Achievement6Alert": "km recorridos en bici",
     "Achievement7Alert": "estaciones favoritas"
+  },
+  "Chat": {
+    "Write_msg": "Escribe un mensaje para establecer una conversación...",
+    "Write_here": "Escribe aquí",
+    "Send": "Envía",
+    "New": "Comienza una nueva conversación"
+  },
+  "Calendar": {
+    "No_esd": "No hay acontecimientos disponibles"
+  },
+  "Tree": {
+    "Number": "Número de árboles salvados:",
+    "Eco": "Ecopoints actuales"
   }
 }

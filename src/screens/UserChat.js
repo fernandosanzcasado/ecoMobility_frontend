@@ -39,7 +39,7 @@ export default function UserChat({ navigation }) {
                     console.log("Click new chat");
                     setNewChat(true);
                   }}
-                  label="Start new conversation"
+                  label={t("Chat.New")}
                   color="#E6ECE6"
                 />
               </View>

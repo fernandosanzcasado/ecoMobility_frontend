@@ -9,6 +9,9 @@ import {
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useTranslation } from "react-i18next";
+import "../../i18n.js";
+
 import { List, Card, Switch, TextInput } from "react-native-paper";
 import Slider from "@react-native-community/slider";
 import Constants from "expo-constants";
@@ -91,8 +94,6 @@ export default function FilterScreen({ navigation }) {
   //Distància
   const [distancia, setDistancia] = useState(buttonsState.distancia);
 
-  const { t } = useTranslation();
-
   //FUTBOL LA RIOJA
   const generateStrings = (boolsAndStrings, separator) => {
     var first = true;
@@ -132,9 +133,9 @@ export default function FilterScreen({ navigation }) {
     // Parametro en string del tipo de corriente (por defecto null)
     let paramTipoVehiculo = generateStrings(
       [
-        { bool: mercaderies, string: "mercaderies" },
-        { bool: moto, string: "moto" },
-        { bool: cotxe, string: "cotxe" },
+        { bool: mercaderies, string: "truck" },
+        { bool: moto, string: "motorbike" },
+        { bool: cotxe, string: "car" },
         { bool: taxi, string: "taxi" },
       ],
       " i "
@@ -197,6 +198,8 @@ export default function FilterScreen({ navigation }) {
     storeData();
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.capcalera}>
@@ -217,9 +220,10 @@ export default function FilterScreen({ navigation }) {
         </View>
       </SafeAreaView>
       <View style={styles.content}>
-        <List.Section title="Filtrar por: ">
+        <List.Section title={t("Filters.Filter_by")}>
+          {" "}
           <List.Accordion
-            title="Tipo de Corriente"
+            title={t("Filters.Type_Electricity")}
             left={(props) => (
               <List.Icon {...props} icon="book-information-variant" />
             )}
@@ -238,7 +242,7 @@ export default function FilterScreen({ navigation }) {
             </Card>
           </List.Accordion>
           <List.Accordion
-            title="Tipo de Velocidad"
+            title={t("Filters.Type_Velocity")}
             left={(props) => (
               <List.Icon {...props} icon="book-information-variant" />
             )}
@@ -285,14 +289,14 @@ export default function FilterScreen({ navigation }) {
             <Card>
               <Card.Content>
                 <View style={styles.button}>
-                  <Text style={styles.textButton}>Cotxe</Text>
+                  <Text style={styles.textButton}>{t("Filters.Car")}</Text>
                   <Switch
                     value={cotxe}
                     onValueChange={() => setCotxe(!cotxe)}
                   />
                 </View>
                 <View style={styles.button}>
-                  <Text style={styles.textButton}>Moto</Text>
+                  <Text style={styles.textButton}>{t("Filters.Moto")}</Text>
                   <Switch value={moto} onValueChange={() => setMoto(!moto)} />
                 </View>
                 <View style={styles.button}>
@@ -300,7 +304,7 @@ export default function FilterScreen({ navigation }) {
                   <Switch value={taxi} onValueChange={() => setTaxi(!taxi)} />
                 </View>
                 <View style={styles.button}>
-                  <Text style={styles.textButton}>Mercaderies</Text>
+                  <Text style={styles.textButton}>{t("Filters.Truck")}</Text>
                   <Switch
                     value={mercaderies}
                     onValueChange={() => setMercaderies(!mercaderies)}
@@ -310,7 +314,7 @@ export default function FilterScreen({ navigation }) {
             </Card>
           </List.Accordion>
           <List.Accordion
-            title="Tipo de Conexion"
+            title={t("Filters.Type_Conection")}
             left={(props) => (
               <List.Icon {...props} icon="book-information-variant" />
             )}
@@ -371,7 +375,7 @@ export default function FilterScreen({ navigation }) {
             <Card>
               <Card.Content>
                 <View style={styles.button}>
-                  <Text style={styles.textButton}>Potencia mínima: </Text>
+                  <Text style={styles.textButton}>{t("Filters.Kw")} </Text>
                   <TextInput
                     keyboardType="numeric"
                     placeholder="MinPow"
@@ -383,7 +387,7 @@ export default function FilterScreen({ navigation }) {
             </Card>
           </List.Accordion>
           <Card>
-            <Card.Title title="Distancia en Km: " />
+            <Card.Title title={t("Filters.Distance")} />
             <Card.Content style={{ flexDirection: "row" }}>
               <Slider
                 style={{ width: 300 }}

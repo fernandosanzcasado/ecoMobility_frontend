@@ -39,7 +39,15 @@
     "Supercharge": "Supercharge",
     "Price": "Price",
     "Rating": "Rating",
-    "Apply_Filters": "Apply filters"
+    "Apply_Filters": "Apply filters",
+    "Type_Electricity": "Electricity type",
+    "Type_Velocity": "Velocity type",
+    "Type_Conection": "Connection type",
+    "Car": "Car",
+    "Moto": "Motorbike",
+    "Truck": "Truck",
+    "Kw": "Mínimum power",
+    "Distance": "Distance in Km"
   },
   "Login": {
     "Email": "Email",
@@ -112,5 +120,18 @@
     "Achievement5Alert": "Car km traveled",
     "Achievement6Alert": "Bike km traveled",
     "Achievement7Alert": "favourite stations"
+  },
+  "Chat": {
+    "Write_msg": "Write a message to start a conversation...",
+    "Write_here": "Write here",
+    "Send": "Send",
+    "New": "Start a new conversation"
+  },
+  "Calendar": {
+    "No_esd": "There are not available events"
+  },
+  "Tree": {
+    "Number": "Number of saved trees:",
+    "Eco": "Ecopoints owned"
   }
 }

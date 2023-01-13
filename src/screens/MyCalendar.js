@@ -9,6 +9,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card, FAB } from "react-native-paper";
 import * as Animatable from "react-native-animatable";
 
+import { useTranslation } from "react-i18next";
+import "../../i18n.js";
+
 const timeToString = (time) => {
   const date = new Date(time);
   return date.toISOString().split("T")[0];
@@ -22,6 +25,7 @@ export default function MyCalendar({ navigation }) {
     "2022-11-02": [{ name: "Test1", kmC: "30", kmB: "2" }],
     "2022-11-03": [{ name: "Test2", kmC: "50", kmB: "3" }],
   });
+  const { t, i18n } = useTranslation();
 
   const [newitem, setNew] = useState(false);
   const [delitem, setDel] = useState(false);
@@ -104,7 +108,7 @@ export default function MyCalendar({ navigation }) {
                 paddingTop: Constants.statusBarHeight * 2,
               }}
             >
-              No hi ha esdeveniments disponibles...
+              {t("Calendar.No_esd")}
             </Text>
           );
         }}

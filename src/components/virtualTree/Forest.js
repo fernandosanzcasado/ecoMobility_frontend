@@ -74,10 +74,10 @@ const treetypes = [
 ];
 
 const messages = [
-  "Lo estás haciendo muy bien. ¡Sigue así!",
-  "¡Estas haciendo del mundo un lugar mejor!",
-  "¡Felicidades! ¡Sigue así!",
-  "¡Gracias a tu labor, estamos salvando el planeta!",
+  "You are doing it very good! Keep going",
+  "You are making the world a better place",
+  "Congratulations!",
+  "Thank you for your help, we are saving the planet!",
 ];
 
 function randomIntBetween(min, max) {
@@ -96,9 +96,9 @@ export default function Forest({ nArbres, ecoPoints = 0 }) {
           tree={treetypes[randomIntBetween(0, 1)].arbol}
           position={positions[i]}
           message={
-            "Te faltan " +
+            "You need " +
             (20 - (ecoPoints % 20)).toString() +
-            " ecopoints para hacer crecer este arbusto"
+            " ecopoints to grow this tree"
           }
           size={0.8}
         />
