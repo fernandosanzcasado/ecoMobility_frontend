@@ -18,7 +18,7 @@ const recoverPasswordURL = url + "users/resetForgottenPassword/resetPassword";
 const userAchievements = url + "users/me/getAchievements/";
 const uploadImage = url + "users/me/uploadProfileImage";
 const userProfileImage = url + "users/me/getProfileImage";
-const googleLogin = "https://www.googleapis.com/userinfo/v2/me";
+const rankingURL = url + "users/userRanking";
 
 export async function createPostLogin(userEmail, userPassword, token) {
   return await axios
@@ -33,7 +33,7 @@ export async function createPostLogin(userEmail, userPassword, token) {
     .catch(function (error) {
       console.log("Da error");
       console.log("Da error y el error es : " + error.response.data.message);
-      //errorControlLogin(2);
+      errorControlLogin(2);
       return false;
     });
 }
@@ -54,13 +54,13 @@ export async function createPostRegister(
     .then(function (response) {
       console.log("Funciona el register");
       //console.log(response);
-      //errorControlRegister(7);
+      errorControlRegister(7);
       return true;
     })
     .catch(function (error) {
       console.log("Da error el register");
       console.log(error);
-      //errorControlRegister(2);
+      errorControlRegister(2);
       return false;
     });
 }
@@ -80,7 +80,7 @@ export async function createPutUser(userNewName, userNewSurname) {
     })
     .catch(function (error) {
       console.log(error);
-      //errorControl(2);
+      errorControl(2);
       return false;
     });
 }
@@ -90,12 +90,12 @@ export async function createDeleteUser() {
     .delete(userDeleteURL, {}, { withCredentials: true })
     .then(function (response) {
       console.log(response);
-      //errorControl(7);
+      errorControl(7);
       return true;
     })
     .catch(function (error) {
       console.log(error);
-      //errorControl(2);
+      errorControl(2);
       return false;
     });
 }
@@ -118,7 +118,7 @@ export async function createPutPasswordChange(
     })
     .catch(function (error) {
       // console.log(error.response.data.message);
-      //errorControl(2);
+      errorControl(2);
       return false;
     });
 }
@@ -131,7 +131,7 @@ export async function createPostLogout() {
     })
     .catch(function (error) {
       // console.log("El error es " + error.response.data.message);
-      //errorControl(2);
+      errorControl(2);
       return false;
     });
 }
@@ -153,7 +153,7 @@ export async function createGetUserData() {
     })
     .catch(function (error) {
       // console.log("El error es " + error.response.data.message);
-      //errorControl(2);
+      errorControl(2);
       return userDTO;
     });
 }
@@ -168,7 +168,7 @@ export async function createGetUserProfileImage() {
     })
     .catch(function (error) {
       console.log("El error es " + error.response.data.message);
-      //errorControl(2);
+      errorControl(2);
       return userDTO;
     });
 }
@@ -184,7 +184,7 @@ export async function createPostRecoverMail(userEmail) {
     .catch(function (error) {
       console.log("Da error");
       console.log("Da error y el error es : " + error.response.data.message);
-      //errorControlLogin(2);
+      errorControlLogin(2);
       return false;
     });
 }
@@ -221,8 +221,23 @@ export async function createGetUserAchievements() {
     })
     .catch(function (error) {
       console.log("El error es " + error.response.data.message);
-      //errorControl(2);
+      errorControl(2);
       return achievemtsDTO;
+    });
+}
+
+export async function createGetRanking() {
+  let rankingDTO = [];
+  return await axios
+    .get(rankingURL, {}, { withCredentials: true })
+    .then(function (response) {
+      rankingDTO = [response.data.Items];
+      return rankingDTO[0];
+    })
+    .catch(function (error) {
+      console.log("El error es " + error.response.data.message);
+      errorControl(2);
+      return rankingDTO;
     });
 }
 
