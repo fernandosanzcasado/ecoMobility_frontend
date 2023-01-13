@@ -47,7 +47,9 @@
     "Moto": "Moto",
     "Truck": "Mercancies",
     "Kw": "Mínima potència",
-    "Distance": "Distància en Km"
+    "Distance": "Distància en Km",
+    "Power": "Potencia",
+    "Type_Vehicle": "Tipus Vehicle"
   },
   "Login": {
     "Email": "Email",
@@ -132,6 +134,7 @@
   },
   "Tree": {
     "Number": "Número d'arbres salvats:",
-    "Eco": "Ecopoints actuals"
+    "Eco": "Ecopoints actuals",
+    "Title": "El meu bosc"
   }
 }

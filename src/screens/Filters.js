@@ -9,7 +9,6 @@ import {
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useTranslation } from "react-i18next";
 import "../../i18n.js";
 
 import { List, Card, Switch, TextInput } from "react-native-paper";
@@ -23,7 +22,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LogoText from "../components/ecomobility/LogoText";
 
 import paramsList from "../helpers/ParamsMapCall";
-import { use } from "i18next";
 
 var buttonsState = {
   ac: true,
@@ -221,7 +219,6 @@ export default function FilterScreen({ navigation }) {
       </SafeAreaView>
       <View style={styles.content}>
         <List.Section title={t("Filters.Filter_by")}>
-          {" "}
           <List.Accordion
             title={t("Filters.Type_Electricity")}
             left={(props) => (
@@ -281,7 +278,7 @@ export default function FilterScreen({ navigation }) {
             </Card>
           </List.Accordion>
           <List.Accordion
-            title="Tipo de Vehículo"
+            title={t("Filters.Type_Vehicle")}
             left={(props) => (
               <List.Icon {...props} icon="book-information-variant" />
             )}

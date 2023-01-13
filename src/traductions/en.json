@@ -47,7 +47,8 @@
     "Moto": "Motorbike",
     "Truck": "Truck",
     "Kw": "Mínimum power",
-    "Distance": "Distance in Km"
+    "Distance": "Distance in Km",
+    "Type_Vehicle": "Vehicle type"
   },
   "Login": {
     "Email": "Email",
@@ -132,6 +133,7 @@
   },
   "Tree": {
     "Number": "Number of saved trees:",
-    "Eco": "Ecopoints owned"
+    "Eco": "Ecopoints owned",
+    "Title": "My forest"
   }
 }

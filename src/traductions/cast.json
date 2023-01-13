@@ -47,7 +47,8 @@
     "Moto": "Moto",
     "Truck": "Mercancías",
     "Kw": "Mínima potencia",
-    "Distance": "Distancia en Km"
+    "Distance": "Distancia en Km",
+    "Type_Vehicle": "Tipo Vehículo"
   },
   "Login": {
     "Email": "Email",

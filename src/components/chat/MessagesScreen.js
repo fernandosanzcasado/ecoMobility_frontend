@@ -15,7 +15,7 @@ import LottieView from "lottie-react-native";
 import socketService from "../../helpers/SocketService";
 
 import { useTranslation } from "react-i18next";
-import "../../i18n.js";
+import "../../../i18n.js";
 
 var chats = [];
 

@@ -42,12 +42,12 @@ export default function VirtualTree({ navigation }) {
 
   return (
     <View>
-      <HeaderTitle name={"My Forest"} navigation={navigation} />
+      <HeaderTitle name={t("Tree.Title")} navigation={navigation} />
       <Divider bold={true} style={{ backgroundColor: "#FFFFFF" }} />
       <View style={styles.subheader}>
         <Text style={styles.subtitle}>
           {t("Tree.Number")} {totalTrees}
-        </Text>{" "}
+        </Text>
         <IconButton
           icon={"forest"}
           size={25}
