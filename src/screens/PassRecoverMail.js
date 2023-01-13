@@ -1,21 +1,10 @@
 import React, { Component, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-  Alert,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 import { Button } from "react-native-paper";
 import { Fumi } from "react-native-textinput-effects";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import Constants from "expo-constants";
-import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
 
 import { createPostRecoverMail } from "../helpers/Axios.helper";
@@ -66,19 +55,6 @@ export default function PassRecoverMail({ navigation }) {
         />
 
         <Separator2 />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"envelope"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Pass_Recover_Mail.Email")}
-          onChangeText={(newtext) => setUserEmail(newtext)}
-          defaultValue={userEmail}
-        />
-  */}
       </View>
       <Separator />
       <View style={styles.buttonView}>

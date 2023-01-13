@@ -99,7 +99,7 @@ function Profile({ navigation }) {
             ></Icon>
           </TouchableOpacity>
           <Image
-            source={{ uri: userProfileImage }}
+            source={userProfileImage ? { uri: userProfileImage } : null}
             style={styles.picture}
           ></Image>
           <Text style={styles.headerText}> {userName} </Text>
@@ -261,7 +261,6 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 20,
-    // fontFamily: "Comfortaa",
     paddingTop: Constants.statusBarHeight + 15,
     paddingRight: Constants.statusBarHeight,
     paddingLeft: Constants.statusBarHeight,
@@ -270,7 +269,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: "bold",
     fontSize: 30,
-    // fontFamily: "Comfortaa",
     paddingTop: Constants.statusBarHeight * 2.2,
     fontColor: "#FFFFFF",
   },

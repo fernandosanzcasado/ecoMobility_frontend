@@ -1,15 +1,5 @@
 import React, { Component, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  Image,
-  Alert,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 import { Button } from "react-native-paper";
 import { Hideo, Fumi } from "react-native-textinput-effects";
@@ -20,11 +10,7 @@ import { useTranslation } from "react-i18next";
 
 import {
   checkTextInputCodeAndPassNotEmpty,
-  checkEmail,
-  checkUser,
   checkPassword,
-  checkPasswordRequeriments,
-  errorControl,
 } from "../helpers/AccountRegister.helper";
 import { createPostRecoverPassword } from "../helpers/Axios.helper";
 
@@ -91,19 +77,6 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           onChangeText={(newText) => setCode(newText)}
           defaultValue={code}
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"key"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Pass_Recover_Code_Confirm.Code")}
-          onChangeText={(newText) => setCode(newText)}
-          defaultValue={code}
-        />
-  */}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -123,20 +96,6 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           defaultValue={password1}
           secureTextEntry
         />
-        {/*}
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Password_Change.New_Password")}
-          onChangeText={(newText) => setPassword1(newText)}
-          defaultValue={password1}
-          secureTextEntry
-        />
-*/}
       </View>
       <Separator2 />
       <View style={styles.textInput}>
@@ -156,21 +115,6 @@ export default function PassRecoverCodeConfirm({ navigation }) {
           defaultValue={password2}
           secureTextEntry
         />
-
-        {/*}
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"lock"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={t("Password_Change.Confirm_New_Password")}
-          onChangeText={(newText) => setPassword2(newText)}
-          defaultValue={password2}
-          secureTextEntry
-        />
-*/}
       </View>
       <Separator2 />
       <Separator2 />

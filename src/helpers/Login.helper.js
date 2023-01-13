@@ -1,25 +1,18 @@
-// export const clearText = () => {
-//   setEmail("");
-//   setPassword("");
-// };
 import { Alert } from "react-native";
-//import { useTranslation } from "react-i18next";
-
-//const { t } = useTranslation();
 
 export const errorControlLogin = (errorId) => {
   switch (errorId) {
     case 2:
       //Alert.alert(t("Error_Control.Incorrect_Pass"));
-      Alert.alert("Error_Control.Incorrect_Pass");
+      Alert.alert("The password is incorrect");
       break;
     case 7:
       //Alert.alert(t("Error_Control.Login_Ok"));
-      Alert.alert("Error_Control.Login_Ok");
+      //Alert.alert("You have successfully logged in");
       break;
     case 8:
       //Alert.alert(t("Error_Control.Void_Fields"));
-      Alert.alert("Error_Control.Void_Fields");
+      Alert.alert("Debes rellenar todos los campos");
       break;
     default:
       break;

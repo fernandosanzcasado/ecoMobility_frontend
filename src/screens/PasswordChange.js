@@ -1,20 +1,14 @@
 import React, { Component, useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
-  ScrollView,
   TextInput,
   Image,
-  Alert,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 
 import { Button } from "react-native-paper";
-import { Hideo } from "react-native-textinput-effects";
 import Constants from "expo-constants";
-import * as Font from "expo-font";
 import { useTranslation } from "react-i18next";
 
 import {

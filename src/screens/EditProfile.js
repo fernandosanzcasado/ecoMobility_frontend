@@ -86,7 +86,7 @@ export default function EditProfile({ navigation }) {
     });
     return chargeView;
   }, [navigation]);
-
+  /*
   const openCamera = async () => {
     // Ask the user for the permission to access the camera
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -119,17 +119,11 @@ export default function EditProfile({ navigation }) {
       aspect: [4, 4],
     });
     // Explore the result
-    console.log("El archivo  es : " + result.assetId);
-    console.log("El archivo  es : " + result.base64);
-    console.log("El archivo  es : " + result.fileName);
-    console.log("El archivo  es : " + result.width);
-    console.log("El archivo  es : " + result.height);
-    console.log("El archivo  es : " + result.exif);
-    console.log("El archivo  es : " + result.type);
     let nameImage = result.uri.slice(result.uri.length - 41, result.uri.length);
     console.log("El nombre del archivo es : " + nameImage);
     if (!result.cancelled) {
-      setUserProfileImage(result.uri);
+      setUserProfileImage(result.assets);
+      /*
       const fd = new FormData();
       fd.append("profileImage", userProfileImage);
       URL = "http://15.188.52.76:3000/api/v2/users/me/uploadProfileImag";
@@ -141,13 +135,10 @@ export default function EditProfile({ navigation }) {
         .catch((error) => {
           // console.log(error);
         });
-      /*
-      (async () => {
-        await createPostUploadPicture(fd);
-      })();*/
+
     }
   };
-
+  */
   const createTwoButtonAlert = () =>
     Alert.alert(
       t("Edit_Profile.Eliminate_AccountAdvice"),
@@ -186,7 +177,7 @@ export default function EditProfile({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity>
           <Image
-            source={{ uri: userProfileImage }}
+            source={userProfileImage ? { uri: userProfileImage } : null}
             style={styles.picture}
           ></Image>
         </TouchableOpacity>
@@ -210,19 +201,6 @@ export default function EditProfile({ navigation }) {
           onChangeText={(newtext) => setUserNewName(newtext)}
           defaultValue={userName}
         />
-        {/*}
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"user"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={userName}
-          onChangeText={(newtext) => setUserName(newtext)}
-          defaultValue={userName}
-        />
-        */}
       </View>
       <View style={styles.textInput}>
         <Text style={{ color: "#000000", fontSize: 15, fontWeight: "bold" }}>
@@ -242,19 +220,6 @@ export default function EditProfile({ navigation }) {
           onChangeText={(newtext) => setUserNewSurname(newtext)}
           defaultValue={userNewSurname}
         />
-        {/*
-        <Hideo
-          iconClass={FontAwesomeIcon}
-          iconName={"user"}
-          iconColor={"white"}
-          // this is used as backgroundColor of icon container view.
-          iconBackgroundColor={"#27CF10"}
-          inputStyle={{ color: "#464949" }}
-          placeholder={userSurname}
-          onChangeText={(newtext) => setUserNewSurname(newtext)}
-          defaultValue={userNewSurname}
-        />
-      */}
       </View>
       <Separator />
       <View style={styles.buttonView}>
